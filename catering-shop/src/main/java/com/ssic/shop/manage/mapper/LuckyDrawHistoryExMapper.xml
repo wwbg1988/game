@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.shop.manage.mapper.LuckyDrawHistoryExMapper" >
+	<select id="queryLuckyDrawHoistoryInfo" resultType="com.ssic.shop.manage.dto.LuckyDrawHistoryDto">
+		SELECT 
+		   	id as id,
+		    open_id as openId,
+		   	total_lucky_count as totalLuckyCount,
+		    is_lottery as isLottery,
+		    is_exchange as isExchange,
+		    excharge_phone as exchargePhone
+		FROM t_ctr_lucky_draw_history t WHERE  t.open_id = #{openId} AND t.stat = 1 AND DATE_FORMAT(t.create_time,'%Y%m%d') = DATE_FORMAT(now(),'%Y%m%d') ORDER BY t.last_update_time DESC LIMIT 1
+	</select>
+</mapper>

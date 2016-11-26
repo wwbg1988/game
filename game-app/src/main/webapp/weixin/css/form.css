@@ -1,0 +1,89 @@
+.form_row{
+  width: 100%;
+  height: 100%;
+  padding: 0 1em;
+  border-bottom: 1px solid #ccc;
+  border-left: none;
+  border-right: none;
+  box-sizing: border-box;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.form_row label {
+  display: inline-block;
+  width: 4.5em;
+  height: 100%;
+  font-size: 1.4em;
+  line-height: 4.2em;
+  text-align: right;
+  background-size: 2em!important;
+  float: left;
+}
+.form_row label#name_label {
+  background: url(../images/birthday_icon_name.png) no-repeat left;
+}
+.form_row label#phone_label {
+  background: url(../images/birthday_icon_phone.png) no-repeat left;
+}
+.form_row label#addr_label {
+  background: url(../images/birthday_icon_addr.png) no-repeat left;
+}
+.form_row #city_label {
+  display: inline-block;
+  width: 4em;
+  height: 100%;
+  line-height: 3em;
+  text-align: right;
+  background-size: 1.5em!important;
+  float: left;
+  background: url(../images/birthday_icon_city.png) no-repeat left;
+}
+.form_row label#name_label2 {
+  background: url(../images/birthday_icon_name.png) no-repeat left;
+}
+.form_row label#phone_label2 {
+  background: url(../images/birthday_icon_phone.png) no-repeat left;
+}
+.form_row label#floor_label2 {
+  background: url(../images/birthday_icon_floor.png) no-repeat left;
+}
+.form_row label#department_label2 {
+  background: url(../images/birthday_icon_department.png) no-repeat left;
+}
+.form_row input {
+  width: 13em;
+  height: 100%;
+  line-height: 4.4em;
+  box-sizing: border-box;
+  float: left;
+  margin-left: 1em;
+  box-sizing: border-box;
+  padding: 0 1em;
+  border: none;
+}
+.input_error{
+  color: #a94442;
+  background: #f2dede;
+  border-top: 0.1em solid #a94442!important;
+  border-bottom: 0.1em solid #a94442!important;
+}
+
+.form_row .right{
+  float: left;
+  width: 10em;
+  height: 3em;
+  margin-left: 1em;
+  overflow: hidden;
+}
+.form_row .right select{
+  width: 100%;
+  height: 3.5em;
+  padding: 0 1em;
+  box-sizing: border-box;
+  border:0;
+  background: none;
+}
+.form_row .right select option{
+  text-indent: 1em;
+}

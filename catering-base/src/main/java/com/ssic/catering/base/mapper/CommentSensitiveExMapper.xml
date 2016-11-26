@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.catering.base.mapper.CommentSensitiveExMapper" >
+  <insert id="insertConf">
+  		INSERT INTO t_ctr_comment_sensitive
+		SELECT uuid(),#{commentid},id,now(),NULL,1 FROM t_ctr_sensitive WHERE id IN 
+		<foreach close=")" collection="sensitiveList" item="listItem" open="(" separator=",">
+            #{listItem}
+        </foreach> 
+  </insert>
+  
+  <select id="findCommentSensitiveListByCommentList"  resultType="String"  parameterType="map">
+ 	select distinct sensitive_id from t_ctr_comment_sensitive where stat = '1' and (
+        <foreach collection="commentList" item="comment"   separator="or">  
+	        comment_id=#{comment.id}
+	     </foreach>  
+	     )
+	</select>
+	<select id='warnaReportList' resultType="com.ssic.catering.base.dto.SensitiveWarningReportDto" parameterType="String">
+		SELECT
+		id,
+		sensitive_name as sensitiveName,
+		create_time as createTime,
+		cafetorium_id as cafetoriumId,
+		count,
+		warningproportion,
+		sensitive_id as sensitiveId
+		FROM
+		t_ctr_sensitive_warning_report
+		WHERE 
+		cafetorium_id in(
+		  SELECT
+		  cafetorium_id
+		  FROM
+		  t_ctr_sensitive_warning_report
+		  WHERE stat = '1' and id = #{id}
+		  )
+	</select>
+</mapper>

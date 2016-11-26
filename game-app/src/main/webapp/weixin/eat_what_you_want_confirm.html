@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width,user-scalable=no" />
+		<title>想吃什么吃什么</title>
+
+		<link href="css/base.css" rel="stylesheet">
+		<link href="css/exchange.css" rel="stylesheet">
+		<link href="css/eat-what-you-want-confirm.css" rel="stylesheet">
+	</head>
+
+	<body>
+
+		<!-- header -->
+		<div class="header clearfix">
+			<span class="icon_left"><img src="images/icon_left_menu.png" /></span> 想吃什么吃什么
+		</div>
+		<!-- header end -->
+
+		<!-- menu -->
+		<div class="menu">
+			<ul class="leftnav sidenav">
+				<li><a href="javascript:void(0)" onclick="toComment()"><span class="w" id="menu_comment"><b>今日点评</b></span></a></li>
+				<li><a href="javascript:void(0)" onclick="toNextWeekMenu()"><span class="w" id="menu_menu"><b>下周菜单</b></span></a></li>
+				<li><a href="javascript:void(0)" onclick="ToSendByTianFang()"><span class="w" id="menu_transfer"><b>天坊配送</b></span></a></li>
+				<li><a href="javascript:void(0)" onclick="ToVisitService()" class="active"><span class="w" id="menu_call"><b>上门服务</b></span></a></li>
+				<li><a href="javascript:void(0)" onclick="toBirthdayService()"><span class="w" id="menu_birthday"><b>生日免单</b></span></a></li>
+
+				<!-- weather 块 -->
+				<div class="weather_wrap">
+					<div class="wrap">
+						<div class="weather">
+							<span id="weather_icon"></span>
+							<span class="temperature"><span id="temperature"></span></span><span id="status"></span>
+						</div>
+						<div class="datetime">
+							<span id="today"></span><span id="week"></span>
+						</div>
+					</div>
+				</div>
+				<!-- weather 块 end -->
+
+			</ul>
+			<!-- menu end -->
+
+			<!-- 页面内容 -->
+			<section class="tks">
+				<!-- 遮罩层 -->
+				<div id="mask"></div>
+
+			<h1 class="con-tks">感谢您的支持!</h1>
+			<div class="tks-img-wrapper">
+				<img class="con-tks-img" src="images/envolope_icon.png" />
+			</div class="tks-img-wrapper">
+			<label class="lab-tks lab-tks-1">订单编号</label>
+			<label class="lab-tks lab-tks-2">12345678912</label>
+			<div class="bg-tks"></div>
+			<span class="sp-tks sp-tks-1">查看订单</span>
+			<span class="sp-tks sp-tks-2">再去逛逛</span>
+
+
+    </section>
+    <!-- 页面内容 end -->
+
+  </div>
+
+  <script src="js/jquery-1.11.3.min.js"></script>
+  <script src="js/main.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+   <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+  <script type="text/javascript" src="js/weixinJS.js"></script>
+</body>
+</html>

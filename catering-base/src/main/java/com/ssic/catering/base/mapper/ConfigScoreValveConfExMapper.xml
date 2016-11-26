@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.catering.base.mapper.ConfigScoreValveConfExMapper" >
+ 	<insert id="insertConfScoreValue" parameterType="com.ssic.catering.base.dto.ConfigScoreValveConfDto">
+ 		insert into t_ctr_config_score_valve_conf(
+			 id,
+			 cafetorium_id,
+			 level,
+			 valve_count,
+			 valve_percent,
+			 create_time,
+			 last_update_time,
+			 stat
+ 		)
+ 		values(
+		   	#{configScore.id},
+			#{configScore.cafetoriumId},
+			#{configScore.level},
+			#{configScore.valveCount},
+			#{configScore.valvePercent},
+			#{configScore.createTime},
+			#{configScore.lastUpdateTime},
+			#{configScore.stat}
+ 		)
+ 	</insert>
+ 	
+ 	<update id="updateConfScoreValue" parameterType="com.ssic.catering.base.dto.ConfigScoreValveConfDto">
+ 		update t_ctr_config_score_valve_conf set
+ 			cafetorium_id = #{configScore.cafetoriumId},
+ 			level = #{configScore.level},
+ 			valve_count = #{configScore.valveCount},
+ 			valve_percent = #{configScore.valvePercent},
+ 			last_update_time = #{configScore.lastUpdateTime},
+ 			stat = #{configScore.stat}
+ 			where id = #{configScore.id}
+ 	</update>
+ 	
+ 	<update id="deleteConfScoreValue" parameterType="com.ssic.catering.base.dto.ConfigScoreValveConfDto">
+ 			update t_ctr_config_score_valve_conf set
+ 			stat = 0 where id = #{configScore.id}
+ 	</update>
+</mapper>

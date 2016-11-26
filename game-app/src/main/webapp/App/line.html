@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <title>ECharts</title>
+    <link href="css/base.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+</head>
+<body class="pie_body">
+  <div class="leader_info_wrap clearfix">
+    <div class="head_icon">
+      <div id="userImg" class="circle">
+        <!--img src="images/head_icon.png"/-->
+      </div>
+    </div>
+    <div class="leader_info">
+      <span class="uname" id="uname"><img src="images/chart_phone_icon.png"/></span>
+      <p class="company_name" id="company_name"></p>
+      <p class="location" id="location"></p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div id='down' style='display:none;position:absolute; left:0;top:0;right:0;bottom:0; width:8em; height:3em; background:#eee; border:1px solid #000;text-align:center; line-height:3em; z-index:2;margin:auto; '>松开刷新</div>
+    <div id='loading' style='display:none;position:absolute; left:0;top:0;right:0;bottom:0; width:8em; height:3em; background:#eee;border:1px solid #000; text-align:center; line-height:3em; z-index:2;margin:auto; '>刷新中。。。</div>
+    <p class="legend">
+      历史平均分 ： <span id="historyScore"></span> 分
+    </p>
+    <ul class="label">
+      <li>5.0</li>
+      <li>4.0</li>
+      <li>3.0</li>
+      <li>2.0</li>
+      <li>1.0</li>
+      <li>0.0</li>
+    </ul>
+    <div id="content_wrap">
+      <div id="content"></div>
+    </div>
+  </div>
+
+  <div class="table_wrap">
+    <table>
+        <tr id="detail_1">
+        </tr>
+        <tr id="detail_2">
+        </tr>
+    </table>
+  </div>
+
+
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="dist/echarts.js"></script>
+    <script src="js/iscroll-probe-wids.js"></script>
+    <script src="js/control_line.js"></script>
+</body>
+</html>

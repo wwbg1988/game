@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.game.admin.mapper.TImsUsersExMapper" >
+	 <select id="findBy" resultType="com.ssic.game.admin.dto.TImsUsersDto" >
+		select users.id as id, age as age,createdatetime as createdatetime,dept_id as deptNo,gender as gender,isAdmin as isAdmin,isDelete as isDelete,modifydatetime as modifydatetime,name,
+		users.pj_no as pjNo,post_no as postNo,password as password,qjy_account as qjyAccount,user_account as userAccount,user_image as userImage,user_no as userNo,dept_id as deptId,email
+ 		 from t_admin_users users where users.stat=1 
+		<include refid="where_clause_1" />
+	 </select>
+	 <select id="findCountBy" resultType="Integer">
+	 	select count(*) from t_admin_users users
+	 	where users.stat=1 
+	 	<include refid="where_clause_1" />
+	 </select>
+	   <insert id="insertBy" >
+	insert into t_admin_users(id,`name`,`password`,qjy_account,stat,isAdmin,createdatetime,user_account,email,user_no,dept_id,gender,age) 
+	values(#{users.id},#{users.name},#{users.password},#{users.qjyAccount},#{users.stat},#{users.isAdmin},#{users.createdatetime},#{users.userAccount},#{users.email},#{users.userNo},#{users.deptId},#{users.gender},#{users.age})
+	
+	 </insert>
+	 
+	 <insert id="addImsUsers" parameterType="com.ssic.game.admin.pojo.Users">
+	   insert into t_ims_users(id,`name`,`password`,qjy_account,stat,isAdmin,createdatetime,user_account,email,user_no,dept_id,gender,age) 
+	values(#{users.id},#{users.name},#{users.password},#{users.qjyAccount},#{users.stat},#{users.isAdmin},#{users.createdatetime},#{users.userAccount},#{users.email},#{users.userNo},#{users.deptId},#{users.gender},#{users.age})
+	
+	 </insert>
+	 
+	 <update id="updateBy" >
+ 	 update t_admin_users set name=#{user.name},dept_id =#{user.deptId},email=#{user.email},gender=#{user.gender},user_no=#{user.userNo},modifydatetime=#{user.modifydatetime},age=#{user.age} where id=#{user.id} 
+    </update>
+    <update id="updatePwd">
+    update t_admin_users set password=#{user.password},modifydatetime=#{user.modifydatetime} where id =#{user.id}
+    </update>
+    <update id="updateDelBy" >
+    	update t_admin_users set stat=0 where id=#{userId}
+    </update>
+    <update id="updateDelByDept">
+    	update t_admin_users set dept_id=null where dept_id=#{deptId}
+    </update>
+ 
+	 <select id="findPageBy" resultType="com.ssic.game.admin.dto.TImsUsersDto">
+select users.id as id, age as age,createdatetime as createdatetime,dept_id as deptNo,gender as gender,isAdmin as isAdmin,isDelete as isDelete,modifydatetime as modifydatetime,name,
+		users.pj_no as pjNo,post_no as postNo,password as password,qjy_account as qjyAccount,user_account as userAccount,user_image as userImage,user_no as userNo,depts.dept_name as deptName,email
+ 		 from t_admin_users users left join t_ims_dept depts on users.dept_id = depts.id where users.stat=1
+ 		<include refid="where_clause_1"></include>
+ 		<if test="ph.rows!=0">
+ 			limit #{ph.page},#{ph.rows}
+ 		</if>
+ 		<!-- x<if test="ph.sort!=null ">
+ 		order by  users.#{ph.sort} 
+ 		</if>-->
+	 </select>
+	 
+	 <sql id="where_clause_1" >
+	 	<if test="user.id!=null and user.id!=''">
+	 		and users.id = #{user.id}
+	 	</if>
+	 	<if test="user.userNo!=null and user.userNo!=''">
+	 	  and users.user_no =#{user.userNo}
+	 	</if>
+	 	<if test="user.password != null and user.password!=''" >
+	 		and users.password = #{user.password}
+	 	</if>
+	 	<if test="user.userAccount!=null and user.userAccount!=''">
+			and users.user_account = #{user.userAccount}	 	
+	 	</if>
+		<if test="user.name != null and user.name!=''" >
+			and users.name = #{user.name}
+		</if>	
+		<if test="user.createdatetimeStart!=null">
+			and users.createdatetime &gt;= #{user.createdatetimeStart}
+		</if>
+		<if test="user.createdatetimeEnd!=null">
+		 	 and users.createdatetime &lt;= #{user.createdatetimeEnd}
+		</if>
+		<if test="user.modifydatetimeStart!=null">
+		 	 and users.modifydatetime &gt;= #{user.modifydatetimeStart}
+		</if>
+		<if test="user.modifydatetimeEnd!=null">
+			  and users.modifydatetime  &lt;=#{user.modifydatetimeEnd}
+		</if>
+		<if test="user.searchName!=null and user.searchName!=''">
+		    and users.user_account like #{user.searchName}
+		</if>
+		
+	 </sql>
+	 
+</mapper>

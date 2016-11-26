@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.catering.lbs.mapper.TransportDriverExMapper" >
+    	<select id="findUserInfo" resultType="com.ssic.catering.lbs.dto.TransportDriverDto">
+				    		SELECT 
+				    			id as id,
+				    			admin_user_id  as  adminUserId,
+				    			account  as account,
+				    			password as password,
+				    			nick_name as nickName,
+				    			name as name,
+				    			phone as phone,
+				    			state as state
+				    		FROM t_ctr_transport_driver t where t.account  = #{username}  and t.password  = #{pwd}  and t.stat = 1;
+    	</select>
+    	
+    	<update id="updateDriverState" >
+  			update  t_ctr_transport_driver t set t.state = #{state}  where  t.id = #{driverId};
+  	    </update>
+  	    
+  	    <select id="selectTransportDriverDtosBy" resultType="com.ssic.catering.lbs.dto.TransportDriverDto">
+    	select
+		t1.id as id,
+		t1.admin_user_id as adminUserId,
+		t1.account as account,
+		t1.password as password,
+		t1.name as name,
+		t1.nick_name as nickName,
+		t1.imei as imei,
+		t1.phone as phone,
+		t1.state as state,
+		t1.create_time as createTime,
+		t1.last_update_time as lastUpdateTime,
+		t1.stat as stat,
+		t2.supplier_name as supplierName
+		
+		from 
+			t_ctr_transport_driver t1
+		left join
+			t_ctr_supplier t2
+		on
+			t1.admin_user_id = t2.id
+	
+	<if test="example != null" >
+      <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and t1.${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and t1.${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and t1.${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and t1.${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+      </where>
+    </if>
+    <if test="example.orderByClause != null" >
+      order by t1.${example.orderByClause}
+    </if>		
+		
+ </select>
+ 
+ 
+ <select id="countTransportDriverDtoBy" resultType="java.lang.Long">
+    	select
+		count(t1.id)
+		from 
+			t_ctr_transport_driver t1
+		left join
+			t_ctr_supplier t2
+		on
+			t1.admin_user_id = t2.id
+	
+	<if test="example != null" >
+      <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and t1.${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and t1.${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and t1.${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and t1.${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+      </where>
+    </if>
+		
+ </select>
+</mapper>

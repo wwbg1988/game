@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.catering.base.mapper.MeetingExMapper">
+
+	<select id="findStarEndTime" resultType="Integer">
+		select count(1) from t_ctr_meeting
+		where address_id = #{addressId} and
+		stat =1
+		and DATE(m_star_time) = #{dateNYR}
+		and proj_id = #{projId}
+		and  ((m_star_time BETWEEN #{mstarDate} and #{mEndDate})
+        or (m_end_time BETWEEN #{mstarDate} and #{mEndDate})
+         <![CDATA[     or ( m_star_time < #{mstarDate} and  m_end_time > #{mEndDate} ) ]]> )
+	</select>
+	
+	<select id="findAddByStarEndTime" resultType="com.ssic.catering.base.dto.MeetingDto">
+	select id as id,name as name,address_id as addressId 
+	 from t_ctr_meeting where stat=1 
+	 <if test="projId!=null and projId!='' ">
+	  and proj_id =#{projId} 
+	 </if>
+	 and (m_star_time BETWEEN #{startime} and #{endtime})
+        or (m_end_time BETWEEN #{startime} and #{endtime})
+      <![CDATA[     or ( m_star_time < #{startime} and  m_end_time > #{endtime} ) ]]> 
+	</select>
+	
+
+	<select id="findNYR" resultType="Integer">
+		select count(*) from
+		t_ctr_meeting where stat=1 
+		<if test="addressId!=null and addressId!='' ">
+			and address_id =#{addressId}
+		</if>
+		and
+		DATE(m_star_time) =#{dateNYR}
+	</select>
+
+
+	<select id="findNYRMeet" parameterType="com.ssic.catering.base.dto.MeetingDto"
+		resultType="com.ssic.catering.base.dto.MeetingDto">
+		SELECT
+		NAME as name,
+		title as title,
+		m_star_time as mStarTime,
+		m_end_time as mEndTime,
+		address_id as addressId,
+		(
+		SELECT
+		a. NAME
+		FROM
+		t_ctr_meeting_address a
+		WHERE
+		a.id = address_id
+		) as addressName
+		FROM
+		t_ctr_meeting
+		WHERE
+		address_id = #{meetingDto.addressId}
+		AND stat = 1
+		AND DATE(m_star_time) = #{meetingDto.nyrDate}
+	</select>
+
+	<select id="findMyMeet" parameterType="com.ssic.catering.base.dto.MeetingDto"
+		resultType="com.ssic.catering.base.dto.MeetingRecordDto">
+		SELECT
+		a.`name` AS mName,
+		a.title as title,
+		a.m_star_time as mStarTime ,
+		a.m_end_time as mEndTime,
+		a.address_id as addressId,
+		b.`name` AS dName,
+		c.user_id as userId,
+		d.`name` AS uName,
+		a.createUserID as createUserID,
+		(
+		SELECT
+		dd.`name`
+		FROM
+		t_ims_users dd
+		WHERE
+		dd.id = a.createUserID
+		) as creatUName ,c.state as ustate,a.id as mid,a.create_time as createTime,
+		YEAR(a.m_star_time) as yearDate , MONTH (a.m_star_time) as monthDate,DAY (a.m_star_time) as dayDate 
+		FROM
+		t_ctr_meeting a,
+		t_ctr_meeting_address b,
+		t_ctr_meeting_user c,
+		t_ims_users d
+		WHERE
+		a.id = c.meeting_id
+		AND a.address_id = b.id
+		AND c.user_id = d.id
+		AND a.stat = 1
+		<if test="meetingDto.muserId!=null and meetingDto.muserId!='' ">
+			AND ( c.user_id = #{meetingDto.muserId} 
+			<if test="meetingDto.flagis==0 ">
+			and a.createUserID !=#{meetingDto.muserId} 
+			</if>
+			 )
+		</if>
+		<if test="meetingDto.projId!=null and meetingDto.projId!='' ">
+		   and a.proj_id = #{meetingDto.projId}
+		</if>
+		<if test="meetingDto.createTime!=null ">
+			and DATE(a.m_star_time) = #{meetingDto.createTime}
+		</if>
+		<if test="meetingDto.mStarTime!=null ">
+			and DATE(a.m_star_time) = #{meetingDto.mStarTime}
+		</if>
+		<if test="meetingDto.yearDate!=null and meetingDto.yearDate!='' ">
+		    and  YEAR(a.create_time) = #{meetingDto.yearDate}
+		</if>
+		<if test="meetingDto.monthDate!=null and meetingDto.monthDate!='' ">
+		   and  Month(a.create_time) = #{meetingDto.monthDate}
+		</if>
+		<if test="meetingDto.dayDate!=null and meetingDto.dayDate!='' ">
+		   and DAY(a.create_time) = #{meetingDto.dayDate}
+		</if>
+		<if test="meetingDto.state!=null and meetingDto.state!='' ">
+		   and c.state = #{meetingDto.state}
+		</if>
+		<if test="meetingDto.nowDate!=null and meetingDto.nowDate!='' ">
+		   <![CDATA[   and  a.m_end_time > #{meetingDto.nowDate}  ]]> 
+		</if>
+        ORDER BY a.m_star_time desc 
+        <if test="meetingDto.beginRow!=null and meetingDto.beginRow!='' and meetingDto.endRow!=null and  meetingDto.endRow!=''   ">
+        LIMIT #{meetingDto.beginRow},#{meetingDto.endRow}
+        </if>
+        
+	</select>
+
+
+	<select id="findTodayM" parameterType="com.ssic.catering.base.dto.MeetingDto"
+		resultType="com.ssic.catering.base.dto.MeetingDto">
+		SELECT
+		a.id,
+		a.`name` AS NAME,
+		a.title,
+		a.m_star_time as mStarTime,
+		a.m_end_time as mEndTime,
+		a.address_id as addressId,
+		b.`name` AS addressName,
+		a.state,
+		a.createUserID,
+		c.`name` as createuserName
+		FROM
+		t_ctr_meeting a,
+		t_ctr_meeting_address b,
+		t_ims_users c
+		WHERE
+		a.stat = 1
+		AND a.address_id = b.id and a.createUserID = c.id
+        <if test="meetingDto.nyrDate!=null">
+         and DATE(a.m_star_time)=#{meetingDto.nyrDate}
+        </if>
+        <if test="meetingDto.projId!=null and meetingDto.projId!='' ">
+         and a.proj_id = #{meetingDto.projId}
+        </if>
+	</select>
+	
+	<select id="findDeptMeeting" resultType="com.ssic.catering.base.dto.MeetingRecordDto">
+	   SELECT
+	        c.id AS mid,
+	        c.`name` AS mName,
+	        c.title AS title,
+	        c.m_star_time AS mStarTime,
+	        c.m_end_time AS mEndTime,
+	        c.address_id AS addressId,
+	        c.createUserID AS createUserID
+       FROM
+	        t_ctr_meeting c
+       WHERE
+	        c.stat = 1
+       AND c.id IN (
+	SELECT DISTINCT
+		b.meeting_id
+	FROM
+		t_ctr_meeting_user b
+	WHERE
+		b.stat = 1
+	AND b.user_id IN (
+		SELECT
+			a.user_id
+		FROM
+			t_ims_dept_users a
+		WHERE
+			a.dept_id = #{deptId}
+		AND a.stat = 1
+	)
+)   
+	    <if test="date!=null">
+         and DATE(c.m_star_time)= #{date}
+        </if>
+        ORDER BY c.m_star_time DESC 
+	</select>
+	
+	
+
+    <select id="findDeptAll" resultType="com.ssic.game.common.dto.DeptDto">
+		select id,create_time as createTime,stat as stat,parent_dept_id as pid,dept_code as deptCode,last_update_time as lastUpdateTime,dept_admin as deptAdmin,dept_name as deptName,proj_id as projId
+		from t_ims_dept dept where dept.stat=1
+		  <include refid="where_clause_1" />
+	</select> 
+	 
+	 <sql id="where_clause_1" >
+	 	<if test="dept.id!=null and dept.id!=''">
+	 		and dept.id = #{dept.id}
+	 	</if>
+	 	<if test="dept.searchName != null and dept.searchName!=''" >
+	 		and dept.dept_name like #{dept.searchName}
+	 	</if>
+	 	<if test="dept.deptName != null and dept.deptName!=''" >
+	 		and dept.dept_name like #{dept.deptName}
+	 	</if>
+	 	<if test="dept.projId!=null and dept.projId!=''">
+	 		and dept.proj_id in ( #{dept.projId})
+	 	</if>
+	 	<if test="dept.projIds!=null and dept.projIds!=''">
+	 		and dept.proj_id in ( #{dept.projIds})
+	 	</if>
+	 	<if test="dept.pid!=null ">
+	 	    and dept.parent_dept_id = #{dept.pid}
+	 	</if>
+	    </sql>
+	    
+	    <select id="findUserByProj" resultType="com.ssic.game.common.dto.ImsUsersDto">
+	    SELECT DISTINCT
+	a.user_id AS id,
+b.name AS name ,  b.qjy_account as qjyAccount  
+FROM
+	t_ims_dept_users a LEFT JOIN 	t_ims_users b on 	b.id = a.user_id
+WHERE
+	a.stat = 1  
+        <if test="projId!=null and projId!=''">
+          and a.user_id in (select c.user_id from  t_ims_project_users c where  c.stat=1 and c.proj_id=#{projId} )
+        </if>
+	    </select>
+	    
+
+     <select id="findUserByDept" resultType="com.ssic.game.common.dto.DeptUsersDto">
+   SELECT DISTINCT
+	a.user_id AS userId,
+b.name AS userName
+FROM
+	t_ims_dept_users a LEFT JOIN 	t_ims_users b on 	b.id = a.user_id
+WHERE
+	a.stat = 1  
+        <if test="deptUser.deptId!=null and deptUser.deptId!='' ">
+          and a.dept_id = #{deptUser.deptId}
+        </if>
+        <if test="deptUser.userName!=null and deptUser.userName!='' ">
+          and b.name like #{deptUser.userName}
+        </if>
+        <if test="deptUser.projId!=null and deptUser.projId!=''">
+          and a.user_id in (select c.user_id from  t_ims_project_users c where  c.stat=1 and c.proj_id=#{deptUser.projId} )
+        </if>
+    </select>
+    
+    <select id="findByUserId" resultType="com.ssic.game.common.dto.ImsUsersDto">
+		SELECT
+		id as id,
+		age as age,
+		email as email,
+		gender as gender,
+		isAdmin as
+		isAdmin,
+		modifydatetime as modifydatetime,
+		`name` as name,
+		`password` as
+		password,
+		qjy_account as qjyAccount,
+		user_account as userAccount,
+		user_image as userImage,
+		user_no as userNo,
+		isDelete as isDelete
+		FROM
+		t_ims_users where stat=1 
+		<if test="id!=null and id!='' ">
+			and id = #{id}
+		</if>
+		order by createdatetime desc
+	</select>
+
+	<select id="findLargeArea" resultType="com.ssic.catering.base.dto.AddressDto">
+	select id as id,
+	address_name as addressName,
+	address_code as addressCode,
+	parent_id  as parentId 
+	from t_ctr_address where LENGTH(address_code) = 4 and stat=1
+	</select>
+	
+	<select id="findGroupArea" resultType="com.ssic.catering.base.dto.MeetingAddressDto">
+	select a.large_area as largeArea,a.stat,(select b.address_name from t_ctr_address b where b.id=a.large_area) as largeAreaName,
+	a.proj_id as  projId 
+	from t_ctr_meeting_address a 
+	GROUP BY a.large_area ,a.stat , a.proj_id
+	HAVING a.stat=1 and a.proj_id = #{projId}
+	</select>
+	
+	<select id="findGroupPer" resultType="com.ssic.catering.base.dto.MeetingAddressDto" parameterType="String">
+	select a.province as province,(select b.address_name from t_ctr_address b where b.id=a.province) as provinceName,a.large_area as largeArea ,a.stat from t_ctr_meeting_address a GROUP BY a.province,a.large_area,a.stat HAVING a.large_area=#{areaId} and a.stat=1
+	</select>
+
+    <select id="findGroupCity" resultType="com.ssic.catering.base.dto.MeetingAddressDto" parameterType="String">
+    select a.city as city,(select b.address_name from t_ctr_address b where b.id=a.city) as cityName,a.province,a.stat from t_ctr_meeting_address a GROUP BY a.city ,a.province,a.stat HAVING a.stat=1 and a.province =#{perId}
+    </select>
+    
+    <select id="getdept" resultType="com.ssic.catering.base.dto.AppGroupDeptDto" parameterType="String">
+    select a.id as deptId,a.dept_name as deptName from t_ims_dept a where a.proj_id = #{projId} and a.stat=1
+    </select>
+    
+    <select id="getGroupDeptUser" resultType="com.ssic.catering.base.dto.AppGroupDeptUserDto" parameterType="String">
+   SELECT
+	aa.dept_id as deptId,
+	aa.dept_name as deptName,
+	aa.qjy_account as userId,
+	aa.`name` as userName
+FROM
+	(
+		SELECT
+			a.`name`,
+			a.qjy_account,
+			a.id,
+			b.dept_id,
+			c.dept_name
+		FROM
+			t_ims_users a,
+			t_ims_dept_users b,
+			t_ims_dept c
+		WHERE
+			a.id = b.user_id
+		AND a.stat = 1
+		AND b.stat = 1
+		AND c.stat = 1
+		AND b.dept_id = c.id
+		AND b.proj_id = #{projId}
+	) aa
+GROUP BY
+	aa.dept_id,
+	aa.dept_name,
+	aa.qjy_account,
+	aa.`name`
+HAVING
+	aa.dept_id = #{deptId}
+    </select>
+    
+</mapper>

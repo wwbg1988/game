@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.catering.base.mapper.AddressUserExMapper" >
+	<!-- 查询城市经理 -->
+  	<select id="queryCityManager" resultType="com.ssic.catering.base.dto.PushAddressUserDto">
+  		SELECT a.address as addressName,b.parent_id as parentId,c.user_id as userId,d.qjy_account as qjyAccount,
+			c.address_id as addressId,c.address_type as addressType
+			FROM t_ctr_cafetorium a,t_ctr_address b,t_ctr_address_user c,t_ims_users d
+			WHERE a.address_id = b.id
+			AND b.id = c.address_id and c.user_id =d.id
+			AND a.id = #{cafetoriumId};
+  	</select>
+  	<!-- 查询省市经理 -->
+  	<select id="queryProvincialManager" resultType="com.ssic.catering.base.dto.PushAddressUserDto">
+  		SELECT b.parent_id as parentId,b.address_name as addressName,c.user_id as userId,d.qjy_account as qjyAccount, 
+			c.address_id as addressId,c.address_type as addressType
+  		  FROM t_ctr_address b,t_ctr_address_user c,t_ims_users d 
+	   	 WHERE
+ 			b.id = c.address_id and c.user_id =d.id
+			AND b.id in (SELECT b.parent_id FROM
+	 				 t_ctr_cafetorium a,t_ctr_address b,t_ctr_address_user c,t_ims_users d
+					 WHERE
+						a.address_id = b.id AND b.id = c.address_id AND c.user_id =d.id AND a.id = #{cafetoriumId});
+  	</select>
+  	<!-- 查询大区经理 -->
+  	<select id="queryRegionalManager" resultType="com.ssic.catering.base.dto.PushAddressUserDto">
+  		SELECT b.parent_id as parentId,b.address_name as addressName,c.user_id as userId,d.qjy_account as qjyAccount,
+			c.address_id as addressId,c.address_type as addressType
+			FROM t_ctr_address b,t_ctr_address_user c,t_ims_users d
+				WHERE b.id = c.address_id AND c.user_id = d.id AND b.id in (
+					SELECT b.parent_id FROM t_ctr_address b,t_ctr_address_user c,t_ims_users d
+					WHERE b.id = c.address_id AND c.user_id = d.id AND b.id in (
+						SELECT b.parent_id FROM t_ctr_cafetorium a, t_ctr_address b,t_ctr_address_user c,t_ims_users d
+						WHERE a.address_id = b.id AND b.id = c.address_id AND c.user_id = d.id AND a.id = #{cafetoriumId}));
+  	</select>
+  	<!-- 总公司负责人 -->
+  	<select id="queryCompanyLeader" resultType="com.ssic.catering.base.dto.PushAddressUserDto">
+  	  select t1.parent_id as parentId,t1.address_name as addressName,t3.qjy_account as qjyAccount,t2.user_id as userId,
+			t2.address_id as addressId,t2.address_type as addressType
+		from t_ctr_address t1, t_ctr_address_user t2 ,t_ims_users t3 
+		  where t1.id = t2.address_id and t2.user_id=t3.id and t1.id in(
+			SELECT b.parent_id
+			FROM t_ctr_address b,t_ctr_address_user c,t_ims_users d
+			WHERE b.id = c.address_id AND c.user_id = d.id AND b.id in (
+				SELECT b.parent_id
+				FROM t_ctr_address b,t_ctr_address_user c,t_ims_users d
+				WHERE b.id = c.address_id AND c.user_id = d.id AND b.id in (
+					SELECT b.parent_id FROM
+						t_ctr_cafetorium a, t_ctr_address b,t_ctr_address_user c,t_ims_users d
+					WHERE a.address_id = b.id AND b.id = c.address_id AND c.user_id = d.id and a.id = #{cafetoriumId})));	
+  	</select>
+  	<select id="finAddressUserByCafeCode" resultType="com.ssic.catering.base.dto.AddressUserDto">
+  	      SELECT 
+  	        id,
+  	        address_id as addressId,
+  	        user_id as userId,
+  	        cafe_code as cafeCode
+  	      FROM 
+  	         t_ctr_address_user 
+  	      WHERE stat=1 AND cafe_code=#{cafeCode};
+  	
+  	</select>
+  	
+  	
+</mapper>

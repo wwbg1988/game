@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.catering.admin.mapper.TImsMenuTypeExMapper" >
+	 <select id="findAll" resultType="com.ssic.catering.admin.dto.TImsMenuTypeDto" >
+		select id as id,
+		       name as name
+ 		 from t_ctr_admin_menu_type menuType where 1=1
+		<!-- <include refid="where_clause_1" /> -->
+	 </select>
+	 <select id="findCountBy" resultType="Integer">
+	 	select count(*) from t_ctr_admin_users users
+	 	where users.isDelete=0 
+	 	<include refid="where_clause_1" />
+	 </select>
+
+	 
+	 <sql id="where_clause_1" >
+	 	<if test="user.password != null" >
+	 		and users.password = #{user.password}
+	 	</if>
+		<if test="user.name != null" >
+			and users.name = #{user.name}
+		</if>	
+		<if test="user.createdatetimeStart!=null">
+			and users.createdatetime &gt;= #{user.createdatetimeStart}
+		</if>
+		<if test="user.createdatetimeEnd!=null">
+		 	 and users.createdatetime &lt;= #{user.createdatetimeEnd}
+		</if>
+		<if test="user.modifydatetimeStart!=null">
+		 	 and users.modifydatetime &gt;= #{user.modifydatetimeStart}
+		</if>
+		<if test="user.modifydatetimeEnd!=null">
+			  and users.modifydatetime  &lt;=#{user.modifydatetimeEnd}
+		</if>
+		<if test="user.searchName!=null and user.searchName!=''">
+		    and users.name like #{user.searchName}
+		</if>
+		
+	 </sql>
+	 
+	 <select id="findById" resultType="com.ssic.catering.admin.pojo.MenuType">
+		SELECT DISTINCT
+		id AS id,
+		name AS name
+		FROM
+		t_ctr_admin_menu_type type where type.id=#{menuTypeId} 
+	</select> 
+	 
+</mapper>

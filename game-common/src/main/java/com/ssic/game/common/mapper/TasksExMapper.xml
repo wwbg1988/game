@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.game.common.mapper.TasksExMapper">
+
+
+	<select id="findAll" resultType="com.ssic.game.common.pojo.Tasks">
+		select id,name,proj_id as projId,proc_id as procId,form_id as
+		formId,type,state,pre_task_id as preTaskId,
+		countersign as countersign
+		from t_ims_tasks where stat=1
+		<include refid="where_clause_1" />
+		order by type
+	</select>
+
+	<select id="findTasks" resultType="com.ssic.game.common.dto.TasksDto">
+		SELECT
+		id,
+		NAME,
+		proj_id AS projId,
+		(select a.proj_name from t_ims_project
+		a where a.id = proj_id) as projName,
+		proc_id AS procId,
+		(select
+		b.proc_name from t_ims_process b where b.id = proc_id) as procName,
+		form_id AS formId,
+		(select c.`name` from t_ims_forms c where c.id =
+		form_id ) as formName,
+		type,
+		CASE type
+		WHEN 1 THEN
+		'开始节点'
+		WHEN 2 THEN
+		'任务节点'
+		WHEN 3 THEN
+		'结束'
+		END AS
+		typeName,
+		state,
+		CASE state
+		WHEN 0 THEN
+		'未激活'
+		WHEN 1 THEN
+		'办理中'
+		WHEN 2 THEN
+		'已办'
+		WHEN 3 THEN
+		'否决'
+		WHEN 4 THEN
+		'退回'
+		END AS
+		statName,
+		pre_task_id AS
+		preTaskId,
+		countersign AS countersign,
+		CASE
+		countersign
+		WHEN 0 THEN
+		'否'
+		WHEN 1 THEN
+		'是'
+		END AS countersignName
+		FROM
+		t_ims_tasks
+		WHERE
+		stat = 1
+		<include refid="where_clause_1" />
+		ORDER BY create_time  desc
+	</select>
+
+    <select id="findTasksALL" resultType="com.ssic.game.common.dto.TasksDto">
+       SELECT
+		id,
+		NAME,
+		proj_id AS projId,
+		(select a.proj_name from t_ims_project
+		a where a.id = proj_id) as projName,
+		proc_id AS procId,
+		(select
+		b.proc_name from t_ims_process b where b.id = proc_id) as procName,
+		form_id AS formId,
+		(select c.`name` from t_ims_forms c where c.id =
+		form_id ) as formName,
+		type,
+		CASE type
+		WHEN 1 THEN
+		'开始节点'
+		WHEN 2 THEN
+		'任务节点'
+		WHEN 3 THEN
+		'结束'
+		END AS
+		typeName,
+		state,
+		CASE state
+		WHEN 0 THEN
+		'未激活'
+		WHEN 1 THEN
+		'办理中'
+		WHEN 2 THEN
+		'已办'
+		WHEN 3 THEN
+		'否决'
+		WHEN 4 THEN
+		'退回'
+		END AS
+		statName,
+		pre_task_id AS
+		preTaskId,
+		countersign AS countersign,
+		CASE
+		countersign
+		WHEN 0 THEN
+		'否'
+		WHEN 1 THEN
+		'是'
+		END AS countersignName
+		FROM
+		t_ims_tasks
+		WHERE
+		stat = 1
+		<include refid="where_clause_1" />
+		ORDER BY create_time  desc
+		limit #{page.beginRow},#{page.rows}
+    </select>
+    
+    <select id="findCount" resultType="Integer">
+      select count(*) from t_ims_tasks where stat=1
+      <include refid="where_clause_1" />
+    </select>
+
+	<sql id="where_clause_1">
+		<if test="task.projId!=null and task.projId!=''">
+			and proj_id = #{task.projId}
+		</if>
+		<if test="task.id!=null and task.id!=''">
+			and id = #{task.id}
+		</if>
+		<if test="task.name!=null and task.name!=''">
+			and name = #{task.name}
+		</if>
+		<if test="task.procId!=null and task.procId!=''">
+			and proc_id = #{task.procId}
+		</if>
+		<if test="task.formId!=null and task.formId!=''">
+			and form_id = #{task.formId}
+		</if>
+		<if test="task.type!=null ">
+			and type = #{task.type}
+		</if>
+		<if test="task.state!=null ">
+			and state = #{task.state}
+		</if>
+		<if test="task.preTaskId!=null and task.preTaskId!=''">
+			and pre_task_id = #{task.preTaskId}
+		</if>
+		<if test="task.countersign!=null ">
+			and countersign = #{task.countersign}
+		</if>
+
+	</sql>
+
+
+	<insert id="insert" parameterType="com.ssic.game.common.pojo.Tasks">
+		INSERT INTO t_ims_tasks (
+		id,
+		NAME,
+		proj_id,
+		proc_id,
+		form_id,
+		type,
+		stat,
+		state,
+		pre_task_id,
+		countersign,
+		create_time
+		)
+		VALUES
+		(
+		#{task.id},#{task.name},#{task.projId},#{task.procId},#{task.formId},
+		#{task.type},#{task.stat},#{task.state},#{task.preTaskId},#{task.countersign},
+		#{task.createTime}
+		)
+
+	</insert>
+
+	<update id="update" parameterType="com.ssic.game.common.pojo.Tasks">
+		UPDATE t_ims_tasks
+		SET NAME = #{task.name},
+		type = #{task.type},
+		stat = #{task.stat},
+		countersign = #{task.countersign},
+		last_update_time = #{task.lastUpdateTime}
+		WHERE
+		id = #{task.id}
+	</update>
+
+    <update id="delete" parameterType="java.lang.String">
+      update t_ims_tasks set stat = 0 where id = #{id} 
+    </update>
+    
+    <select id="findActions" resultType="com.ssic.game.common.dto.ActionsDto">
+       select task_id as taskId ,next_task_id as nextTaskId from t_ims_actions where stat =1
+    </select>
+    
+    <update id="updateForm" parameterType="com.ssic.game.common.dto.TasksDto">
+        update t_ims_tasks set form_id = #{task.formId}  where id= #{task.id}
+    </update>
+    
+    <select id="findByLastCreateTime" resultType="com.ssic.game.common.dto.TasksDto">
+    	select id,name,proj_id as projId,proc_id as procId,form_id as
+		formId,type,state,pre_task_id as preTaskId,
+		countersign as countersign,stat as stat
+		from t_ims_tasks where stat=1 
+		<if test="procId!=null and procId!='' ">
+		 and proc_id = #{procId} 
+		</if>
+		order by create_time desc 
+    </select>
+    
+    <select id="findById" parameterType="java.lang.String" resultType="com.ssic.game.common.dto.TasksDto">
+    select id,name,proj_id as projId,proc_id as procId,form_id as
+		formId,type,state,pre_task_id as preTaskId,
+		countersign as countersign,stat as stat
+		from t_ims_tasks where stat=1  and id= #{id}
+    </select>
+    
+</mapper>

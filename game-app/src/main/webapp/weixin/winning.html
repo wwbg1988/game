@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <title>中奖</title>
+
+    <link href="css/base.css" rel="stylesheet">
+    <link href="css/winning.css" rel="stylesheet">
+  </head>
+<body>
+
+  <!-- header -->
+  <div class="header clearfix">
+    <span class="icon_left"><img src="images/icon_left_menu.png" /></span>
+    点评有奖天天送
+  </div>
+  <!-- header end -->
+
+  <!-- menu -->
+  <div class="menu">
+    <ul class="leftnav sidenav">
+    	<li><a href="javascript:void(0)"><span class="w" id="menu_comment"><b>今日点评</b></span></a></li>
+		<li><a href="javascript:void(0)"><span class="w" id="menu_menu"><b>下周菜单</b></span></a></li>
+		<li><a href="javascript:void(0)"><span class="w" id="menu_transfer"><b>天坊配送</b></span></a></li>
+		<li><a href="javascript:void(0)"><span class="w" id="menu_call"><b>上门服务</b></span></a></li>
+		<li><a href="javascript:void(0)"><span class="w" id="menu_birthday"><b>生日免单</b></span></a></li>
+    </ul>
+    <!-- menu end -->
+
+    <!-- 页面内容 -->
+    <section>
+      <!-- 遮罩层 -->
+      <div id="mask"></div>
+
+
+      <div class="body">
+        <div class="wrap">
+
+          <span class="prize">10元手机话费</span>
+
+          <p class="prize_info first_prize_info">请输入您的手机号进行兑换</p>
+          <p class="prize_info">话费将直接充值在您输入的手机号中</p>
+
+          <input type="text" id="phone" class="cellphone" name="name" value="" placeholder="请输入手机号">
+
+          <div id="bt">
+            立即兑换
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+  <script src="js/jquery-1.11.3.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/winning.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+  <script type="text/javascript" src="js/cfg.js"></script>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.game.common.mapper.SignExMapper" >
+<select id="findCount" resultType="Integer">
+	select count(*) from t_ctr_sign where sign_type =#{sign.signType} and user_id=#{sign.userId} and projectId = #{sign.projectid} and Date_Format(create_time,'%y-%m-%d')=Date_Format(now(),'%y-%m-%d') and stat =1
+</select> 	  
+
+<select id="findByDate" resultType="com.ssic.game.common.dto.SignDto">
+SELECT
+	a.id as id,
+	a.user_id as userId,
+	a.x_position as xPosition,
+	a.y_position as yPosition,
+	a.address as address,
+	a.position_name as positionName,
+	a.reason as reason,
+	a.pic as pic,
+	a.sign_type as signType,
+	a.projectId as projectid,
+	a.deptId as deptid ,
+	(select b.`name` from t_ims_users b where b.id =a.user_id) as  userName,
+	(select c.dept_name from t_ims_dept c where c.id=a.deptId) as  deptName,
+	(select b.user_account from t_ims_users b where b.id = a.user_id) as userAccount,
+	a.create_time as createTime , a.isWorkTime as isworktime  
+FROM
+	t_ctr_sign a
+WHERE
+	a.stat = 1
+	<if test="sign.userId!=null and sign.userId!='' ">
+	and a.user_id = #{sign.userId}
+	</if>
+	<if test="sign.projectid!=null and sign.projectid!='' ">
+	and a.projectId = #{sign.projectid}
+	</if>
+	<if test="sign.signType!=null and sign.signType!='' ">
+	and a.sign_type = #{sign.signType}
+	</if>
+	<if test="sign.createTime!=null">
+	and DATE(a.create_time) = #{sign.createTime}
+	</if>
+	<if test="sign.deptid!=null and sign.deptid!='' ">
+	and a.deptId = #{sign.deptid}
+	</if>
+    ORDER BY a.create_time 
+    <if test="beginRows!=null and beginRows!='' and endRows!=null and endRows!='' ">
+    LIMIT #{beginRows},#{endRows}
+    </if>
+</select>
+
+  <select id="findByUserId" resultType="com.ssic.game.common.dto.SignDto">
+  SELECT
+	a.user_id as userId,
+	a.create_time as createTime,
+	a.sign_type as signType
+FROM
+	t_ctr_sign a
+GROUP BY
+	a.user_id,
+	a.create_time,
+	a.sign_type
+HAVING
+	a.sign_type = '1'
+AND DATE(a.create_time) = #{signDto.createTime}
+AND a.user_id = #{signDto.userId}
+ORDER BY
+	a.create_time
+	</select>
+	
+	<select id="findSignDtosBy" resultType="com.ssic.game.common.dto.SignDto" >
+		select    
+		t1.id as id,             
+		t1.user_id as userId,      
+		t1.x_position as xPosition,      
+		t1.y_position as yPosition,         
+		t1.address as address,         
+		t1.projectId as projectid,       
+		t2.proj_name as projectName,  
+		t1.deptId as deptid,        
+		t1.sign_type as signType,           
+		t1.position_name as positionName,         
+		t1.reason as reason,      
+		t1.pic as pic,           
+		t1.stat as stat,      
+		t1.create_time as createTime,      
+		t1.last_update_time as lastUpdateTime,
+		t3.is_admin as isDept,      
+		t4.name as userName,      
+		t5.dept_name as deptName,  
+		t4.user_account as userAccount,          
+		t1.isWorkTime as isworktime
+		from t_ctr_sign t1 
+		LEFT join t_ims_project t2
+		on 
+		t1.projectId = t2.id  
+		LEFT join 
+		t_ims_dept_users t3
+		on 
+		t1.projectId = t3.proj_id and t1.deptId = t3.dept_id and t1.user_id = t3.user_id
+		LEFT join 
+		t_ims_users t4
+		on
+		t1.user_id=t4.id
+		LEFT join t_ims_dept t5
+		on
+		t1.deptId=t5.id 
+		<where >
+	      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+	        <if test="criteria.valid" >
+	          <trim prefix="(" suffix=")" prefixOverrides="and" >
+	            <foreach collection="criteria.criteria" item="criterion" >
+	              <choose >
+	                <when test="criterion.noValue" >
+	                  and t1.${criterion.condition}
+	                </when>
+	                <when test="criterion.singleValue" >
+	                  and t1.${criterion.condition} #{criterion.value}
+	                </when>
+	                <when test="criterion.betweenValue" >
+	                  and t1.${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+	                </when>
+	                <when test="criterion.listValue">
+	                  and t1.${criterion.condition}
+	                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+	                    #{listItem}
+	                  </foreach>
+	                </when>
+	              </choose>
+	            </foreach>
+	          </trim>
+	        </if>
+	      </foreach>
+	      and t2.stat=1
+	      and t3.stat=1
+	      and t4.stat=1
+	      and t5.stat=1
+	       <if test="userName !=null and userName!= '' ">
+	         and t4.name = #{userName}
+	       </if> 
+	       <if test="userAccount !=null and userAccount!='' ">
+	         and t4.user_account = #{userAccount}
+	       </if>
+	    </where>
+	    <if test="example.orderByClause != null" >
+      	order by t1.${example.orderByClause}
+    	</if>
+	</select>
+	
+	<select id="findSignDtosCountBy" resultType="java.lang.Long" >
+	select count(*)
+		from t_ctr_sign t1 
+		LEFT join t_ims_project t2
+		on 
+		t1.projectId = t2.id  
+		LEFT join 
+		t_ims_dept_users t3
+		on 
+		t1.projectId = t3.proj_id AND t1.deptId = t3.dept_id AND t1.user_id = t3.user_id 
+		LEFT join 
+		t_ims_users t4
+		on
+		t1.user_id=t4.id
+		LEFT join t_ims_dept t5
+		on
+		t1.deptId=t5.id 
+		<where >
+	      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+	        <if test="criteria.valid" >
+	          <trim prefix="(" suffix=")" prefixOverrides="and" >
+	            <foreach collection="criteria.criteria" item="criterion" >
+	              <choose >
+	                <when test="criterion.noValue" >
+	                  and t1.${criterion.condition}
+	                </when>
+	                <when test="criterion.singleValue" >
+	                  and t1.${criterion.condition} #{criterion.value}
+	                </when>
+	                <when test="criterion.betweenValue" >
+	                  and t1.${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+	                </when>
+	                <when test="criterion.listValue">
+	                  and t1.${criterion.condition}
+	                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+	                    #{listItem}
+	                  </foreach>
+	                </when>
+	              </choose>
+	            </foreach>
+	          </trim>
+	        </if>
+	      </foreach>
+	      and t2.stat=1
+	      and t3.stat=1
+	      and t4.stat=1
+	      and t5.stat=1
+	      <if test="userName !=null and userName!= '' ">
+	         and t4.name = #{userName}
+	       </if> 
+	       <if test="userAccount !=null and userAccount!='' ">
+	         and t4.user_account = #{userAccount}
+	       </if>
+	    </where>
+	</select>
+
+
+</mapper>

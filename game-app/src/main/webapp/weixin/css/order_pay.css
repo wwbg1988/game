@@ -1,0 +1,78 @@
+/*birthday menu*/
+ section {
+   background: #efeff4!important;
+ }
+.info_wrap {
+  width: 100%;
+  padding: 2em 0 2em;
+  background: #fff url(../images/wave_line.png) repeat-x bottom ;
+  background-size: 0.6em;
+  border-top: 0.1em solid #f88421;
+}
+.info_wrap img.env_icon {
+  display: block;
+  width: 30%;
+  margin: 0 auto;
+}
+.info_wrap p.order_status {
+  text-align: center;
+  font-size: 1.2em;
+  margin: 1.5em auto 0;
+}
+.info_wrap p.price {
+  margin-top: 0.6em;
+  color: #ff5500;
+  font-size: 1.2em;
+  text-align: center;
+}
+section > p {
+  margin: 1.4em auto 0;
+  width: 90%;
+}
+ul.input_row {
+  border-top: 0.1em solid #d9d9d9;
+  border-bottom: 0.1em solid #d9d9d9;
+  margin: 0.5em 0 0 0;
+}
+ul.input_row > li {
+  height: 3em;
+  background: #fff;
+}
+ul.input_row > li:last-child div {
+  border-top: 0.1em solid #d9d9d9;
+}
+ul.input_row > li span.checkbox{
+  display: inline-block;
+  width: 3em;
+  background: url(../images/order_pay_check_dot_blank.png) no-repeat center;
+  background-size: 1.6em;
+}
+ul.input_row > li span.checkbox.active{
+  background: url(../images/order_pay_check_dot.png) no-repeat center;
+  background-size: 1.6em;
+}
+ul.input_row > li span{
+  display: inline-block;
+  width: 50%;
+  float: left;
+  height: 3em;
+  line-height: 3em;
+  text-indent: 2em;
+}
+ul.input_row > li:first-child span.weixin {
+  background: url(../images/order_pay_icon_weixin.png) no-repeat left;
+  background-size: 1.5em;
+}
+ul.input_row > li:last-child span.transport {
+  background: url(../images/order_pay_icon_transport.png) no-repeat left;
+  background-size: 1.5em;
+}
+
+.submit-bt{
+  background: #f88421;
+  height: 3em;
+  line-height: 3em;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 0;
+}

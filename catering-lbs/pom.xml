@@ -1,0 +1,104 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.ssic</groupId>
+    <artifactId>game</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>catering-lbs</artifactId>
+  
+  <properties>
+    	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<profile.active>dev</profile.active>
+  </properties>
+  
+  	<dependencies>
+  		  <dependency>
+	        <groupId>org.springframework.data</groupId>
+	        <artifactId>spring-data-mongodb</artifactId>	  
+	        <version>1.6.2.RELEASE</version>     
+	    </dependency>    
+	    <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+		</dependency>	
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-expression</artifactId>
+			<version>4.0.7.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+		</dependency>
+    	<dependency>
+		      <groupId>junit</groupId>
+		      <artifactId>junit</artifactId>     
+    	</dependency>
+		 <dependency>
+		    <groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>			
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>			
+		</dependency>
+
+		<dependency>
+			<groupId>com.ssic</groupId>
+		    <artifactId>ssic-util</artifactId>
+		</dependency>		
+  	
+  		<dependency>
+            <groupId>com.ssic</groupId>
+		    <artifactId>catering-common</artifactId>
+		    <version>0.0.1-SNAPSHOT</version>     
+         </dependency> 
+ 
+         <dependency>
+            <groupId>com.ssic</groupId>
+		    <artifactId>ssic-datasource</artifactId>		 
+         </dependency>        
+         <dependency>
+			<groupId>com.ssic</groupId>
+		    <artifactId>ssic-base-redis</artifactId>		 
+		</dependency>	
+		
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+		</dependency>
+		
+		<dependency>
+            <groupId>com.ssic</groupId>
+		    <artifactId>game-common</artifactId>
+		    <version>0.0.1-SNAPSHOT</version>     
+        </dependency>
+ 	 </dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+	</build>
+</project>

@@ -1,0 +1,76 @@
+li{list-style:none}
+a{color:#32b16c;}
+h1,h2,h3,h4{font-weight:normal}
+h3{white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+html{height:100%;}
+img{width:100%;height:auto}
+a{ text-decoration:none}
+
+#wrapper{width:100%;overflow:hidden;padding-bottom:50px;line-height:2em;box-sizing:border-box;font-family:"Microsoft Yahei","Arial";font-size:10px;font-weight:normal;color:#333;}
+#wrapper.gray{background:#efeff4;padding-bottom:0}
+#wrapper *{box-sizing:border-box}
+#wrapper .swipe{height:200px;overflow: hidden;visibility: hidden;position:relative;}
+#wrapper .swipe-wrap{height:200px;overflow:hidden;position:relative;}
+#wrapper .swipe-wrap > div {height:200px;float:left;width:100%;position:relative;}
+#wrapper .swipe-wrap > div img{height:200px;float:left;width:100%;position:relative;}
+#wrapper .swipe .tip_bar{position:absolute;left:0;bottom:0;padding:0;width:100%;height:24px;text-align:left;background:rgba(0,0,0,.2);}
+#wrapper .swipe .tip_bar p{width:68%;height:24px;float:left;color:#fff;line-height:24px;font-size:1.4em;padding-left:20px}
+#wrapper .swipe .tip_bar ul{width:30%;height:24px;text-align:right;float:right}
+#wrapper .swipe .tip_bar ul li{width:6px;height:6px;margin:0 1px;display:inline-block;border-radius:3px;background-color:#afafaf;}
+#wrapper .swipe .tip_bar ul li:last-child{margin-right:20px;}
+#wrapper .swipe .tip_bar ul li.cur{background-color:#f88421;}
+#wrapper .swipe .tip_bar.cl{background:none;}
+#wrapper .swipe .tip_bar.cl ul{width:100%;text-align:center;}
+#wrapper .swipe .tip_bar.cl ul li:last-child{margin-right:0;}
+
+#wrapper .panic_buying_box, #wrapper .recommend_box, #wrapper .price_box, #wrapper .take_box, #wrapper .price_box, #wrapper .deliver_box{width:100%;overflow:hidden;}
+#wrapper .panic_buying_box h2, #wrapper .recommend_box h2{background:#efeff4;border-top:1px #ccc solid;border-bottom:1px #ccc solid;background-size:15px 15px;background-repeat:no-repeat;background-position:15px center;font-size:1.6em;line-height:45px;padding-left:40px;padding-right:20px}
+#wrapper .panic_buying_box h2 a, #wrapper .recommend_box h2 a{color:#666;float:right;font-size:0.9em}
+#wrapper .take_box, #wrapper .deliver_box{background:#fff;border-top:1px #ccc solid}
+#wrapper.gray div:nth-child(1){margin-bottom:30px;border:0}
+
+#wrapper .panic_buying_box h2{background-image:url(../images/icon_panicbuying.png)}
+#wrapper .panic_buying_box ul, #wrapper .recommend_box ul{width:90%;overflow:hidden;margin:20px auto 0}
+#wrapper .panic_buying_box ul li, #wrapper .recommend_box ul li{width:48%;background:#990;float:left;overflow:hidden;border:1px #ccc solid;margin:0 0 20px 0}
+#wrapper .panic_buying_box ul li:nth-child(2n), #wrapper .recommend_box ul li:nth-child(2n){float:right}
+#wrapper .panic_buying_box ul li img, #wrapper .recommend_box ul li img{width:100%;height:auto}
+#wrapper .panic_buying_box ul li p, #wrapper .recommend_box ul li p{width:100%;overflow:hidden;background:#fff;display:block;padding:5px 0}
+#wrapper .panic_buying_box ul li p .title, #wrapper .recommend_box ul li p .title{width:100%;padding:0 10px;font-size:1.4em;display:block;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+#wrapper .panic_buying_box ul li p .onsale, #wrapper .recommend_box ul li p .onsale{float:left;display:block;height:30px;line-height:30px;font-size:1.4em;color:#f88421;padding:0 5px 0 10px}
+#wrapper .panic_buying_box ul li p .price, #wrapper .recommend_box ul li p .price{float:left;display:block;height:30px;line-height:32px;font-size:1.2em;text-decoration:line-through;color:#666}
+#wrapper .panic_buying_box ul li p a, #wrapper .recommend_box ul li p a{float:right;display:block;width:26px;height:26px;background:#f88421 url(../images/cart.png) no-repeat center center;background-size:22px 22px;border-radius:15px;margin-right:10px;margin-top:2px}
+
+#wrapper .recommend_box h2{background-image:url(../images/icon_recommend.png)}
+
+ #wrapper .price_box h1{font-size:1.8em;padding:20px 20px 10px 20px;}
+ #wrapper .price_box .price{width:100%;overflow:hidden;padding:0 20px 0 35px;background:url(../images/icon_rmb.png) no-repeat 20px center;background-size:10px 12px;font-size:2.5em;color:#f88421;line-height:1.4em;}
+ #wrapper .price_box .dec{width:100%;overflow:hidden;padding:5px 20px 0}
+ #wrapper .price_box .dec span{font-size:1.2em;padding-right:30px}
+ #wrapper .price_box .dec span.limit{padding-left:20px;background:url(../images/icon_limit.png) no-repeat 0 center;background-size:15px 15px;}
+ #wrapper .price_box p{display:block;padding:10px 20px;overflow:hidden;border-top:1px #ccc solid;border-bottom:1px #ccc solid;margin:20px 0;background:#f7f7f7}
+ #wrapper .price_box p span{display:block;float:left;width:50%;overflow:hidden;padding:0 5px;font-size:1.2em;line-height:2em;}
+
+#wrapper .take_box h3, #wrapper .deliver_box h3{width:100%;height:40px;border-bottom:1px #ccc solid;padding:0 20px}
+#wrapper .take_box h3 span, #wrapper .deliver_box h3 span{float:left;display:block;height:40px;line-height:40px;font-size:1.4em}
+#wrapper .take_box h3 span:nth-child(1), #wrapper .deliver_box h3 span:nth-child(1){padding-left:22px;width:30%;background:url(../images/icon_package.png) no-repeat 0 center;background-size:16px 16px;color:#f88421;}
+#wrapper .take_box h3 span:nth-child(2), #wrapper .deliver_box h3 span:nth-child(2){width:40%;text-align:center}
+#wrapper .take_box h3 span.totalprice, #wrapper .deliver_box h3 span.totalprice{float:right;color:#f88421;text-align:right;font-size:1.6em;padding-left:15px;background:url(../images/icon_rmb.png) no-repeat 0 center;background-size:10px 12px;}
+#wrapper .take_box > ul, #wrapper .deliver_box > ul{width:100%;oveflow:hidden}
+#wrapper .take_box > ul > li, #wrapper .deliver_box > ul > li{position:relative;width:100%;height:90px;border-bottom:1px #ccc solid}
+#wrapper .take_box > ul > li img, #wrapper .deliver_box > ul > li img{position:absolute;top:5px;left:20px;width:84px;height:80px;border-radius:5px;z-index:9}
+#wrapper .take_box > ul > li span.title, #wrapper .deliver_box > ul > li span.title{position:absolute;top:8px;padding:0 100px 0 115px;width:100%;font-size:1.4em}
+#wrapper .take_box > ul > li span.price, #wrapper .deliver_box > ul > li span.price{position:absolute;top:55px;padding:0 100px 0 130px;width:100%;font-size:1.4em;background:url(../images/icon_rmb_g.png) no-repeat 115px center;background-size:10px 12px;}
+#wrapper .take_box > ul > li > ul, #wrapper .deliver_box > ul > li > ul{position:absolute;top:5px;right:20px;width:72px;height:2.2em;border:1px #ccc solid;margin:0.5em 0 0 10px;line-height:1.8em;box-sizing:border-box;z-index:8}
+#wrapper .take_box > ul > li > ul > li, #wrapper .deliver_box > ul > li > ul > li{float:left;height:100%;padding:0;margin:0;text-align:center;box-sizing:border-box;text-indent:0;width:25%;background:#f2f2f2;font-size:1.5em}
+#wrapper .take_box > ul > li > ul > li:nth-child(2), #wrapper .deliver_box > ul > li > ul > li:nth-child(2){width:50%;background:#fff;color:#f88421;font-size:1.3em}
+#wrapper .take_box > ul > li a, #wrapper .deliver_box > ul > li a{position:absolute;right:20px;top:40px;background:#f88421;color:#fff;width:72px;height:2.6em;display:block;text-align:center;line-height:2.6em}
+#wrapper .p_box{width:100%;padding:0 20px;}
+#wrapper .p_box .left{float:left;font-size:1.6em;display:block;overflow:hidden;line-height:60px}
+#wrapper .p_box .right{float:right;font-size:1.6em;display:block;overflow:hidden;line-height:60px}
+#wrapper .right .t_total_price{height:60px;;display:block;float:right;font-size:2em;color:#f88421}
+
+
+.footer_cart{position:fixed;width:100%;height:50px;background:#fff;border-top:1px #f88421 solid;bottom:0;left:0;line-height:50px;padding-right:100px;font-size:1.8em;padding-left:20px}
+.footer_cart > span{color:#f88421}
+.footer_cart a{position:absolute;width:100px;right:0;top:0;height:50px;background:#f88421 url(../images/cart.png) no-repeat center center;background-size:40px 40px}
+.footer_cart a > span{position:absolute;display:block;min-width:22px;right:20%;top:0;height:22px;background:#fff;line-height:20px;border-radius:10px;font-size:1.5em;text-align:center;top:2px;color:#f88421;padding:1px;font-size:0.9em}

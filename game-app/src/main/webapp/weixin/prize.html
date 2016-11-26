@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <title>抽奖</title>
+
+    <link href="css/base.css" rel="stylesheet">
+    <link href="css/prize.css" rel="stylesheet">
+    <style id="rotate"></style>
+  </head>
+<body>
+
+  <!-- header -->
+  <div class="header clearfix">
+    <span class="icon_left"><img src="images/icon_left_menu.png" /></span>
+    点评有奖天天送
+  </div>
+  <!-- header end -->
+
+  <!-- menu -->
+  <div class="menu">
+    <ul class="leftnav sidenav">
+      	<li><a href="javascript:void(0)"><span class="w" id="menu_comment"><b>今日点评</b></span></a></li>
+		<li><a href="javascript:void(0)"><span class="w" id="menu_menu"><b>下周菜单</b></span></a></li>
+		<li><a href="javascript:void(0)"><span class="w" id="menu_transfer"><b>天坊配送</b></span></a></li>
+		<li><a href="javascript:void(0)"><span class="w" id="menu_call"><b>上门服务</b></span></a></li>
+		<li><a href="javascript:void(0)"><span class="w" id="menu_birthday"><b>生日免单</b></span></a></li>
+    </ul>
+    <!-- menu end -->
+
+    <!-- 页面内容 -->
+    <section>
+      <!-- 遮罩层 -->
+      <div id="mask"></div>
+
+
+      <div class="body">
+        <span class="title">感谢您的评价</span>
+        <span class="sub_title">我们将根据您的反馈做出更多的改善</span>
+        <div class="prize_circle">
+          <img class="circle_bg" src="images/prize_circle_bg.png" />
+          <img class="circle_body" src="images/prize_circle_body.png" />
+          <img class="circle_sm_dot" src="images/prize_circle_small_dot.png" />
+          <img class="circle_bg_dot" src="images/prize_circle_big_dot.png" />
+          <img class="circle_bg_arrow" src="images/prize_circle_arrow_center.png" />
+
+          <!-- <span class="dot"></span>
+          <span class="dot2"></span> -->
+        </div>
+        <span class="left_time" id="left_time"></span>
+      </div>
+      <div class="notice">
+        <div class="wrap">
+          <span>活动规则</span>
+          <p>1. 每天可以进行一次评论，每评论一次就能获得一次抽奖机会</p>
+          <p>2. 手机话费为话费直充功能，需输入手机号之后才可充值，若不输入手机号将无法获得充值奖励</p>
+          <p>3. 若没中奖则获得1点积分，积分可在“积分兑换”中进行兑换</p>
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+
+
+  <script src="js/jquery-1.11.3.min.js"></script>
+  <script src="js/main.js"></script>
+  <script type="text/javascript" src="js/cfg.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+  <script src="js/prize.js"></script>
+</body>
+</html>

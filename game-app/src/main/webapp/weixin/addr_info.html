@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <title>实物兑换</title>
+
+    <link href="css/base.css" rel="stylesheet">
+    <link href="css/addr_info.css" rel="stylesheet">
+  </head>
+<body>
+
+    <!-- header -->
+    <div class="header clearfix">
+      <span class="icon_left"><img src="images/icon_left_menu.png" /></span>
+      点评有奖天天送
+    </div>
+    <!-- header end -->
+
+    <div id="dialog_mask"></div>
+
+    <!-- 弹出对话框 -->
+    <div id="dialog">
+      <h1 class="title">
+        <img src="images/pay_icon_right.png" />兑换成功
+      </h1>
+      <p>黑椒牛柳半成品将在3日内送达,请注意查收</p>
+      <div class="bt" onclick="closeAndShowScore()">
+        确定
+      </div>
+    </div>
+    <!-- 弹出对话框 end -->
+
+    <!-- menu -->
+    <div class="menu">
+      <ul class="leftnav sidenav">
+        <li><a href="javascript:void(0)"><span class="w" id="menu_comment"><b>今日点评</b></span></a></li>
+        <li><a href="javascript:void(0)"><span class="w" id="menu_menu"><b>下周菜单</b></span></a></li>
+        <li><a href="javascript:void(0)"><span class="w" id="menu_transfer"><b>天坊配送</b></span></a></li>
+        <li><a href="javascript:void(0)"><span class="w" id="menu_call"><b>上门服务</b></span></a></li>
+        <li><a href="javascript:void(0)"><span class="w" id="menu_birthday"><b>生日免单</b></span></a></li>
+      </ul>
+      <!-- menu end -->
+
+      <!-- 页面内容 -->
+      <section>
+        <!-- 遮罩层 -->
+        <div id="mask"></div>
+
+        <div class="top_wrap">
+          <span class="title">我要兑换</span>
+          <img id="exchangeIcon"/>
+          <p class="sub_text">黑椒牛柳半成品</p>
+          <p class="sub_text">所需280积分</p>
+        </div>
+
+        <div class="body">
+          <div class="wrap">
+            <p class="input_title">
+              请输入收件信息
+            </p>
+          </div>
+
+          <div class="form_row">
+            <label id="name_label" for="name">姓名</label>
+            <input type="text" id="name" name="name" value="" placeholder="收件人姓名" maxlength="16">
+          </div>
+
+          <div class="form_row">
+            <label id="phone_label" for="phone">号码</label>
+            <input type="text" id="phone" name="phone" value="" placeholder="手机号码">
+          </div>
+
+            <div class="form_row">
+              <span id="city_label">城市</span>
+              <div class="right">
+                <select class="" name="" id="consigneeCity">
+                </select>
+              </div>
+            </div>
+
+            <div class="form_row">
+              <label id="addr_label" for="name">地址</label>
+              <input type="text" id="addr" name="addr" value="" placeholder="详细地址" maxlength="20">
+            </div>
+        </div>
+
+        <div class="submit-bt" onclick="save()">兑换</div>
+
+      </section>
+      <!-- 页面内容 end -->
+  </div>
+  
+  <input type="hidden" id="openId"/>
+  <input type="hidden" id="integralExchangeId"/>
+  <input type="hidden" id="carteUserId"/>
+  <input type="hidden" id="userIntegralExchangeId"/>
+  <input type="hidden" id="submitFlag" value="false"/>
+  
+  <script src="js/jquery-1.11.3.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/addr.js"></script>
+  
+  <!-- 百度地图1.5以上的版本需要key -->
+  <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.4"></script>
+  <script type="text/javascript" src="js/cfg.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+  <script type="text/javascript" src="js/validator.js"></script>
+  <script type="text/javascript" src="js/entityExchange.js"></script>
+</body>
+</html>

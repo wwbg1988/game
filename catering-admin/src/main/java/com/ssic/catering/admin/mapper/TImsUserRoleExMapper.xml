@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.catering.admin.mapper.TImsUserRoleExMapper">
+	<update id="deleteRoleByUserId">
+	update t_ctr_admin_users_role set stat = 0 where  user_id=#{userId}
+	</update>
+	 <insert id="insertBy" >
+	insert into t_ctr_admin_users_role (id,user_id,role_id,stat) values(#{id},#{userId},#{roleId},1)
+	 </insert> 
+	 <update id="updateBy">
+	 	update t_ctr_admin_users_role set stat =1 where user_id =#{userId} and role_id=#{roleId}
+	 </update>
+		 <select id="findRoleBy" resultType="String">
+	 select role_id from t_ctr_admin_users_role where user_id=#{userId} and stat =1
+	 </select>
+	 <select id="findCountRoleBy" resultType="Integer">
+	 select count(*) from t_ctr_admin_users_role where user_id=#{userId} and role_id=#{roleId}
+	 </select>
+</mapper>

@@ -1,0 +1,26 @@
+/*birthday welcome*/
+
+.wrap > h1{
+  font-size: 1.4em;
+  font-weight: normal;
+  text-align: center;
+  text-indent: 1em;
+  padding: 3em 0 2em;
+}
+.wrap > img.env_icon {
+  display: block;
+  width: 56%;
+  margin: 0 auto;
+}
+.wrap > p.blessing_word {
+  text-align: center;
+  width: 45%;
+  margin: 1.5em auto 0;
+  background: url(../images/birthday_star.png) no-repeat left,url(../images/birthday_star.png) no-repeat right;
+  background-size: 1em 1em;
+}
+.wrap > p.some_word {
+  margin-top: 1em;
+  text-indent: 1em;
+  text-align: center;
+}

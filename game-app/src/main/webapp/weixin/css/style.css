@@ -1,0 +1,93 @@
+.thanks-h1{
+  font-weight: normal;
+  text-align: center;
+  margin-top: 150px;
+}
+.thanks-img{
+  display: block;
+  width: 50%;
+  margin: 30px auto 0;
+}
+.row-wrap{
+  font-size: 1em;
+  color:#666;
+  margin-top: 0.5em;
+  padding:0.8em 0;
+  border-top:1px solid #ddd;
+  border-bottom:1px solid #ddd;
+  background: #fff;
+}
+.comment-name{
+  display: inline-block;
+  width: 5em;
+}
+.star-wrap{
+  display: inline-block;
+  margin-left: 0em;
+}
+.star-link{
+  background: url(../images/star-link.png) no-repeat 50% 50%;
+  background-size: 1.3em 1.3em;
+}
+.star-active{
+  background: url(../images/star-active.png) no-repeat 50% 50%;
+  background-size: 1.3em 1.3em;
+}
+/*.single-star{
+  margin-left: 0.5em;
+}*/
+.single-star {
+  position: relative;
+  top:0.2em;
+  display: inline-block;
+  padding:0;
+  margin-left: 0.3em;
+	cursor: pointer;
+  width:1.2em;
+  height:1.2em;
+}
+.tag-wrap{
+  margin-top: 1.8em;
+  font-size: 0.7em;
+  color: #fff;
+}
+.single-tag{
+  display: inline-block;
+  padding:0.5em 1.2em;
+  margin: 0 0.2em 0.5em 0;
+  border-radius:0.4em;
+  background: #ec643a;
+  cursor: pointer;
+}
+.single-tag:active{
+  background: #b44e2f;
+}
+.single-tag-active{
+  display: inline-block;
+  padding:0.5em 1.2em;
+  margin: 0 0.2em 0.5em 0;
+  border-radius:0.4em;
+  background: #b44e2f;
+}
+
+textarea{
+  margin-top: 2em;
+  font-size: 1.2em;
+  color: #666;
+  width: 100%;
+  text-indent: -2em!important;
+  padding:1em!important;
+  border-left: none;
+  border-right: none;
+  min-height: 10em;
+  box-sizing:border-box;
+  -moz-box-sizing:border-box; /* Firefox */
+  -webkit-box-sizing:border-box; /* Safari */
+}
+.notice-info{
+  display: none;
+  color:#f00;
+  padding:0.5em 0;
+  text-align: center;
+  background: #f9f2f4;
+}

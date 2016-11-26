@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.game.common.mapper.ImsUsersExMapper">
+
+	<select id="findUsers" resultType="com.ssic.game.common.dto.ImsUsersDto">
+		SELECT
+		id as id,
+		age as age,
+		email as email,
+		gender as gender,
+		isAdmin as
+		isAdmin,
+		modifydatetime as modifydatetime,
+		`name` as name,
+		`password` as
+		password,
+		qjy_account as qjyAccount,
+		user_account as userAccount,
+		user_image as userImage,
+		user_no as userNo,
+		isDelete as isDelete
+		FROM
+		t_ims_users where stat=1
+		<include refid="where_findUsers"></include>
+		order by createdatetime desc
+	</select>
+
+	<select id="findUsersAll" resultType="com.ssic.game.common.dto.ImsUsersDto">
+		SELECT
+		id as id,
+		age as age,
+		email as email,
+		gender as gender,
+		isAdmin as
+		isAdmin,
+		modifydatetime as modifydatetime,
+		`name` as name,
+		`password` as
+		password,
+		qjy_account as qjyAccount,
+		user_account as userAccount,
+		user_image as userImage,
+		user_no as userNo,
+		isDelete as isDelete,
+		user_image as userImage 
+		FROM
+		t_ims_users where stat=1
+		<include refid="where_findUsers"></include>
+		order by createdatetime desc
+		limit #{page.beginRow},#{page.rows}
+	</select>
+
+	<select id="findCount" resultType="Integer">
+		select count(*) from t_ims_users where stat=1
+		<include refid="where_findUsers"></include>
+	</select>
+
+	<sql id="where_findUsers">
+		<if test="user.id!=null and user.id!='' ">
+			and id = #{user.id}
+		</if>
+		<if test="user.age!=null and user.age!=''">
+			and age =#{user.age}
+		</if>
+		<if test="user.email!=null and user.email!=''">
+			and email =#{user.email}
+		</if>
+		<if test="user.name!=null and user.name!=''">
+			and name = #{user.name}
+		</if>
+		<if test="user.qjyAccount!=null and user.qjyAccount!=''">
+			and qjy_account = #{user.qjyAccount}
+		</if>
+		<if test="user.userNo!=null and user.userNo!=''">
+			and user_no = #{user.userNo}
+		</if>
+		<if test="user.gender!=null and user.gender!=''">
+			and gender = #{user.gender}
+		</if>
+		<if test="user.userAccount!=null and user.userAccount!='' ">
+			and user_account= #{user.userAccount}
+		</if>
+	</sql>
+
+	<insert id="insertUser" parameterType="com.ssic.game.common.dto.ImsUsersDto">
+		insert into t_ims_users (
+		id,
+		age,
+		email,
+		gender,
+		isAdmin,
+		modifydatetime,
+		`name`,
+		`password`,
+		qjy_account,
+		user_account,
+		user_image,
+		user_no,
+		isDelete,
+		mobile_phone,
+		createdatetime,
+		stat) values(
+		#{user.id},
+		#{user.age},
+		#{user.email},
+		#{user.gender},
+		#{user.isAdmin},
+		#{user.modifydatetime},
+		#{user.name},
+		#{user.password},
+		#{user.qjyAccount},
+		#{user.userAccount},
+		#{user.userImage},
+		#{user.userNo},
+		#{user.isDelete},
+		#{user.mobilePhone},
+		#{user.createdatetime},
+		#{user.stat}
+		)
+	</insert>
+
+	<update id="updateUser" parameterType="com.ssic.game.common.dto.ImsUsersDto">
+		update t_ims_users set
+		age=#{user.age},
+		email=#{user.email},
+		gender=#{user.gender},
+		name=#{user.name},
+		user_account=#{user.userAccount},
+		user_no=#{user.userNo}
+		where
+		id=#{user.id}
+	</update>
+	
+    <update id="updateUserByuserId" parameterType="com.ssic.game.common.dto.ImsUsersDto">
+		update t_ims_users set
+		mobile_phone=#{user.phone},
+		where
+		id=#{user.id}
+	</update>
+
+	<update id="deleteUser" parameterType="com.ssic.game.common.dto.ImsUsersDto">
+		update t_ims_users set stat = 0 where id=#{user.id}
+	</update>
+
+	<select id="vailUserAccount" parameterType="com.ssic.game.common.dto.ImsUsersDto"
+		resultType="Integer">
+		select count(*) from t_ims_users where stat=1 and user_account = #{user.userAccount}
+	</select>
+	
+	<select id="userAccountByUser" resultType="com.ssic.game.common.dto.ImsUsersDto">
+		select id,
+		isAdmin,
+		`name`,
+		`password`,
+		qjy_account as qjyAccount,
+		user_account as userAccount
+		from t_ims_users where stat=1 and user_account = #{user.userAccount}
+	</select>
+	
+	<select id="findRoleId" resultType="String">
+	   select role_id as roleId from t_ims_role_users where stat=1  and user_id = #{userId}
+	</select>
+	
+	<insert id="insertRoleUsers" parameterType="com.ssic.game.common.dto.RoleUsersDto">
+	    insert into t_ims_role_users (id,role_id,user_id,stat,create_time) VALUES(
+	     #{roleUser.id},
+	     #{roleUser.roleId},
+	     #{roleUser.userId},
+	     #{roleUser.stat},
+	     #{roleUser.createTime}
+	    )
+	</insert>
+	
+	<update id="deleteRole" parameterType="String">
+	  update t_ims_role_users set stat=0 where user_id =#{userId}
+	</update>
+	
+	<update id="upPasswod" parameterType="com.ssic.game.common.dto.ImsUsersDto">
+	   update t_ims_users set PASSWORD=#{user.password} ,modifydatetime =#{user.modifydatetime}    where id=#{user.id}
+	</update>
+	
+	<update id="deleteproUser" parameterType="com.ssic.game.common.dto.ImsUsersDto">
+	  update t_ims_project_users set stat=0 where user_id=#{user.id}
+	</update>
+	
+	<update id="updateDept" parameterType="com.ssic.game.common.dto.DeptUsersDto">
+	   update t_ims_dept_users set proj_id=#{userDept.projId}, dept_id=#{userDept.deptId}, last_update_time=#{userDept.lastUpdateTime}   where user_id=#{userDept.userId}
+	</update>
+	
+	<update id="deleteDept" parameterType="com.ssic.game.common.dto.DeptUsersDto">
+	   update t_ims_dept_users set stat=0 where user_id =#{userDept.userId}
+	</update>
+	
+	<select id="findByProjId" resultType="com.ssic.game.common.dto.ImsUsersDto">
+	select a.id as id,a.`password` as password,a.user_account as userAccount  from t_ims_users a ,t_ims_dept_users b where a.id=b.user_id and a.stat=1 
+	  <if test="projId!=null and projId!='' ">
+	  and b.proj_id = #{projId}
+	  </if>
+	</select>
+	
+	<select id="findBySearchName" resultType="com.ssic.game.common.dto.ImsUsersDto" parameterType="com.ssic.game.common.dto.ImsUsersDto">
+	SELECT
+	a.id AS deptId,
+	a.dept_name AS deptName,
+	c.id AS id,
+	c.`name` AS NAME,
+	c.user_account AS userAccount,
+	c.user_image AS userImage,
+	c.gender AS gender,
+	b.is_admin AS isAdmin,
+	c.user_no AS userNo,
+	b.proj_id AS projId,
+	d.proj_name AS projName,
+	c.mobile_phone AS mobilePhone
+FROM
+	t_ims_dept a,
+	t_ims_dept_users b,
+	t_ims_users c,
+	t_ims_project d
+WHERE
+	a.id = b.dept_id
+AND b.user_id = c.id
+AND b.proj_id = d.id
+AND a.stat = 1
+AND b.stat = 1
+AND c.stat = 1
+    <if test="user.projId!=null and user.projId!='' ">
+    AND b.proj_id = #{user.projId}
+    </if>
+    <if test="user.searchName!=null and user.searchName!='' ">
+      and c.`name` like #{user.searchName}
+    </if>
+	</select>
+	
+	
+	
+</mapper>

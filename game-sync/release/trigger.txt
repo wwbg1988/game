@@ -1,0 +1,25 @@
+//-----t_ims_forms trigger
+create trigger tg_ims_forms_del before delete on t_ims_forms 
+for each row insert into sys_data_sync(table_name,key_name,key_value,opt_type) 
+values('t_ims_forms','id', old.id, 'Delete');
+
+create trigger tg_ims_forms_upd after update on t_ims_forms 
+ for each row insert into sys_data_sync(table_name,key_name,key_value,opt_type) 
+values('t_ims_forms','id', new.id, 'Update');
+
+create trigger tg_ims_forms_ins after insert on t_ims_forms 
+for each row insert into sys_data_sync(table_name,key_name,key_value,opt_type) 
+values('t_ims_forms','id',new.id, 'New');
+
+//-----t_ims_fields trigger
+create trigger tg_ims_fields_del before delete on t_ims_fields 
+for each row insert into sys_data_sync(table_name,key_name,key_value,opt_type) 
+values('t_ims_fields','id', old.id, 'Delete');
+
+create trigger tg_ims_fields_upd after update on t_ims_fields 
+ for each row insert into sys_data_sync(table_name,key_name,key_value,opt_type) 
+values('t_ims_fields','id', new.id, 'Update');
+
+create trigger tg_ims_fields_ins after insert on t_ims_fields 
+for each row insert into sys_data_sync(table_name,key_name,key_value,opt_type) 
+values('t_ims_fields','id',new.id, 'New');

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.game.common.mapper.QjyFriendExMapper">
+
+    <select id="findQJYF" parameterType="com.ssic.game.common.dto.QjyFriendDto"  resultType="com.ssic.game.common.dto.QjyFriendDto">
+    select id as id,user_id as userId,qjy_account as qjyAccount,friend_user_id as friendUserId   from t_ims_qjy_friend where stat=1
+       <include refid="where_findQJYF"></include>
+    </select>
+	
+	<sql id="where_findQJYF">
+	     <if test="qjyfriend.id != null and qjyfriend.id != '' ">
+	          and id = #{qjyfriend.id}
+	     </if>
+	     <if test="qjyfriend.userId !=null and qjyfriend.userId!='' ">
+	         and user_id = #{qjyfriend.userId}
+	     </if>
+	     <if test="qjyfriend.qjyAccount!= null  and qjyfriend.qjyAccount!='' ">
+	         and qjy_account = #{qjyfriend.qjyAccount}
+	     </if>
+	</sql>
+	
+	<insert id="insertQJYF" parameterType="com.ssic.game.common.dto.QjyFriendDto">
+	      insert into t_ims_qjy_friend(
+	      id,
+	      user_id,
+	      qjy_account,
+	      stat,
+	      friend_user_id,
+	      create_time) VALUES(
+	      #{qjyfriend.id},
+	      #{qjyfriend.userId},
+	      #{qjyfriend.qjyAccount},
+	      #{qjyfriend.stat},
+	      #{qjyfriend.friendUserId},
+	      #{qjyfriend.createTime}
+	      )
+	</insert>
+	
+	<update id="updateQJY" parameterType="com.ssic.game.common.dto.QjyFriendDto">
+	update t_ims_qjy_friend set 
+	user_id=#{qjyfriend.userId},
+	qjy_account=#{qjyfriend.qjyAccount},
+	last_update_time =#{qjyfriend.lastUpdateTime}    
+	where id=#{qjyfriend.id}
+	</update>
+    
+    <update id="deleteQJYF" parameterType="com.ssic.game.common.dto.QjyFriendDto">
+       update t_ims_qjy_friend set stat = 0  where id=#{qjyfriend.id}
+    </update>
+    
+    <select id="findUserAll" parameterType="com.ssic.game.common.dto.ImsUsersDto" resultType="com.ssic.game.common.dto.ImsUsersDto">
+    select id as id,
+    age as age,
+
+    gender as gender,
+    name as name,
+    qjy_account as qjyAccount,
+    user_account as userAccount,
+    user_no as userNo  from t_ims_users where stat=1
+      <include refid="where_findUser"></include>
+    </select>
+    
+    
+      <select id="findUser"  resultType="com.ssic.game.common.dto.ImsUsersDto">
+    select id as id,
+    age as age,
+  
+    gender as gender,
+    name as name,
+    qjy_account as qjyAccount,
+    user_account as userAccount,
+    user_no as userNo  from t_ims_users where stat=1
+      <include refid="where_findUser"></include>
+     order by createdatetime desc  LIMIT  #{page.beginRow},#{page.rows}
+    </select>
+ 
+    <select id="findUserCount" resultType="Integer">
+    select  count(*) from t_ims_users where stat=1 
+     <include refid="where_findUser"></include>
+    </select>
+    
+    <select id="findCaterUserCount" resultType="Integer"  >
+    SELECT
+	   count(a.id) 
+   FROM
+	    t_ims_users a,
+	    t_ims_dept_users b
+   WHERE
+	    a.id = b.user_id
+    AND a.stat = 1
+    AND b.stat = 1
+      <include refid="where_caterUser"></include>
+    </select>
+    
+    
+    <select id="findCaterUser" resultType="com.ssic.game.common.dto.ImsUsersDto" >
+    SELECT
+	    a.id as id,
+	    a.isAdmin as isAdmin,
+	    a.`name` as name,
+	    a.qjy_account as qjyAccount,
+	    a.user_account as userAccount,
+	    a.user_no as userNo,
+	    a.age as age,
+        a.gender as gender
+   FROM
+	    t_ims_users a,
+	    t_ims_dept_users b
+   WHERE
+	    a.id = b.user_id
+    AND a.stat = 1
+    AND b.stat = 1
+     <include refid="where_caterUser"></include>
+     order by createdatetime desc  LIMIT  #{page.beginRow},#{page.rows}
+    </select>
+    
+    <sql id="where_caterUser">
+    <if test="user.projId!=null and user.projId!='' ">
+       AND b.proj_id = #{user.projId}
+    </if>
+    <if test="user.id!=null and user.id!='' ">
+       AND a.id = #{user.id}
+    </if>
+    <if test="user.isAdmin!=null and user.isAdmin!='' ">
+       AND a.isAdmin = #{user.isAdmin}
+    </if>
+    <if test="user.name!=null and user.name!='' ">
+       AND a.`name` = #{user.name}
+    </if>
+    <if test="user.qjyAccount!=null and user.qjyAccount!='' ">
+       AND a.qjy_account = #{user.qjyAccount}
+    </if>
+    <if test="user.userAccount!=null and user.userAccount!='' ">
+       AND a.user_account = #{user.userAccount}
+    </if>
+    <if test="user.age!=null and user.age!='' ">
+      and a.age = #{user.age}
+    </if>
+    <if test="user.gender!=null and user.gender!='' ">
+      and a.gender = #{user.gender}
+    </if>
+    <if test="user.userNo!=null and user.userNo!='' ">
+      and a.user_no = #{user.userNo}
+    </if>
+    </sql>
+    
+    <sql id="where_findUser">
+        <if test="user.id !=null and user.id!='' ">
+            and id = #{user.id}
+        </if>
+        <if test="user.age != null and user.age!='' ">
+          and age = #{user.age}
+        </if>
+        <if test="user.gender != null and user.gender!='' ">
+          and gender = #{user.gender}
+        </if>
+         <if test="user.name != null and user.name != '' ">
+          and name = #{user.name}
+         </if>
+         <if test="user.qjyAccount != null and user.qjyAccount!='' ">
+          and qjy_account = #{user.qjyAccount}
+         </if>
+         <if test="user.userAccount != null and user.userAccount!='' ">
+          and user_account = #{user.userAccount}
+         </if>
+         <if test="user.userNo != null and user.userNo!='' ">
+          and user_no = #{user.userNo}
+         </if>
+    </sql>
+    
+    <update id="deleteByUserid" parameterType="com.ssic.game.common.dto.QjyFriendDto">
+        update t_ims_qjy_friend set stat = 0 where user_id = #{qjyfriend.userId}
+    </update>
+    
+    
+    <select id="findUsers" resultType="com.ssic.game.common.dto.QjyFriendDto">
+      select  a.user_id as userId,a.stat as stat,(select b.qjy_account  from t_ims_users b where a.user_id=b.id) as qjyAccount  from t_ims_qjy_friend a GROUP BY a.user_id,a.stat HAVING a.stat=1  ;
+    </select>
+    
+    <select id="findNotFriend" resultType="com.ssic.game.common.dto.ImsUsersDto">
+    select a.qjy_account as qjyAccount,
+    a.user_account as userAccount,
+    a.id as id from t_ims_users a 
+     where a.id NOT in (select a.friend_user_id from t_ims_qjy_friend a where a.user_id = #{userId})
+    </select>
+    
+    <select id="findOtherOne"  parameterType="com.ssic.game.common.dto.ImsUsersDto" resultType="com.ssic.game.common.dto.ImsUsersDto">
+    SELECT
+	a.id as id,a.user_account as userAccount 
+    FROM
+	t_ims_users a
+    LEFT JOIN t_ims_dept_users b ON a.id = b.user_id
+    WHERE
+	a.stat = 1
+    AND b.stat = 1
+    <if test="user.id != null and user.id!='' ">
+     AND a.id != #{user.id}
+    </if>
+    <if test="user.projId!=null and user.projId!='' ">
+     and  b.proj_id = #{user.projId}
+    </if>
+    </select>
+</mapper>

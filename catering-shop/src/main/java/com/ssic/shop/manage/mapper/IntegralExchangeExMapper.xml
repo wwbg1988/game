@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.shop.manage.mapper.IntegralExchangeExMapper" >
+  <select id="findExchangesByCafetoriumId" resultType="com.ssic.shop.manage.pojo.IntegralExchange" parameterType="java.lang.String">
+  select  id as id, 
+  exchange_type_id as exchangeTypeId , 
+  exchange_name as exchangeName, 
+  exchange_describe as exchangeDescribe, 
+  exchange_integral as exchangeIntegral,
+  exchange_icon as exchangeIcon,
+  create_time as createTime, 
+  last_update_time as lastUpdateTime, 
+  stat as stat 
+  from t_ctr_integral_exchange
+  where exchange_type_id in (select id from t_ctr_integral_exchange_type where cafetorium_id=#{cafetoriumId} and stat=1)
+  and stat=1
+  </select>
+</mapper>

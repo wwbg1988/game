@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.catering.base.mapper.CafetoriumExMapper" >
+	<select id="countCafetoriumByCompanyId" resultType="java.lang.Integer">
+			SELECT COUNT(1) FROM t_ctr_cafetorium t WHERE t.company_id = #{companyId} AND t.stat = '1';
+	</select>
+	
+	<select id="CafetoriumByProJectId" resultType="java.lang.String">
+			SELECT id as id FROM t_ctr_cafetorium t
+		 	  WHERE t.proj_id IN (select id as id
+			 	from t_ims_project
+			 	where id in (select proj_id from t_ctr_admin_role_project where role_id in (select role_id from t_ctr_admin_users_role where user_id = #{userId} and stat=1) and stat = 1)
+			 	and stat = 1
+			 	order by create_time desc) AND t.stat = '1'; 
+	</select>
+	
+	<select id="CafetoriumByProjId" resultType="java.lang.String">
+			select id as projId from t_ims_project
+			 	WHERE id in (select proj_id from t_ctr_admin_role_project where role_id in (select role_id from t_ctr_admin_users_role where user_id = #{userId} and stat=1) and stat = 1)
+			 	and stat = 1
+			 	order by create_time desc
+	</select>
+	
+	
+	<select id="findFollowedCafetoriumsByWeiXinIdAndProjectId" resultType="com.ssic.catering.base.dto.CafetoriumDto">
+		select 
+		t1.id as id,
+		t1.cafe_name as cafeName,
+		t1.cafe_code as cafeCode,
+		t1.mobile_no as mobileNo,
+		t1.company_id as companyId,
+		t1.fork_id as forkId,
+		t1.address as address,
+		t1.email as email,
+		t1.last_update_time as lastUpdateTime,
+		t1.create_time as createTime,
+		t1.address_id as addressId,
+		t1.proj_id as projId,
+		t1.create_user_id as createUserId,
+		t1.stat as stat,
+		t2.is_default as isDefault
+		from t_ctr_cafetorium t1
+		inner join t_ctr_weixn_user_cafetorium t2
+		on
+		t1.id = t2.cafetorium_id
+		where
+		t2.open_id=#{openId}
+		and 
+		t1.proj_id = #{projectId}
+		and t1.stat = 1
+		and t2.stat = 1
+	</select>
+	
+	
+	<select id="findFollowedCafetoriumsByWeiXinId" resultType="com.ssic.catering.base.dto.CafetoriumDto">
+		select 
+		t1.id as id,
+		t1.cafe_name as cafeName,
+		t1.cafe_code as cafeCode,
+		t1.mobile_no as mobileNo,
+		t1.company_id as companyId,
+		t1.fork_id as forkId,
+		t1.address as address,
+		t1.email as email,
+		t1.last_update_time as lastUpdateTime,
+		t1.create_time as createTime,
+		t1.address_id as addressId,
+		t1.proj_id as projId,
+		t1.create_user_id as createUserId,
+		t1.stat as stat,
+		t2.is_default as isDefault
+		from t_ctr_cafetorium t1
+		inner join t_ctr_weixn_user_cafetorium t2
+		on
+		t1.id = t2.cafetorium_id
+		where
+		t2.open_id=#{openId}
+		and t1.stat = 1
+		and t2.stat = 1
+	</select>
+</mapper>

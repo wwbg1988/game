@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.shop.manage.mapper.ShoppingCartExMapper" >
+ 	<delete id="deleteShoppingCartInfo">
+ 		DELETE FROM t_ctr_shopping_cart  WHERE open_id = #{userId} AND  goods_id = #{shopCatId} and stat = 1;
+ 	</delete>
+ 	<update id="deleteByExample" parameterType="java.lang.String" >
+ 		UPDATE t_ctr_shopping_cart SET stat='0' WHERE open_id= #{carteUserId};
+ 	</update>
+ 	
+ 	<select id="countShoppingCart" resultType="java.lang.Integer">
+ 		SELECT COALESCE(SUM(t.count),0) FROM t_ctr_shopping_cart t WHERE t.open_id = #{userId} and t.stat = 1;
+ 	</select>
+ 	
+ 	<select id="countIsNotAdd" resultType="int">
+ 		select count(1) from  t_ctr_shopping_cart t  WHERE t.open_id = #{userId} and t.goods_id = #{shopId} and t.stat = 1;
+ 	</select>
+ 	
+ 	<update id="updataShopCount">
+ 		update t_ctr_shopping_cart t set count = #{shopNum} WHERE t.open_id = #{userId} and t.goods_id = #{shopId} and t.stat = 1;
+ 	</update>
+ 	
+ 	<update id="updataShopIdCount">
+ 		update t_ctr_shopping_cart t set count = count + #{shopNum} WHERE t.open_id = #{userId} and t.goods_id = #{shopId} and t.stat = 1;
+ 	</update>
+ 	
+ 	<select id="countGoodsType" resultType="java.lang.Integer">
+ 		SELECT  COALESCE(SUM(t.count),0) FROM t_ctr_shopping_cart t where t.open_id = #{userId} and t.goods_id = #{shopId} and t.goods_type_id = 1;
+ 	</select>
+ 	
+ 	<select id="countGoodsCount" resultType="java.lang.Integer">
+ 		SELECT  t.count FROM t_ctr_shopping_cart t where t.open_id = #{userId} and t.goods_id = #{shopId} and t.stat = 1;
+ 	</select>
+ 	
+</mapper>

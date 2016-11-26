@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.game.common.mapper.FieldRoleExMapper" >
+  <update id="updateDel" >
+  	update t_ims_field_role set stat = 0,last_update_time = #{fi.lastUpdateTime} where form_id=#{fi.formId} and field_id = #{fi.fieldId} and proj_id = #{fi.projId} and reader_write=#{fi.readerWrite}
+  	  </update>
+</mapper>

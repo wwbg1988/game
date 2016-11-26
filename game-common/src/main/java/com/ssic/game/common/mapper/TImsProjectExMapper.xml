@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.game.common.mapper.TImsProjectExMapper">
+
+
+	<select id="findAll" resultType="com.ssic.game.common.dto.ProjectDto">
+		select id,proj_name as
+		projName,describes,stat,last_update_time as lastUpdateTime,create_time as
+		createTime from t_ims_project where stat =1
+	</select>
+
+	<select id="findById" resultType="com.ssic.game.common.dto.ProjectDto">
+		select id,proj_name as
+		projName,describes,stat,last_update_time as lastUpdateTime,create_time as
+		createTime from t_ims_project where id=#{id}
+	</select>
+
+	<select id="findByIdName" resultType="com.ssic.game.common.dto.ProjectDto">
+		SELECT
+		id as id,
+		proj_name AS projName,
+		describes,
+		stat,
+		last_update_time AS lastUpdateTime,
+		create_time AS createTime
+		FROM
+		t_ims_project
+		WHERE
+		stat = 1
+		<include refid="where_clause_1" />
+		order by create_time desc
+	</select>
+
+<select id="findByIdNameAll" resultType="com.ssic.game.common.dto.ProjectDto">
+		SELECT
+		id as id,
+		proj_name AS projName,
+		describes,
+		stat,
+		last_update_time AS lastUpdateTime,
+		create_time AS createTime
+		FROM
+		t_ims_project
+		WHERE
+		stat = 1
+		<include refid="where_clause_1" />
+		order by create_time desc  limit #{page.beginRow},#{page.rows}
+	</select>
+	
+	<select id="findCount" resultType="Integer">
+	select count(*) from t_ims_project where stat=1
+	<include refid="where_clause_1" />
+	</select>
+	
+
+	<sql id="where_clause_1">
+		<if test="project.id!=null and project.id!=''">
+			and id = #{project.id}
+		</if>
+		<if test="project.projName!=null and project.projName!=''">
+			and proj_name = #{project.projName}
+		</if>
+		<if test="project.describes!= null and project.describes!='' ">
+		    and describes = #{project.describes}
+		</if>
+	</sql>
+
+	<insert id="insert" parameterType="com.ssic.game.common.dto.ProjectDto">
+		insert into t_ims_project(
+		id,
+		proj_name,
+		describes,
+		stat,
+		create_time)
+		values(
+		#{project.id},
+		#{project.projName},
+		#{project.describes},
+		#{project.stat},
+		#{project.createTime}
+		)
+	</insert>
+
+    <update id="update" parameterType="com.ssic.game.common.dto.ProjectDto">
+       update t_ims_project set 
+       proj_name=#{project.projName} ,
+       describes=#{project.describes},
+       last_update_time =#{project.lastUpdateTime}  
+       where id=#{project.id}
+    </update>
+    
+    <update id="deleteById" parameterType="com.ssic.game.common.dto.ProjectDto">
+       update t_ims_project set stat = 0 where id = #{project.id}
+    </update>
+    
+    <select id="findByUserID"  resultType="com.ssic.game.common.dto.ProjectUsersDto" >
+       select a.id as id,a.proj_id as projId,a.user_id as userId  from t_ims_project_users a where a.stat=1 and a.user_id=#{userId}
+    </select>
+    
+</mapper>

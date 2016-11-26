@@ -1,0 +1,75 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script type="text/javascript">
+	$(function() {
+		parent.$.messager.progress('close');
+		$('#form').form({
+			url : '${pageContext.request.contextPath}/notifyController/updateNotify',
+			onSubmit : function() {
+				
+
+				parent.$.messager.progress({
+					title : '提示',
+					text : '数据处理中，请稍后....'
+				});
+				var isValid = $(this).form('validate');
+				if (!isValid) {
+					parent.$.messager.progress('close');
+				}
+				return isValid;
+			},
+			success : function(result) {
+				parent.$.messager.progress('close');
+				result = $.parseJSON(result);
+				if (result.success) {
+					parent.$.modalDialog.openner_dataGrid.datagrid('reload');//之所以能在这里调用到parent.$.modalDialog.openner_dataGrid这个对象，是因为user.jsp页面预定义好了
+					 parent.$.modalDialog.handler.dialog('close');
+					//parent.$.messager.alert('提示', result.msg, 'info');
+					 $('#dd').dialog('close');
+					parent.$.messager.show({
+						title : '提示',
+						msg : result.msg
+					});
+				} else {
+					parent.$.messager.alert('错误', result.msg, 'error');
+				}
+			}
+			
+			
+			
+		});
+	});
+	
+ 	
+</script>
+<div class="easyui-layout" data-options="fit:true,border:false">
+	<div data-options="region:'center',border:false" title="" style="overflow: hidden;">
+		<form id="form" method="post">
+		<input  id="queryId" name="queryId" type="hidden" value="${queryId}" />
+		<input id="id" name="id" type="hidden" value="${nDto.id}"/>
+			<table class="table table-hover table-condensed">
+				<tr>
+					<th style="width: 20%;">名称</th>
+					<td style="width: 90%;"><input style="width: 90%;" id="name" name="name" type="text" placeholder="请输入名称" class="easyui-validatebox span2" data-options="required:true" value="${nDto.name}"></td>
+				</tr>
+				<tr>
+				    <th style="width: 20%;">列表标题</th>
+					<td style="width: 90%;"><input style="width: 90%;" id="listTitle" name="listTitle" type="text" placeholder="请输入列表标题" class="easyui-validatebox span2" data-options="required:true" value="${nDto.listTitle}"></td>
+				</tr>
+				<tr>
+				    <th style="width: 20%;">列表内容</th>
+					<td style="width: 90%;"><input style="width: 90%;" id="listText" name="listText" type="text" placeholder="请输入列表内容" class="easyui-validatebox span2" data-options="required:true" value="${nDto.listText}"></td>
+				</tr>
+				<tr>
+				    <th style="width: 20%;">正文标题</th>
+					<td style="width: 90%;"><input style="width: 90%;" id="title" name="title" type="text" placeholder="请输入正文标题" class="easyui-validatebox span2" data-options="required:true" value="${nDto.title}"></td>
+				</tr>
+				<tr>
+				    <th style="width: 20%;">正文内容</th>
+					<td style="width: 90%;"><input style="width: 90%;" id="text" name="text" type="text" placeholder="请输入正文标题" class="easyui-validatebox span2" data-options="required:true" value="${nDto.text}"></td>
+				</tr>
+			
+			</table>
+		</form>
+	</div>
+</div>

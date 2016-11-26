@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.catering.base.mapper.ConfigScoreExMapper" >
+
+	<resultMap id="BaseResultMap" type="com.ssic.catering.base.pojo.ConfigScore" >
+	    <id column="id" property="id" jdbcType="VARCHAR" />
+	    <result column="config_id" property="configId" jdbcType="VARCHAR" />
+	    <result column="score" property="score" jdbcType="VARCHAR" />
+	    <result column="cafetorium_id" property="cafetoriumId" jdbcType="VARCHAR" />
+	    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	    <result column="stat" property="stat" jdbcType="INTEGER" />
+	</resultMap>
+
+  <!-- 实时统计每个餐厅当天的每项的评分分数 -->
+  <select id="CountScore" resultType="com.ssic.catering.base.dto.ConfigScoreDto">
+  		SELECT SUM(t.score) as countScore,t.id as id,t.config_id as configId,t.cafetorium_id as cafetoriumId FROM t_ctr_config_score t WHERE 
+  		  t.cafetorium_id = #{cafetoriumId} AND t.stat = '1' AND DATE_FORMAT(t.create_time,'%Y%m%d') = DATE_FORMAT(now(),'%Y%m%d') GROUP BY t.config_id
+  </select>
+  
+  <select id="findScoreByCafetoriumAndCreateTime"  resultType="int"  parameterType="map">
+ 	select sum(score) from t_ctr_config_score where Date_Format(create_time,'%Y-%m-%d')=Date_Format(#{createTime},'%Y-%m-%d') and (
+        <foreach collection="cafetoriumList" item="cafetorium"   separator="or">  
+	        cafetorium_id=#{cafetorium.id}
+	     </foreach>  
+	     ) and stat = '1'
+	</select>
+	
+	
+	  <select id="findHistoryScoreByCafetorium"  resultType="int"  parameterType="map">
+ 	select sum(score) from t_ctr_config_score where  stat = '1'  and (
+        <foreach collection="cafetoriumList" item="cafetorium"   separator="or">  
+	       cafetorium_id=#{cafetorium.id} 
+	     </foreach>  
+	     )
+	</select>
+	
+  <select id="findCountByCafetoriumAndCreateTime"  resultType="int"  parameterType="map">
+ 	select count(*) from t_ctr_config_score where Date_Format(create_time,'%Y-%m-%d')=Date_Format(#{createTime},'%Y-%m-%d') and (
+        <foreach collection="cafetoriumList" item="cafetorium"   separator="or">  
+	        cafetorium_id=#{cafetorium.id}
+	     </foreach>  
+	     ) and stat = '1'
+	</select>
+	
+	<select id="findHistoryCountByCafetorium"  resultType="int"  parameterType="map">
+ 	select count(*) from t_ctr_config_score where stat = '1'   and ( 
+        <foreach collection="cafetoriumList" item="cafetorium"   separator="or">  
+	      cafetorium_id=#{cafetorium.id}  
+	     </foreach>  
+	     )
+	</select>
+	
+	<select id="findCafetoriumScoreByCafetoriumId"  resultType="int"  parameterType="map">
+ 		select sum(score) from t_ctr_config_score where Date_Format(create_time,'%Y-%m-%d')=Date_Format(#{createTime},'%Y-%m-%d') and cafetorium_id=#{cafetoriumId} and stat = '1'
+	</select>
+	
+	<select id="findCafetoriumCountByCafetoriumId"  resultType="int"  parameterType="map">
+ 		select count(*) from t_ctr_config_score where Date_Format(create_time,'%Y-%m-%d')=Date_Format(#{createTime},'%Y-%m-%d') and cafetorium_id=#{cafetoriumId} and stat = '1'
+	</select>
+	
+	<select id="findCreateTimeDistinct"  resultType="String"  parameterType="map">
+ 		select distinct Date_Format(create_time,'%Y-%m-%d') from t_ctr_config_score where cafetorium_id=#{cafetoriumId} and stat = '1' ORDER BY create_time DESC LIMIT #{index},#{size}
+	</select>
+	
+	<select id="findConfigScoreListToCafetoriumIdByCreateTime"  resultMap="BaseResultMap"  parameterType="map">
+ 		select id,config_id,score,cafetorium_id,create_time from t_ctr_config_score where cafetorium_id=#{cafetoriumId} and Date_Format(create_time,'%Y-%m-%d')=#{time} and stat = '1'
+	</select>
+</mapper>

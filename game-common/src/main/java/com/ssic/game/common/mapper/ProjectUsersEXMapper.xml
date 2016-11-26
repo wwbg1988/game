@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.game.common.mapper.ProjectUsersEXMapper">
+
+
+	<select id="findAll" resultType="com.ssic.game.common.dto.ProjectUsersDto"
+		parameterType="com.ssic.game.common.dto.ProjectUsersDto">
+		select id as id,proj_id as projId ,
+		(select a.proj_name from t_ims_project a where a.id = proj_id) as
+		projName,
+		user_id as userId ,
+		(select b.name from t_ims_users b where b.id = user_id) as userName
+		from t_ims_project_users
+		where stat =1
+		<include refid="where_findAll"></include>
+	</select>
+	
+		<select id="findAllUserRole" resultType="Map" >
+		SELECT DISTINCT
+	usr.id as userId,
+	usr.`name` as userName
+FROM
+	t_ims_project_users pro
+INNER JOIN t_ims_users usr ON pro.user_id = usr.id
+WHERE
+	usr. `NAME` LIKE #{searchName}
+AND pro.proj_id = #{projId} and pro.stat=1 and de.stat =1 and usr.stat=1
+	</select>
+	
+			<select id="findAllUserNotExist" resultType="Map" >
+		SELECT DISTINCT
+	pro.dept_id as deptId,
+	de.dept_name as deptName,
+	usr.id as userId,
+	usr.`name` as userName
+	
+FROM
+	t_ims_project_users pro
+INNER JOIN t_ims_users usr ON pro.user_id = usr.id
+INNER JOIN t_ims_dept de ON de.id = pro.dept_id
+WHERE
+ pro.proj_id = #{projId} 
+ <if test="searchName!=null and searchName!=''">
+ 	and usr. `NAME` LIKE #{searchName}
+ </if>
+<if test="userId!=null and userId!=''">
+and pro.user_id not in (#{userId})
+</if>
+and pro.stat=1 and de.stat =1 and usr.stat=1
+order by deptId
+	</select>
+    
+    <!-- <sql id="where_findAll">
+         <if test="projectusers.id !=null and projectusers.id!='' ">
+             and  id= #{projectusers.id}
+         </if>
+         <if test="projectusers.projId != null and projectusers.projId!='' ">
+             and  proj_id = #{projectusers.projId}
+         </if>
+         <if test="projectusers.userId !=null and projectusers.userId!='' ">
+             and user_id = #{projectusers.userId}
+         </if>
+         <if test="projectusers.deptId !=null and projectusers.deptId!='' ">
+             and dept_id = #{projectusers.deptId}
+         </if>
+    </sql> -->
+    
+    <insert id="insertPUser" parameterType="com.ssic.game.common.dto.ProjectUsersDto">
+          insert into t_ims_project_users 
+          (id,
+          proj_id,
+          user_id,
+          stat,
+          create_time
+          ) values(
+          #{projectusers.id},
+          #{projectusers.projId},
+          #{projectusers.userId},
+          #{projectusers.stat},
+          #{projectusers.createTime}
+          )
+    </insert>
+    
+    <update id="updatePUser" parameterType="com.ssic.game.common.dto.ProjectUsersDto">
+       update t_ims_project_users set
+        proj_id=#{projectusers.projId},
+        user_id=#{projectusers.userId}   
+        where id= #{projectusers.id}
+    </update>
+    
+    <delete id="deletePUser" parameterType="com.ssic.game.common.dto.ProjectUsersDto">
+          update t_ims_project_users set stat= 0 ,last_update_time=#{projectusers.lastUpdateTime}  where id= #{projectusers.id}
+    </delete>
+    
+    <delete id="deleteByProjid" parameterType="com.ssic.game.common.dto.ProjectUsersDto">
+          update t_ims_project_users set stat= 0 ,last_update_time=#{projectusers.lastUpdateTime}   where proj_id= #{projectusers.projId}
+    </delete>
+
+	<select id="findDept" parameterType="com.ssic.game.common.dto.ProjectUsersDto"
+		resultType="com.ssic.game.common.dto.ProjectUsersDto">
+		SELECT DISTINCT
+		id as id
+		FROM
+		t_ims_project_users
+		where stat=1 
+		<include refid="where_findAll"></include>
+	</select>
+
+	<sql id="where_findAll">
+		<if test="projectusers.id !=null and projectusers.id!='' ">
+			and id= #{projectusers.id}
+		</if>
+		<if test="projectusers.projId != null and projectusers.projId!='' ">
+			and proj_id = #{projectusers.projId}
+		</if>
+		<if test="projectusers.userId !=null and projectusers.userId!='' ">
+			and user_id = #{projectusers.userId}
+		</if>
+		
+	</sql>
+	
+	<select id="findUsers" parameterType="com.ssic.game.common.dto.ProjectUsersDto"
+		resultType="com.ssic.game.common.dto.ProjectUsersDto">
+		SELECT DISTINCT
+		a.user_id as userId,
+		b.`name` as userName
+		FROM
+		t_ims_project_users a
+		LEFT JOIN t_ims_users b ON a.user_id = b.id
+		WHERE
+		a.stat = 1
+		
+		<if test="projectusers.userName!=null and projectusers.userName!='' ">
+		  AND b.`name` LIKE  #{projectusers.userName}
+		</if>
+		
+
+	</select>
+
+    <select id="findProDept" parameterType="com.ssic.game.common.dto.ProjectUsersDto" resultType="com.ssic.game.common.dto.ProjectUsersDto">
+	     select id as deptId,dept_name as deptName  from t_ims_dept where stat=1 and proj_id =#{projectusers.projId}
+	</select>
+	
+	
+	<select id="findProjectByIMSUserId" parameterType="java.lang.String" resultType="com.ssic.game.common.pojo.Project">
+	    select id as id,
+	 	proj_name as projName,
+	 	describes as describes,
+	 	stat as stat,
+	 	last_update_time as lastUpdateTime,
+	 	create_time as createTime
+	 	from t_ims_project
+	 	where id in (select proj_id from t_ims_project_users where user_id = #{userId} and stat=1)
+	 	and stat = 1
+	 	order by create_time desc
+	</select>
+</mapper>

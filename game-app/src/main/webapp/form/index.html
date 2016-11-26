@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui" />
+		<!-- // <script src="./js/jquery-1.8.0.min.js"></script> -->
+		<link rel="stylesheet" href="css/jquery.mobile-1.3.0.min.css" />
+		<script src="js/jquery-1.9.1.min.js"></script>
+		<script src="js/jquery.mobile-1.3.0.min.js"></script>
+    	<link href="css/mobiscroll.css" rel="stylesheet" />
+    	<script src="js/mobiscroll.js" type="text/javascript"></script>
+		<script src="js/jquery.form.js"></script>
+		<script src="js/jquery.metadata.js"></script>
+		<script src="js/jquery.mockjax.js"></script>
+		<script src="js/jquery.validate.min.js"></script>
+		<script src="js/additional-methods.min.js"></script>
+    	<style type="text/css">
+	        body
+	        {
+	            font-family: arial, verdana, sans-serif;
+	            font-size: 12px;
+	        }
+
+	        .car
+	        {
+	            position: relative;
+	            height: 100%;
+	        }
+
+            .car img
+            {
+                height: 28px;
+                display: block;
+                margin: 0 auto;
+            }
+
+            .car .img-cont
+            {
+                width: 80px;
+                height: 28px;
+                text-align: center;
+                float: left;
+                position: relative;
+                top: 50%;
+                margin-top: -14px;
+            }
+
+            .car span
+            {
+                float: left;
+            }
+
+            .bottom {
+            	position:fixed; bottom:0; background:#000; width:100%; height:48px; line-height:48px; z-index:1;
+            }
+    	</style>
+    	
+		<!-- // <script src="/Users/yan/Custom/js_lib/zepto.validate.js"></script> -->
+		<script>
+			var baseUrl = "";
+			// var data={"status":200,"message":"","data":{"userId":"0", "id":"3106d8de-ffee-4bc8-b318-0a2e0620a9c1","name":"八度空间","projId":"9b099b0c-f076-418a-9bef-2bf680889903","procInstanceId":"9faf1905-bf73-4f99-bace-ac97e495331b","type":1,"state":0,"formId":"e1ec3984-c31f-4691-9687-432bea7c3b95","fields":[{"paramDesc":"表单名称","paramName":"formName","fieldValue":null,"fieldDesc":null,"pattern":"","isEncrypt":false,"isUniline":true,"isDiy":false,"length":33,"height":22,"type":1,"dataType":2,"required":true,"permission":2,"order":1,"fieldsDict":null},{"paramDesc":"测试表单多选","paramName":"duoxuan","fieldValue":null,"fieldDesc":null,"pattern":"","isEncrypt":false,"isUniline":true,"isDiy":true,"length":30,"height":20,"type":2,"dataType":2,"required":true,"permission":2,"order":2,"fieldsDict":[{"id":"180d2b3e-97a5-4cbd-8565-ca5114fa6023","projId":null,"fieldValue":"77","fieldDesc":"777","stat":1,"lastUpdateTime":1435635959000,"createTime":1435635959000,"projName":"暂无项目"},{"id":"b87d6670-0e78-4c9a-aa61-ae30079295fd","projId":null,"fieldValue":"5","fieldDesc":"呵呵","stat":1,"lastUpdateTime":1435635954000,"createTime":1435635954000,"projName":"暂无项目"}]},{"paramDesc":"姓名","paramName":"name","fieldValue":null,"fieldDesc":null,"pattern":"cd","isEncrypt":false,"isUniline":true,"isDiy":false,"length":23,"height":2,"type":1,"dataType":2,"required":true,"permission":2,"order":3,"fieldsDict":null},{"paramDesc":"性别","paramName":"gener","fieldValue":null,"fieldDesc":null,"pattern":"ccc","isEncrypt":false,"isUniline":true,"isDiy":true,"length":22,"height":22,"type":6,"dataType":2,"required":true,"permission":2,"order":4,"fieldsDict":[{"id":"03b89deb-0844-46a1-9bb6-218464c3e3b1","projId":"","fieldValue":"1","fieldDesc":"女","stat":1,"lastUpdateTime":1435548280000,"createTime":1435231747000,"projName":"暂无项目"},{"id":"65710979-18bd-479f-bf38-eaa914b8f113","projId":"","fieldValue":"0","fieldDesc":"男","stat":1,"lastUpdateTime":1435290305000,"createTime":1435232385000,"projName":"暂无项目"}]},{"paramDesc":"住址","paramName":"address","fieldValue":null,"fieldDesc":null,"pattern":"ccc","isEncrypt":false,"isUniline":true,"isDiy":false,"length":222,"height":222,"type":1,"dataType":2,"required":true,"permission":2,"order":5,"fieldsDict":null},{"paramDesc":"手机号","paramName":"phone","fieldValue":null,"fieldDesc":null,"pattern":"","isEncrypt":false,"isUniline":true,"isDiy":false,"length":22,"height":22,"type":1,"dataType":2,"required":true,"permission":2,"order":6,"fieldsDict":null},{"paramDesc":"地区","paramName":"area","fieldValue":null,"fieldDesc":null,"pattern":"","isEncrypt":false,"isUniline":true,"isDiy":true,"length":33,"height":22,"type":10,"dataType":2,"required":true,"permission":2,"order":7,"fieldsDict":[{"id":"037df847-c0e7-4f03-88db-1dbf5042a771","projId":null,"fieldValue":"2","fieldDesc":"北京","stat":1,"lastUpdateTime":1435290296000,"createTime":1435290296000,"projName":"暂无项目"}]},{"paramDesc":"爱好","paramName":"hobby","fieldValue":null,"fieldDesc":null,"pattern":"","isEncrypt":false,"isUniline":true,"isDiy":true,"length":222,"height":333,"type":10,"dataType":2,"required":true,"permission":2,"order":8,"fieldsDict":[{"id":"e8cfe337-4fe4-4363-87e0-b53fcc50c5d7","projId":null,"fieldValue":"1","fieldDesc":"篮球","stat":1,"lastUpdateTime":1435395189000,"createTime":1435395189000,"projName":"暂无项目"},{"id":"f9ad425b-bc3f-4568-9fc8-54eeab47b898","projId":null,"fieldValue":"2","fieldDesc":"足球","stat":1,"lastUpdateTime":1435395194000,"createTime":1435395194000,"projName":"暂无项目"},{"id":"dfd78c65-2133-4377-8b4a-1f7fec967b27","projId":null,"fieldValue":"3","fieldDesc":"羽毛球","stat":1,"lastUpdateTime":1435395199000,"createTime":1435395199000,"projName":"暂无项目"},{"id":"7ac1c7f5-8b39-4ffc-b415-77efb3cf06ab","projId":null,"fieldValue":"ball","fieldDesc":"保龄球2","stat":1,"lastUpdateTime":1435633504000,"createTime":1435633500000,"projName":"暂无项目"}]},{"paramDesc":"邮箱","paramName":"mail","fieldValue":null,"fieldDesc":null,"pattern":"^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\\\\.([a-zA-Z0-9_-])+)+$^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\\\\.([a-zA-Z0-9_-])+)+$","isEncrypt":false,"isUniline":true,"isDiy":false,"length":20,"height":20,"type":1,"dataType":2,"required":true,"permission":2,"order":11,"fieldsDict":null}],"actions":[{"id":"3f1ecabc-8470-4aa4-9da0-54dec8224203","name":"8度空间","type":4,"actionUrl":"/game-app/zidingyi.jsp"}]}};
+			// data = data.data;
+		</script>
+		<script type="text/javascript">
+			var fieldRender = {};
+
+			fieldRender.renderText = function(field) {
+				var div = $('<div data-role="fieldcontain" style="position:relative;" class="ui-field-contain ui-body ui-br" />');
+				var label = $('<label class="ui-input-text" />');
+				var text = $('<input class="ui-input-text ui-body-c" style="max-width:80%;" />');
+				label.text(field.paramDesc);
+				label.attr('for', isNaN(field.paramName) ? field.paramName : "t" + field.paramName);
+				text.attr({
+					type: 'text',
+					maxlength: field.length,
+					id: isNaN(field.paramName) ? field.paramName : "t" + field.paramName,
+					name: isNaN(field.paramName) ? field.paramName : "t" + field.paramName
+				});
+				if(field.required){
+					text.addClass("required");
+				}
+				if(field.length>0){
+					text.attr('maxlength', field.length)
+				}
+				if(field.fieldValue!=undefined){
+					text.val(field.fieldValue);
+				}
+				if(field.permission==1){
+					text.attr('readonly', 'readonly');
+				} else
+				if(field.dataType==4){
+					text.attr('readonly', 'readonly');
+					text.attr('data-role', 'datebox');
+				}
+				div.append(label);
+				div.append(text);
+				
+				fieldRender.form.append(div);
+
+				if(field.isDiy){
+					div.addClass('diy-' + field.paramName);
+				
+					if(field.permission==1){
+						return;
+					}
+
+					var btn = $('<input type="button" action="add" style="width:32px;height:32px;position:relative;top:-36px;float:right;background:url(./image/icon_add.png);background-size:32px 32px;background-repeat:no-repeat;background-position:center;border:none;" />');
+					div.append(btn);
+
+					btn.on('click', function() {
+						$('.diy-' + field.paramName).filter(':last').after(function() {
+							var div = $("<div class='diy-"+ field.paramName+" ui-field-contain ui-body ui-br' style='position:relative;'  data-role='fieldcontain' />");
+							var label = $('<label class="ui-input-text" />');
+							var text = $('<input class="ui-input-text ui-body-c" style="max-width:80%;" />');
+							label.text(field.paramDesc);
+							label.attr('for', (isNaN(field.paramName) ? field.paramName : "t" + field.paramName) + $('.diy-' + field.paramName));
+							text.attr({
+								type: 'text',
+								maxlength: field.length,
+								id: (isNaN(field.paramName) ? field.paramName : "t" + field.paramName) + $('.diy-' + field.paramName).length,
+								name: (isNaN(field.paramName) ? field.paramName : "t" + field.paramName) + $('.diy-' + field.paramName).length
+							});
+							if(field.required){
+								text.addClass("required");
+							}
+							if(field.length>0){
+								text.attr('maxlength', field.length)
+							}
+							if(field.fieldValue!=undefined){
+								text.val(field.fieldValue);
+							}
+							if(field.permission==1){
+								text.attr('readonly', 'readonly');
+							} else
+							if(field.dataType==4){
+								text.attr('readonly', 'readonly');
+								text.attr('data-role', 'datebox');
+							}
+							// if(field.isDiy){
+							// 	div.addClass('diy');
+							// }
+							var btn = $('<input type="button" action="del" style="width:32px;height:32px;position:relative;float:right;top:-36px;background:url(./image/icon_del.png);background-size:32px 32px;background-repeat:no-repeat;background-position:center;border:none;" />');
+							btn.on('click', function() {
+								// fieldRender.form.remove(div);
+								div.remove();
+								$('.diy-' + field.paramName).filter(':last').find('input[action="del"]').show();
+							});
+							div.append(label);
+							div.append(text);
+							div.append(btn);
+							$('.diy-' + field.paramName + '>input[action="del"]').hide();
+							btn.show();
+							return div;
+						});
+					});
+				}
+			}
+
+			fieldRender.renderCheckbox = function(field) {
+				var div = $('<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br" />');
+				var label = $('<label class="ui-input-text" />');
+
+				label.text(field.paramDesc);
+				div.append(label);
+
+				var fieldDicts = field.fieldsDict;
+				for (index in fieldDicts) {
+					// var innerDiv = $('<div />');
+					var fieldDict = fieldDicts[index];
+					var checkbox = $('<input />');
+					var labelForCheckbox = $('<label class="ui-input-text" />');
+					checkbox.attr({
+						type: 'checkbox',
+						value: fieldDict.fieldValue,
+						name: field.paramName,
+						id: field.paramName + index
+					});
+					labelForCheckbox.attr('for', field.paramName + index);
+					labelForCheckbox.text(fieldDict.fieldDesc);
+					if(index==0 && field.required){
+						// checkbox.attr('required', 'required');
+						// checkbox.attr('minlength', 1);
+						checkbox.attr('class', '{required:true, minlength:1}');
+					}
+					if(field.fieldValue!=undefined){
+						if(field.fieldValue.indexOf(fieldDict.fieldValue)!==-1){
+							checkbox.prop('checked', true);
+						}
+					}
+
+					if(field.permission==1){
+						checkbox.attr('readonly', 'readonly');
+					}
+					div.append(checkbox);
+					div.append(labelForCheckbox);
+					// div.append(innerDiv);
+				};
+				fieldRender.form.append(div);
+			}
+
+			fieldRender.renderHidden = function(field) {
+
+			}
+
+			fieldRender.renderImg = function(field) {
+				
+			}
+
+			fieldRender.renderPassword = function(field) {
+				var div = $('<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br" />');
+				var label = $('<label class="ui-input-text" />');
+				var text = $('<input class="ui-input-text ui-body-c" />');
+				label.text(field.paramDesc);
+				label.attr('for', field.paramName);
+				text.attr({
+					type: 'password',
+					maxlength: field.length,
+					id: field.paramName,
+					name: field.paramName
+				});
+				if(field.required){
+					text.addClass("required");
+				}
+				if(field.length>0){
+					text.attr('maxlength', field.length)
+				}
+
+				if(field.fieldValue!=undefined){
+					text.val(field.fieldValue);
+				}
+				if(field.permission==1){
+					text.attr('disabled', 'disabled');
+				}
+				div.append(label);
+				div.append(text);
+				fieldRender.form.append(div);
+			}
+
+			fieldRender.renderRadio = function(field) {
+				var div = $('<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br" />');
+				var label = $('<label class="ui-input-text" />');
+
+				label.text(field.paramDesc);
+				div.append(label);
+
+				var fieldDicts = field.fieldsDict;
+				for (index in fieldDicts) {
+					var fieldDict = fieldDicts[index];
+					var checkbox = $('<input class="ui-input-text ui-body-c" />');
+					var labelForCheckbox = $('<label />');
+					checkbox.attr({
+						type: 'radio',
+						value: fieldDict.fieldValue,
+						name: field.paramName,
+						id: field.paramName + index
+					});
+					labelForCheckbox.attr('for', field.paramName + index);
+					labelForCheckbox.text(fieldDict.fieldDesc);
+					if(index==0 && field.required){
+						// checkbox.attr('required', 'required');
+						// checkbox.attr('minlength', 1);
+						checkbox.attr('class', 'required');
+					}
+					if(field.fieldValue!=undefined){
+						if(field.fieldValue.indexOf(fieldDict.fieldValue)!==-1){
+							checkbox.prop('checked', true);
+						}
+					}
+					if(field.permission==1){
+						checkbox.attr('disabled', 'disabled');
+					}
+					div.append(checkbox);
+					div.append(labelForCheckbox);
+				};
+				fieldRender.form.append(div);
+			}
+
+			fieldRender.renderReset = function(field) {
+				
+			}
+
+			fieldRender.renderFile = function(field) {
+				
+			}
+
+			fieldRender.renderLabel = function(field) {
+				
+			}
+
+			fieldRender.renderSelect = function(field) {
+				var div = $('<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br" />');
+				var label = $('<label class="ui-input-text" />');
+				var select = $('<select />');
+
+				label.text(field.paramDesc);
+				div.append(label);
+
+				select.attr({
+					id: field.paramName,
+					name: field.paramName
+				});
+				div.append(select);
+
+				var fieldDicts = field.fieldsDict;
+				for (index in fieldDicts) {
+					var fieldDict = fieldDicts[index];
+					var option = $('<option />');
+					option.attr('value', fieldDict.fieldValue);
+					option.text(fieldDict.fieldDesc);
+					if(field.fieldValue!=undefined){
+						if(field.fieldValue.indexOf(fieldDict.fieldValue)!==-1){
+							option.prop('selected', 'selected');
+						}
+					}
+					select.append(option);
+				};
+				if(field.permission==1){
+						select.attr('disabled', 'disabled');
+					}
+				fieldRender.form.append(div);
+			}
+
+			fieldRender.renderTextarea = function(field) {
+				var div = $('<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br" />');
+				var label = $('<label class="ui-input-text" />');
+				var text = $('<textarea class="ui-input-text ui-body-c" />');
+				label.text(field.paramDesc);
+				label.attr('for', field.paramName);
+				text.attr({
+					lines: 5,
+					id: field.paramName,
+					name: field.paramName
+				});
+				if(field.permission==1){
+						text.attr('disabled', 'disabled');
+					}
+					if(field.length>0){
+					text.attr('maxlength', field.length)
+				}
+				if(field.fieldValue!=undefined){
+					text.val(field.fieldValue);
+				}
+				div.append(label);
+				div.append(text);
+				fieldRender.form.append(div);
+			}
+		</script>
+		<script type="text/javascript">
+
+		$.extend($.validator.messages, {
+    		required: "必选字段",
+    		remote: "请修正该字段",
+		    email: "请输入正确格式的电子邮件",
+		    url: "请输入合法的网址",
+		    date: "请输入合法的日期",
+		    dateISO: "请输入合法的日期 (ISO).",
+		    number: "请输入合法的数字",
+		    digits: "只能输入整数",
+		    creditcard: "请输入合法的信用卡号",
+		    equalTo: "请再次输入相同的值",
+		    accept: "请输入拥有合法后缀名的字符串",
+		    maxlength: $.validator.format("请输入一个长度最多是 {0} 的字符串"),
+		    minlength: $.validator.format("请输入一个长度最少是 {0} 的字符串"),
+		    rangelength: $.validator.format("请输入一个长度介于 {0} 和 {1} 之间的字符串"),
+		    range: $.validator.format("请输入一个介于 {0} 和 {1} 之间的值"),
+		    max: $.validator.format("请输入一个最大为 {0} 的值"),
+    		min: $.validator.format("请输入一个最小为 {0} 的值")
+		});
+
+		/**   
+     * type: 字段类型 1:text 2:checkbox  3:hidden 4:img 5:password 6:radio 7:reset 8:file 9:label 10:select 11:textarea
+     */
+     		String.prototype.toCapString = function() {
+     			if(!this) {
+     				return "";
+     			}
+     			if (this.length==1) {
+     				return this.toUpperCase();
+     			};
+     			return this.substr(0,1).toUpperCase() + this.substr(1);
+     		}
+
+     		var fieldTypes = ["none", "text", "checkbox", "hidden", "img", "password", "radio", "reset", "file", "label", "select", "textarea"];
+
+     		var url = "http://192.168.10.113:8080/game-app/http/api/ims/processForm.do";
+
+     		var opt1 = {
+                preset: 'datetime', //日期
+                theme: 'jqm', //皮肤样式
+                display: 'bottom', //显示方式
+                mode: 'scroll', //日期选择模式
+                dateFormat: 'yy-mm-dd', // 日期输出格式
+                timeFormat: 'H:i',
+                dateOrder: 'yymmdd', //面板中日期排列格式
+                timeWheels: 'HHii',
+                setText: '确定', //确认按钮名称
+                cancelText: '取消',//取消按钮名籍我
+                dayText: '日', //面板中日文字
+                monthText: '月', //面板中月文字
+                yearText: '年', //面板中年文字
+                endYear: 2020, //结束年份
+                hourText: '时',
+                minuteText: '分',
+                secText: '秒',
+                lang: 'zh'
+            };
+
+			$(function() {
+				initForm();
+				// var data = eval('('+decodeURIComponent(window.location.search.substr(1))+')');
+				var actionUrl = window.location.search.substr(5);
+				$.getJSON(actionUrl, function(data) {
+					if(data.status==200){
+						initHiddens(data.data);
+						var fieldList = data.data.fields;
+						for(index in fieldList) {
+							renderField(fieldList[index]);
+						}
+						completeForm(data.data.actions);
+						initAsigners(data.data.countList);
+						validateForm();
+						$('input:jqmData(role="datebox")').mobiscroll(opt1);
+					} else {
+						handleResponseData(data);
+					}
+				})
+				.success(function() { console.log("second success"); })
+				.error(function() { 
+					var errorData = {};
+					errorData.status = 500;
+					errorData.message = "处理失败！";
+					handleResponseData(errorData);
+				})
+				.complete(function() { console.log("complete"); });
+				// data = data.data;
+				// console.log(data.data.fields)
+				// $.ajax();
+			});
+
+			function validateForm() {
+				$('#form').validate({
+					submitHandler:function(form) {
+						$('.submit-btn').attr('disabled', 'disabled');
+						$.mobile.loading('show');
+						$(form).ajaxSubmit(function(data) {
+							handleResponseData(data);
+							$.mobile.loading('hide');
+							$('.submit-btn').removeAttr('disabled');
+						});
+   					}
+				});
+			}
+
+			function handleResponseData(data) {
+				if(window.handler){
+								handler.handleResponse(JSON.stringify(data));
+							} else {
+								window.location.href = "ios://handleResponseWithResponseData?data=" + JSON.stringify(data);
+							}
+			}
+
+			function initForm() {
+				this.fieldRender.form = $("#form");
+			}
+
+			function initHiddens(data) {
+				var uid = $('<input type="hidden" />');
+				uid.attr({
+					id: 'userId',
+					name: 'userId'
+				});
+				uid.attr('value', data.userId);
+				var pid = $('<input type="hidden" />');
+				pid.attr({
+					id: 'projectId',
+					name: 'projectId'
+				});
+				pid.attr('value', data.projId);
+				var fid = $('<input type="hidden" />');
+				fid.attr({
+					id: 'formId',
+					name: 'formId'
+				});
+				fid.attr('value', data.formId);
+				var procId = $('<input type="hidden" />');
+				procId.attr({
+					id: 'procInstanceId',
+					name: 'procInstanceId'
+				});
+				procId.attr('value', data.procInstanceId);
+				var aid = $('<input type="hidden" />');
+				aid.attr({
+					id: 'actionId',
+					name: 'actionId'
+				});
+				
+				$('#form').append(uid);
+				$('#form').append(pid);
+				$('#form').append(fid);
+				$('#form').append(procId);
+				$('#form').append(aid);
+			}
+
+			function initAsigners(countList) {
+				if(!countList || countList.length==0){
+					return;
+				}
+				var color = "";
+				var bgGou = "./image/icon_gou.png";
+				var bgCha = "./image/icon_cha.png";
+				var div = $('<div />');
+				var divGou = $('<div style="height:24px;line-height:24px;padding-left:30px;background:url('+bgGou+');background-position:left center;background-size:20px 20px;background-repeat:no-repeat;" />');				
+				var divCha = $('<div style="height:24px;line-height:24px;padding-left:30px;background:url('+bgCha+');background-position:left center;background-size:20px 20px;background-repeat:no-repeat;" />');
+				for(var i=0;i<countList.length;i++){
+					
+					//var p = $('<span style="height:24px;line-height:24px;color:'+color+';margin-right:10px;" />');
+					//var icon = $('<em style="display:inline-block;height:24px;" />');
+					var txt = $('<span style="color:#aaaaaa;margin-right:10px;line-height:24px;" />');
+					//p.append(icon);
+					txt.text(countList[i].userName);
+					//icon.append(txt);
+					//span.text();
+					if (countList[i].submit) {
+						divGou.append(txt);
+					} else {
+						divCha.append(txt);
+					}
+				}
+				if(divGou.children().length>0)
+					div.append(divGou);
+				if(divCha.children().length>0)
+					div.append(divCha);
+				$('#form').append(div);
+			}
+
+			function completeForm(actionList) {
+				// var actionList = window.data.actions;
+				for(index in actionList){
+					var submit = $('<input type="button" class="submit-btn" />');
+					submit.attr('value', actionList[index].name);
+					submit.attr('actionurl', actionList[index].actionUrl);
+					submit.attr('actionid', actionList[index].id);
+					submit.attr('actiontype', actionList[index].type);
+					if(actionList[index].type==1){
+						$('#form').append(submit);
+					} else {
+						$('#bottom').append(submit);
+					}
+				}
+				$('.submit-btn').on('click', function(){
+					$this = $(this);
+					$('#actionId').attr('value', $this.attr('actionid'));
+					if($this.attr('actionurl')){
+						$('#form').attr('action', window.baseUrl + $this.attr('actionurl'));
+					} else {
+						$('#form').attr('action', window.baseUrl + url);
+					}
+					if($this.attr('actiontype')!=5){
+						$('form').find('input').removeClass('required');
+						$('form').find('input').removeClass('{required:true, minlength:1}');
+					}
+					$('#form').submit();
+				});
+			}
+
+			function renderField(field) {
+				renderFieldByType(field);
+			}
+
+			function renderFieldByType(field) {
+				var renderName = getRenderName(fieldTypes[field.type]);
+				this.fieldRender[renderName] && this.fieldRender[renderName].call(this, field);
+			}
+
+			function getRenderName(typeName) {
+				return "render" + typeName.toCapString();
+			}
+
+			function isAndroid() {
+        		return navigator.userAgent.match(/Android/i) ? true : false;
+    		}
+
+			function isIOS() {
+        		return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
+    		}
+		</script>
+	</head>
+	<body>
+		<div data-role="content" data-theme="d" style="margin-bottom:48px;">
+			<form id="form" method="post">
+					
+			</form>
+		</div>
+		<div class="bottom" id="bottom"></div>
+	</body>
+</html>

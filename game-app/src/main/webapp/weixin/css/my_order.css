@@ -1,0 +1,70 @@
+/*my order detail*/
+section {
+  background: #efeff4!important;
+}
+section > h3 {
+  height: 2.8em;
+  line-height: 2.8em;
+  font-size: 1em;
+  font-weight: normal;
+  color: #333;
+  text-indent: 5%;
+}
+.header {
+  border: none;
+}
+.parcel {
+  background: #f7f7f7;
+  border-top: 0.1em solid #feab81;
+  border-bottom: 0.1em solid #ccc;
+  margin-bottom: 1em;
+}
+.parcel h4 {
+  font-size: 0.9em;
+  height: 2.8em;
+  line-height: 2.8em;
+  font-weight: normal;
+  background: #fff2ec;
+  color: #333;
+  border-bottom: 0.1em solid #feab81;
+}
+.parcel h4 span {
+  float:right;
+}
+.parcel h4 span.active {
+  color: #ff5500;
+}
+.parcel .pic_wrap {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+.parcel .pic_wrap img {
+  display: inline-block;
+  width: 64px;
+  height: 48px;
+  margin-right: 0.3em;
+}
+.parcel .pic_wrap img:nth-child(4) {
+  margin-right: 0;
+}
+.parcel .total_wrap {
+  text-align: right;
+  text-align: right;
+  font-size: 0.9em;
+  color: #333;
+  height: 2.8em;
+  line-height: 2.8em;
+  font-weight: normal;
+  border-top: 0.1em solid #ccc;
+
+}
+.parcel .pay_bt {
+  display: inline-block;
+  color:#fff;
+  padding: 0.3em 1.5em;
+  background: #ff5500;
+  border-radius: 0.3em;
+  float: right;
+  margin-bottom: 1em;
+  margin-right: 5%;
+}

@@ -1,0 +1,99 @@
+section{
+  background: #efeff4!important;
+}
+.body{
+  width: 100%;
+  padding: 2em 0 2em;
+  text-align: center;
+  min-height: 10em;
+  background: #efeff4;
+}
+.top_wrap{
+  padding: 1.5em 0;
+  text-align: center;
+  background:#fff;
+}
+.title{
+  display: block;
+  font-size: 1.2em;
+}
+.top_wrap img{
+  display: block;
+  width: 20%;
+  margin: 1em auto;
+}
+.score{
+  text-align: center;
+  display: block;
+  font-size: 0.9em;
+  line-height: 1.8em;
+  color: #f88421;
+}
+.info_1, .info_2{
+  display: block;
+  color: #333;
+  line-height: 1.8em;
+}
+
+.cellphone{
+  width: 9em;
+  margin: 1em auto 0;
+  padding: 0.4em 0.5em;
+  font-size: 1.8em;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 0.2em;
+  text-align: center!important;
+  overflow:hidden;
+  box-sizing:border-box;
+}
+
+
+
+#dialog{
+  width: 90%;
+  padding: 1.5em 0 0;
+  font-size: 1.2em;
+  box-sizing: border-box;
+  margin: 0 auto;
+  background: #fff;
+  position: fixed;
+  /*left: 5em;*/
+  top: 5em;
+  z-index: 11;
+  display: none;
+  text-align: center;
+}
+#dialog > .title {
+  font-weight: normal;
+  color: #009944;
+}
+#dialog > .title > img {
+  display: inline-block;
+  width: 1.5em;
+  position: relative;
+  top: 0.4em;
+  left: -0.5em;
+}
+#dialog > p {
+  font-size: 0.8em;
+  margin: 1.5em 0 0 0;
+}
+#dialog > .bt {
+  background: #ff5500;
+  color: #fff;
+  height: 2.8em;
+  line-height: 2.8em;
+  margin-top: 2em;
+}
+#dialog_mask{
+  background: #000;
+  opacity: 0.5;
+  height: 40em;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  display: none;
+}

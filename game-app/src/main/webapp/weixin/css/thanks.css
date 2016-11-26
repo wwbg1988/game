@@ -1,0 +1,34 @@
+
+.body{
+  text-align: center;
+  min-height: 10em;
+  overflow: hidden;
+  padding-bottom: 2em;
+}
+.body > h1 {
+  font-size: 1.5em;
+  font-weight: normal;
+  margin-top: 2em;
+}
+.body > img{
+  display: inline-block;
+  width: 50%;
+  margin: 3em auto 1em;
+}
+.title_wrap > img {
+  display: inline-block;
+  width: 1em;
+}
+.thank_title{
+  display: inline-block;
+  font-size: 1.2em;
+}
+.sub_info{
+  color: #333;
+  font-size: 1.2em;
+  line-height: 2em;
+}
+.service_text {
+  color: #666;
+  margin-top: 3em;
+}

@@ -1,0 +1,55 @@
+.body{
+  width: 100%;
+  padding: 0 0 1em 0;
+  text-align: center;
+  min-height: 10em;
+  overflow: hidden;
+}
+.lose_info_a, .lose_info_b{
+  display: block;
+  line-height: 2em;
+}
+.lose_info_a{
+  margin-top: 2em;
+  font-size: 1.2em;
+}
+.lose_info_b{
+  color:#666;
+}
+.env_icon{
+  display: block;
+  width: 55%;
+  margin: 2em auto 0;
+}
+.bt1, .bt2{
+  display: inline-block;
+  color: #fff;
+  margin: 0 auto;
+  padding: 0 0.7em;
+  height: 2.4em;
+  font-size: 0.8em;
+  line-height: 2.4em;
+  text-decoration: none;
+  background-color:#f88421;
+  border-radius: 0.2em;
+}
+.bt1 img, .bt2 img {
+  display: inline-block;
+  width: 1.5em;
+  position: relative;
+  top:0.3em;
+  left: -0.5em;
+}
+.bt1{
+  margin: 4em 0 0 1em;
+  width: 7em;
+}
+.bt2{
+  width: 8em;
+  margin: 1.5em 0 0 0.5em;
+}
+.weixin_info{
+  font-size: 0.6em;
+  color: #fff;
+  margin: 3em 0 0;
+}

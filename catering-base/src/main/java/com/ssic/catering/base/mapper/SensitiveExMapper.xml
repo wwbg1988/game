@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.catering.base.mapper.SensitiveExMapper" >
+  <select id="querySersitive" resultType="com.ssic.catering.base.pojo.Sensitive">
+    SELECT id as id,sensitive_name as sensitiveName,stat as stat,create_time as createTime,warning warning,valve_id as valveId FROM t_ctr_sensitive v WHERE v.id IN(
+		SELECT  c.sensitive_id FROM t_ctr_comment_sensitive c WHERE c.comment_id in(
+		SELECT t.id FROM t_ctr_comment t WHERE t.cafetorium_id = #{cafetoriumId}) 
+		GROUP BY c.sensitive_id ORDER BY COUNT(c.sensitive_id) DESC) AND v.stat ='1' LIMIT 9
+  </select>
+ 
+</mapper>

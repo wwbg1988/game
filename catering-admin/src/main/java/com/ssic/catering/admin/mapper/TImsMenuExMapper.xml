@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.catering.admin.mapper.TImsMenuExMapper">
+
+
+	<select id="findByUserId" resultType="com.ssic.catering.admin.pojo.Menu">
+		SELECT DISTINCT
+	    f.id as id,
+		f.create_time as createTime,
+		f.icon as icon,
+		f.name as name,
+		f.pid as pid,
+		f.menu_type_id as menuTypeId,
+		f.url as url,
+		f.seq as seq,
+		f.remark as remark,
+		f.tab_type as tabType,
+		f.stat as stat
+		FROM
+		t_ctr_admin_menu f
+		WHERE
+		f.stat = 1
+		AND f.id IN (
+		SELECT DISTINCT
+		c.menu_id
+		FROM
+		t_ctr_admin_role_menu c
+		WHERE
+		c.stat = 1
+		AND c.role_id IN (
+		SELECT DISTINCT
+		a.role_id
+		FROM
+		t_ctr_admin_users_role a
+		WHERE
+		a.user_id = (
+		SELECT
+		id
+		FROM
+		t_ctr_admin_users
+		WHERE
+		id = #{userId}
+		AND stat = 1
+		)
+		AND a.stat = 1
+		)
+		)
+
+	</select>
+
+
+	<select id="findById" resultType="com.ssic.catering.admin.pojo.Menu">
+		SELECT DISTINCT
+		menu.id as id,
+		menu.create_time as createTime,
+		menu.icon as
+		icon,
+		menu.name as name,
+		menu.pid as pid,
+		menu.menu_type_id as menuTypeId,
+		menu.url as url,
+		menu.seq as
+		seq,
+		menu.remark as remark,
+		menu.tab_type as tabType,
+		menu.stat as stat
+		FROM
+		t_ctr_admin_menu menu where menu.stat=1 and menu.id=#{menuId}
+		ORDER BY
+		menu.seq asc
+	</select>
+
+	<select id="findChildMenuById" resultType="com.ssic.catering.admin.pojo.Menu">
+		SELECT DISTINCT
+		menu.id as id,
+		menu.create_time as createTime,
+		menu.icon as
+		icon,
+		menu.name as name,
+		menu.pid as pid,
+		menu.menu_type_id as menuTypeId,
+		menu.url as url,
+		menu.seq as
+		seq,
+		menu.remark as remark,
+		menu.tab_type as tabType,
+		menu.stat as stat
+		FROM
+		t_ctr_admin_menu menu where
+		menu.pid=#{menuId}
+		ORDER BY
+		menu.seq asc
+	</select>
+
+	<update id="updateDeleteStat">
+		update t_ctr_admin_menu set stat=0 where id=#{menuId}
+	</update>
+
+	<insert id="insertBy">
+		insert into
+		t_ctr_admin_menu(id,`name`,icon,url,stat,remark,create_time,seq,pid,menu_type_id,tab_type)
+		values(#{menu.id},#{menu.name},#{menu.icon},#{menu.url},#{menu.stat},#{menu.remark},#{menu.createTime},#{menu.seq},#{menu.pid},#{menu.menuTypeId},#{menu.tabType})
+	</insert>
+
+	<update id="updateMenu">
+		update t_ctr_admin_menu set
+		icon=#{menu.icon},name=#{menu.name},url=#{menu.url},menu_type_id=#{menu.menuTypeId},seq=#{menu.seq},remark=#{menu.remark},pid=#{menu.pid},tab_type=#{menu.tabType}
+		where id =#{menu.id}
+	</update>
+
+	<sql id="where_clause_1">
+		<if test="menuId != null and menuId!='' ">
+			and menu.id = #{menuId}
+		</if>
+
+	</sql>
+
+</mapper>

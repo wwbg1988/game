@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.game.common.mapper.AccountTaskExMapper" >
+  <select id="getAll" resultType="Map">
+  	select userField.user_account as userAccount, userField.task_id as taskId from 
+(select userTask.*, field.id field_id from 
+(select users.id user_id,  user_account, task.id task_id, form_id from 
+(select id, user_account from t_ims_users where stat=1) users,
+(select id, form_id from t_ims_tasks where form_id is not null and stat = 1) task
+) userTask
+left join t_ims_fields field on field.form_id = userTask.form_id and field.stat=1
+) userField 
+left join t_ims_field_user field_user on userField.field_id = field_user.field_id 
+and userField.user_id = field_user.user_id and field_user.stat=1
+where field_user.id is not null
+union 
+select userTask2.user_account user_account, userTask2.task_id  from 
+(select users.id user_id,  user_account, task.id task_id, proj_id, proc_id from 
+(select id, name, user_account from t_ims_users where stat=1) users,
+(select id, name, proj_id, proc_id from t_ims_tasks where stat = 1) task
+) userTask2
+left join t_ims_actions action on userTask2.task_id = action.task_id and action.stat=1
+left join t_ims_action_user action_user on action_user.user_id = userTask2.user_id 
+and action.id = action_user.action_id and action_user.stat=1
+where action_user.id is not null
+UNION
+select userTask.user_account, userTask.task_id from (
+select users.role_id role_id, user_account, task.id task_id, form_id from 
+(select users.id, user_account, role_users.role_id from t_ims_users users
+left join t_ims_role_users role_users on users.id = role_users.user_id and role_users.stat=1 
+where users.stat=1 and role_id is not null) users,
+(select id, form_id from t_ims_tasks where form_id is not null and stat = 1) task
+) userTask
+left join t_ims_fields field on field.form_id = userTask.form_id and field.stat=1
+left join t_ims_field_role field_role on field.id = field_role.field_id 
+and userTask.role_id = field_role.role_id and field_role.stat=1
+where field_role.id is not null
+UNION
+select userTask.user_account user_account, userTask.task_id  from 
+(
+select users.role_id role_id, user_account, task.id task_id, form_id from 
+(select users.id, user_account, role_users.role_id from t_ims_users users
+left join t_ims_role_users role_users on users.id = role_users.user_id and role_users.stat=1 
+where users.stat=1 and role_id is not null) users,
+(select id, form_id from t_ims_tasks where form_id is not null and stat = 1) task
+) userTask
+left join t_ims_actions action on userTask.task_id = action.task_id and action.stat=1
+left join t_ims_action_role action_role on action_role.role_id = userTask.role_id
+and action.id = action_role.action_id and action_role.stat=1
+where action_role.id is not null
+  	
+  	
+  	  </select>
+  	  
+  	  <select id="getAngncy" resultType="Map">
+  	  select user_account, proj_id, proc_id, now_task_id, task_name,inst.id from 
+(
+select userField.user_account, userField.task_id, task_name from 
+(select userTask.*, field.id field_id from 
+(select users.id user_id,  user_account, task.id task_id, form_id, task.`name` task_name from 
+(select id, user_account from t_ims_users where stat=1 and id=#{userId}) users,
+(select id, form_id, `name` from t_ims_tasks where form_id is not null and stat = 1) task
+) userTask
+left join t_ims_fields field on field.form_id = userTask.form_id and field.stat=1
+) userField 
+left join t_ims_field_user field_user on userField.field_id = field_user.field_id 
+and userField.user_id = field_user.user_id and field_user.stat=1
+where field_user.id is not null
+union 
+select userTask2.user_account user_account, userTask2.task_id, task_name  from 
+(select users.id user_id,  user_account, task.id task_id, proj_id, proc_id, task.`name` task_name from 
+(select id, `name`, user_account from t_ims_users where stat=1 and id=#{userId}) users,
+(select id, `name`, proj_id, proc_id from t_ims_tasks where stat = 1) task
+) userTask2
+left join t_ims_actions action on userTask2.task_id = action.task_id and action.stat=1
+left join t_ims_action_user action_user on action_user.user_id = userTask2.user_id 
+and action.id = action_user.action_id and action_user.stat=1
+where action_user.id is not null
+UNION
+select userTask.user_account, userTask.task_id, task_name from (
+select users.role_id role_id, user_account, task.id task_id, form_id, task.`name` task_name from 
+(select users.id, user_account, role_users.role_id from t_ims_users users
+left join t_ims_role_users role_users on users.id = role_users.user_id and role_users.stat=1 
+where users.stat=1 and role_id is not null  and users.id=#{userId}) users,
+(select id, form_id, `name` from t_ims_tasks where form_id is not null and stat = 1) task
+) userTask
+left join t_ims_fields field on field.form_id = userTask.form_id and field.stat=1
+left join t_ims_field_role field_role on field.id = field_role.field_id 
+and userTask.role_id = field_role.role_id and field_role.stat=1
+where field_role.id is not null
+UNION
+select userTask.user_account user_account, userTask.task_id, task_name  from 
+(
+select users.role_id role_id, user_account, task.id task_id, form_id, task.`name` task_name from 
+(select users.id, user_account, role_users.role_id from t_ims_users users
+left join t_ims_role_users role_users on users.id = role_users.user_id and role_users.stat=1 
+where users.stat=1 and role_id is not null  and users.id=#{userId}) users,
+(select id, form_id, `name` from t_ims_tasks where form_id is not null and stat = 1) task
+) userTask
+left join t_ims_actions action on userTask.task_id = action.task_id and action.stat=1
+left join t_ims_action_role action_role on action_role.role_id = userTask.role_id
+and action.id = action_role.action_id and action_role.stat=1
+where action_role.id is not null
+UNION
+select userTask2.user_account user_account, userTask2.task_id, task_name  from 
+(select users.id user_id,  user_account, task.id task_id, proj_id, proc_id, task.`name` task_name from 
+(select id, `name`, user_account from t_ims_users where stat=1 and id=#{userId}) users,
+(select id, `name`, proj_id, proc_id from t_ims_tasks where stat = 1) task
+) userTask2
+left join t_ims_actions action on userTask2.task_id = action.task_id and action.stat=1
+left join 
+(
+	select actionUser.action_id, instance.`owner` user_id from 
+	(
+		select * from t_ims_action_user where stat=1 and user_id = 'owner' and proj_id = #{projId}
+	) actionUser
+	left join 
+	t_ims_proc_instance instance on actionUser.proc_id = instance.proc_id and instance.stat=1 
+) action_user
+on action_user.user_id = userTask2.user_id 
+and action.id = action_user.action_id 
+where action_user.action_id is not null
+UNION
+select userField.user_account, userField.task_id, task_name from 
+(select userTask.*, field.id field_id from 
+(select users.id user_id,  user_account, task.id task_id, form_id, task.`name` task_name from 
+(select id, user_account from t_ims_users where stat=1 and id=#{userId}) users,
+(select id, form_id, `name` from t_ims_tasks where form_id is not null and stat = 1) task
+) userTask
+left join t_ims_fields field on field.form_id = userTask.form_id and field.stat=1
+) userField 
+left join
+( 
+	select fieldUser.field_id, instance.`owner` user_id from 
+	(
+		select * from t_ims_field_user where stat=1 and user_id = 'owner' and proj_id = #{projId}
+	) fieldUser
+	left join 
+	t_ims_proc_instance instance on fieldUser.proc_id = instance.proc_id and instance.stat=1 
+) field_user
+on userField.field_id = field_user.field_id 
+and userField.user_id = field_user.user_id 
+where field_user.field_id is not null
+
+) userTaskRole, t_ims_proc_instance inst 
+where userTaskRole.task_id = inst.now_task_id and inst.stat=1 and inst.proj_id= #{projId} and inst.proc_id=#{procId}
+	 	<if test="procInstId!=null and procInstId!=''">
+	 		 and inst.id=#{procInstId}
+	 	</if>
+  	  </select>
+  	    <select id="getAngncyNotProcess" resultType="Map">
+  	  select user_account, proj_id, proc_id, now_task_id, task_name,inst.id from 
+(
+select userField.user_account, userField.task_id, task_name from 
+(select userTask.*, field.id field_id from 
+(select users.id user_id,  user_account, task.id task_id, form_id, task.`name` task_name from 
+(select id, user_account from t_ims_users where stat=1 and id=#{userId}) users,
+(select id, form_id, `name` from t_ims_tasks where form_id is not null and stat = 1) task
+) userTask
+left join t_ims_fields field on field.form_id = userTask.form_id and field.stat=1
+) userField 
+left join t_ims_field_user field_user on userField.field_id = field_user.field_id 
+and userField.user_id = field_user.user_id and field_user.stat=1
+where field_user.id is not null
+union 
+select userTask2.user_account user_account, userTask2.task_id, task_name  from 
+(select users.id user_id,  user_account, task.id task_id, proj_id, proc_id, task.`name` task_name from 
+(select id, `name`, user_account from t_ims_users where stat=1 and id=#{userId}) users,
+(select id, `name`, proj_id, proc_id from t_ims_tasks where stat = 1) task
+) userTask2
+left join t_ims_actions action on userTask2.task_id = action.task_id and action.stat=1
+left join t_ims_action_user action_user on action_user.user_id = userTask2.user_id 
+and action.id = action_user.action_id and action_user.stat=1
+where action_user.id is not null
+UNION
+select userTask.user_account, userTask.task_id, task_name from (
+select users.role_id role_id, user_account, task.id task_id, form_id, task.`name` task_name from 
+(select users.id, user_account, role_users.role_id from t_ims_users users
+left join t_ims_role_users role_users on users.id = role_users.user_id and role_users.stat=1 
+where users.stat=1 and role_id is not null  and users.id=#{userId}) users,
+(select id, form_id, `name` from t_ims_tasks where form_id is not null and stat = 1) task
+) userTask
+left join t_ims_fields field on field.form_id = userTask.form_id and field.stat=1
+left join t_ims_field_role field_role on field.id = field_role.field_id 
+and userTask.role_id = field_role.role_id and field_role.stat=1
+where field_role.id is not null
+UNION
+select userTask.user_account user_account, userTask.task_id, task_name  from 
+(
+select users.role_id role_id, user_account, task.id task_id, form_id, task.`name` task_name from 
+(select users.id, user_account, role_users.role_id from t_ims_users users
+left join t_ims_role_users role_users on users.id = role_users.user_id and role_users.stat=1 
+where users.stat=1 and role_id is not null  and users.id=#{userId}) users,
+(select id, form_id, `name` from t_ims_tasks where form_id is not null and stat = 1) task
+) userTask
+left join t_ims_actions action on userTask.task_id = action.task_id and action.stat=1
+left join t_ims_action_role action_role on action_role.role_id = userTask.role_id
+and action.id = action_role.action_id and action_role.stat=1
+where action_role.id is not null
+UNION
+select userTask2.user_account user_account, userTask2.task_id, task_name  from 
+(select users.id user_id,  user_account, task.id task_id, proj_id, proc_id, task.`name` task_name from 
+(select id, `name`, user_account from t_ims_users where stat=1 and id=#{userId}) users,
+(select id, `name`, proj_id, proc_id from t_ims_tasks where stat = 1) task
+) userTask2
+left join t_ims_actions action on userTask2.task_id = action.task_id and action.stat=1
+left join 
+(
+	select actionUser.action_id, instance.`owner` user_id from 
+	(
+		select * from t_ims_action_user where stat=1 and user_id = 'owner' and proj_id = #{projId}
+	) actionUser
+	left join 
+	t_ims_proc_instance instance on actionUser.proc_id = instance.proc_id and instance.stat=1 
+) action_user
+on action_user.user_id = userTask2.user_id 
+and action.id = action_user.action_id 
+where action_user.action_id is not null
+UNION
+select userField.user_account, userField.task_id, task_name from 
+(select userTask.*, field.id field_id from 
+(select users.id user_id,  user_account, task.id task_id, form_id, task.`name` task_name from 
+(select id, user_account from t_ims_users where stat=1 and id=#{userId}) users,
+(select id, form_id, `name` from t_ims_tasks where form_id is not null and stat = 1) task
+) userTask
+left join t_ims_fields field on field.form_id = userTask.form_id and field.stat=1
+) userField 
+left join
+( 
+	select fieldUser.field_id, instance.`owner` user_id from 
+	(
+		select * from t_ims_field_user where stat=1 and user_id = 'owner' and proj_id = #{projId}
+	) fieldUser
+	left join 
+	t_ims_proc_instance instance on fieldUser.proc_id = instance.proc_id and instance.stat=1 
+) field_user
+on userField.field_id = field_user.field_id 
+and userField.user_id = field_user.user_id 
+where field_user.field_id is not null
+
+) userTaskRole, t_ims_proc_instance inst 
+where userTaskRole.task_id = inst.now_task_id and inst.stat=1 and inst.proj_id= #{projId}
+<if test="searchDate!=null and searchDate!=''">
+	and DATE_FORMAT(inst.create_time,"%y%m%d") = DATE_FORMAT(#{searchDate},"%y%m%d")
+</if>
+<if test="beginRows!=0 and endRows!=0">
+ limit #{beginRows},#{endRows}
+</if>
+
+  	  </select>
+    
+</mapper>

@@ -1,0 +1,84 @@
+ /*birthday menu*/
+ section {
+   background: #efeff4!important;
+ }
+.info_wrap {
+  width: 100%;
+  padding: 1.5em 0 2em;
+  background: #fff url(../images/wave_line.png) repeat-x bottom ;
+  background-size: 0.6em;
+}
+.info_wrap img.env_icon {
+  display: block;
+  width: 56%;
+  margin: 0 auto;
+}
+.info_wrap p.blessing_word {
+  text-align: center;
+  width: 45%;
+  margin: 1.5em auto 0;
+  background: url(../images/birthday_star.png) no-repeat left,url(../images/birthday_star.png) no-repeat right;
+  background-size: 1em 1em;
+}
+.info_wrap p.some_word {
+  margin-top: 1em;
+  text-indent: 1em;
+  text-align: center;
+}
+
+ul.input_row {
+  margin:2em 0 0;
+}
+ul.input_row > li {
+  height: 3em;
+  border-top: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  background: #fff;
+  margin-top: 0.8em;
+}
+ul.input_row > li:last-child {
+  margin-bottom: 1em;
+}
+ul.input_row > li label{
+  display: inline-block;
+  width: 25%;
+  float: left;
+  height: 3em;
+  line-height: 3em;
+  text-align: right;
+}
+ul.input_row > li:first-child label {
+  background: url(../images/birthday_icon_name.png) no-repeat left;
+  background-size: 1.5em;
+}
+ul.input_row > li:first-child + li label {
+  background: url(../images/birthday_icon_phone.png) no-repeat left;
+  background-size: 1.5em;
+}
+ul.input_row > li:nth-child(3) label {
+  background: url(../images/birthday_icon_birthday.png) no-repeat left;
+  background-size: 1.5em;
+}
+ul.input_row > li:nth-child(3) input {
+  height: 2.5em!important;
+  line-height: 3em!important;
+  line-height: 1.2em!important;
+  border: none;
+  font-size: 1.2em;
+  width: 60%!important;
+  padding: 0.6em 0.8em;
+  background:#fff url(../images/date_placeholder.png) no-repeat 1em;
+}
+.dates_bg {
+  background:#fff url(../images/date_placeholder.png) no-repeat 1em!important;
+}
+ul.input_row > li input{
+  display: inline-block;
+  width: 75%;
+  font-size: 1em;
+  float: left;
+  padding: 0 1em;
+  box-sizing: border-box;
+  height: 3em;
+  border: none;
+}

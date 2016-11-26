@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.catering.base.mapper.AvgScoreWarningExMapper" >
+	<!-- 查询每个餐厅当天预警消息的总数 -->
+ 	<select id="totalWarningMessages" resultType="java.lang.Integer">
+ 		SELECT COUNT(*) FROM t_ctr_avg_score_warning t WHERE DATE_FORMAT(t.create_time,'%Y%m%d') = DATE_FORMAT(now(),'%Y%m%d') 
+ 		AND t.cafetorium_id = #{cafetoriumId};
+ 	</select>
+</mapper>

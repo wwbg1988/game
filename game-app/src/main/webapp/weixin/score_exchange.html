@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <title>积分兑换</title>
+
+    <link href="css/base.css" rel="stylesheet">
+    <link href="css/score_exchange.css" rel="stylesheet">
+  </head>
+<body>
+
+  <!-- header -->
+  <div class="header clearfix">
+    <span class="icon_left"><img src="images/icon_left_menu.png" /></span>
+    点评有奖天天送
+  </div>
+  <!-- header end -->
+
+
+  <!-- menu -->
+  <div class="menu">
+    <ul class="leftnav sidenav">
+      <li><a href="javascript:void(0)"><span class="w" id="menu_comment"><b>今日点评</b></span></a></li>
+      <li><a href="javascript:void(0)"><span class="w" id="menu_menu"><b>下周菜单</b></span></a></li>
+      <li><a href="javascript:void(0)"><span class="w" id="menu_transfer"><b>天坊配送</b></span></a></li>
+      <li><a href="javascript:void(0)"><span class="w" id="menu_call"><b>上门服务</b></span></a></li>
+      <li><a href="javascript:void(0)"><span class="w" id="menu_birthday"><b>生日免单</b></span></a></li>
+    </ul>
+    <!-- menu end -->
+
+    <!-- 页面内容 -->
+    <section>
+      <!-- 遮罩层 -->
+      <div id="mask"></div>
+
+        <div class="top">
+          <p class="top_title">当前积分</p>
+          <p class="top_score"><span id="integral"></span>分</p>
+          <p class="top_info">若没抽中奖品，则获得1点积分</p>
+        </div>
+
+        <div class="body" id="allExchanges">
+
+<!-- 
+          <div class="row_wrap clearfix">
+            <img src="images/addr_icon_2.png" />
+            <div class="row_info">
+              <span>10元话费</span>
+              <p>实惠又便捷，只需输入手机号码，话费直接充值</p>
+            </div>
+            <div class="bt_wrap">
+              <span class="score">50</span>分
+            </div>
+          </div>
+
+          <div class="row_wrap clearfix">
+            <img src="images/addr_icon.png" />
+            <div class="row_info">
+              <span>菲力牛排半成品</span>
+              <p>天坊烩中央厨房加工，五星级酒店指定食品，冷冻配送</p>
+            </div>
+            <div class="bt_wrap active">
+              <span class="score">80</span>分
+            </div>
+          </div>
+
+          <div class="row_wrap clearfix">
+            <img src="images/addr_icon_3.png" />
+            <div class="row_info">
+              <span>黑椒牛柳半成品</span>
+              <p>采用澳洲牛肉，由天坊加工，国家宴会专供菜品，冷冻配送</p>
+            </div>
+            <div class="bt_wrap">
+              <span class="score">50</span>分
+            </div>
+          </div>
+-->
+
+        </div>
+        <input type="hidden" id="carteUserId"/>
+        <input type="hidden" id="userIntegralExchangeId"/>
+    </section>
+<!-- 页面内容 end -->
+</div>
+
+  <script src="js/jquery-1.11.3.min.js"></script>
+  <script src="js/main.js"></script>
+  <script type="text/javascript" src="js/cfg.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+  <script type="text/javascript" src="js/integralExchange.js"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.game.common.mapper.ActionsExMapper" >
+  <select id="getAll" resultType="Map">
+select ac.id,ac.`name`,ta.name as taskName,case ac.next_task_id  when 'FINISH' then'流程结束' when '' then 'undefault' else tan.`name` end as nextTaskName,ac.type,po.proj_name as projName,ac.action_url as actionUrl,ac.next_task_id  from t_ims_actions ac left join t_ims_tasks ta on ac.task_id = ta.id left join t_ims_tasks tan on ac.next_task_id = tan.id
+  	left join t_ims_project po on po.id = ac.proj_id where ac.stat=1 and ta.stat =1  and po.stat = 1 <include refid="where_clause_1" /> order by ac.proj_id desc limit ${beginRows},${rows}
+  </select>
+  
+    <!-- <select id="getAll" resultType="Map">
+  	select ac.id,ac.`name`,ta.name as taskName,tan.name as nextTaskName,ac.type,po.proj_name as projName,ac.action_url as actionUrl from t_ims_actions ac left join t_ims_tasks ta on ac.task_id = ta.id left join t_ims_tasks tan on ac.next_task_id = tan.id
+  	left join t_ims_project po on po.id = ac.proj_id where ac.stat=1 and ta.stat =1  and po.stat = 1 <include refid="where_clause_1" /> order by ac.proj_id desc limit ${beginRows},${rows}
+  </select>
+   -->
+  
+    <select id="getFinsh" resultType="Map">
+  	select ac.id,ac.`name`,ta.name as taskName,"流程结束" as nextTaskName,ac.type,po.proj_name as projName,ac.action_url as actionUrl from t_ims_actions ac left join t_ims_tasks ta on ac.task_id = ta.id 
+  	left join t_ims_project po on po.id = ac.proj_id where ac.stat=1 and ta.stat =1 and ac.next_task_id = 'FINISH' and po.stat = 1 <include refid="where_clause_1" /> order by ac.proj_id desc limit ${beginRows},${rows}
+  </select>
+   <select id="getCount" resultType="Integer">
+  	select count(*) from t_ims_actions ac left join t_ims_tasks ta on ac.task_id = ta.id left join t_ims_tasks tan on ac.next_task_id = tan.id
+  	left join t_ims_project po on po.id = ac.proj_id where ac.stat=1 and ta.stat =1 and po.stat = 1 <include refid="where_clause_1" /> order by ac.proj_id desc;
+  </select>
+  
+        <!-- <select id="getCount" resultType="Integer">
+  	select count(*) from t_ims_actions ac left join t_ims_tasks ta on ac.task_id = ta.id left join t_ims_tasks tan on ac.next_task_id = tan.id
+  	left join t_ims_project po on po.id = ac.proj_id where ac.stat=1 and ta.stat =1 and tan.stat = 1 and po.stat = 1 <include refid="where_clause_1" /> order by ac.proj_id desc;
+  </select>
+    -->
+     <select id="getCountFinish" resultType="Integer">
+  	select count(*) from t_ims_actions ac left join t_ims_tasks ta on ac.task_id = ta.id 
+  	left join t_ims_project po on po.id = ac.proj_id where ac.stat=1 and ta.stat =1 and ac.next_task_id = 'FINISH' and po.stat = 1 <include refid="where_clause_1" /> order by ac.proj_id desc;
+  </select>
+  
+   <sql id="where_clause_1" >
+	 	<if test="actions.projId!=null and actions.projId!=''">
+	 		 and ac.proj_id = #{actions.projId}
+	 	</if>
+
+		
+	 </sql>
+</mapper>

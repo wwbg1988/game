@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.shop.manage.mapper.WeixnUserCafetoriumExMapper" >
+  <update id="updateDefaultCafetorium">
+  	update t_ctr_weixn_user_cafetorium 
+  	set is_default = 1 
+  	where open_id=#{openId} and cafetorium_id=#{cafetoriumId} and stat =1;	
+  </update>
+  
+  <update id="updateUnDefaultOtherCafetorium">
+   update t_ctr_weixn_user_cafetorium 
+  	set is_default = 0 
+  	<![CDATA[ where open_id=#{openId} and cafetorium_id<>#{cafetoriumId} and stat =1]]>;
+  </update>
+  
+</mapper>

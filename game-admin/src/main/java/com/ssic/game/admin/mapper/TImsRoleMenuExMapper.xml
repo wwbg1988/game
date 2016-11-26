@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.game.admin.mapper.TImsRoleMenuExMapper" >
+	 <select id="findMenuBy" resultType="String">
+	 select menu_id from t_admin_role_menu where role_id=#{roleId} 
+	 </select>
+	 
+	 	<select id="findMenuByRoleList" resultType="com.ssic.game.admin.pojo.MenuAndRoles">
+          SELECT DISTINCT
+	             menu_id 
+            FROM
+	             t_admin_role_menu 
+           WHERE stat=1 and
+           role_id in  <foreach close=")" collection="roleList" item="listItem" open="(" separator=",">
+                    #{listItem}
+                   
+         </foreach> 
+	
+	</select> 
+	
+	<insert id="insertBy" >
+	insert into t_admin_role_menu (id,role_id,menu_id,stat) values(#{id},#{roleId},#{menuId},1)
+	 </insert>
+	 
+	 <update id="updateRoleMenu" >
+    	update t_admin_role_menu set stat=0 where menu_id=#{menuId}
+    </update>
+</mapper>

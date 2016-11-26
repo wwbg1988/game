@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <title>ECharts</title>
+    <link href="css/base.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+</head>
+<body>
+
+  <div class="leader_info_wrap clearfix">
+    <div class="head_icon">
+      <div id="userImg" class="circle">
+        <img src="images/head_icon.png"/>
+      </div>
+    </div>
+    <div class="leader_info">
+      <span id="userName" class="uname"></span>
+      <p id="cafetoriumName" class="company_name"></p>
+      <p id="cafetoriumAddress" class="location"></p>
+    </div>
+  </div>
+
+<div id="main" style="height:300px;"></div>
+
+
+<div class="key_wrap">
+  <div class="wrap">
+    <div class="key_info clearfix">
+      <span class="right">
+        共<span id="count" class="orange">0</span>条评论
+      </span>
+    </div>
+
+    <div class="key_col_wrap clearfix">
+
+      <div class="key_col">
+        <div id="con0" style="display: none" class="big_tag btag bg_74a7e7">
+          份量足
+        </div>
+        <div class="small_tag_wrap clearfix">
+          <div id="con1" style="display: none" class="stag bg_2fa8d4">
+            赞
+          </div>
+          <div id="con2" style="display: none" class="stag bg_2fa8d4">
+            有点咸
+          </div>
+        </div>
+      </div>
+
+      <div class="key_col">
+        <div class="small_tag_wrap small_tag_wrap_2 clearfix">
+          <div id="con3" style="display: none" class="flat_tag stag bg_66bad9">
+            赞
+          </div>
+        </div>
+        <div class="small_tag_wrap clearfix">
+          <div id="con4" style="display: none" class="small_tag_l stag bg_96bae7">
+            赞
+          </div>
+          <div id="con5" style="display: none" class="small_tag_r stag bg_96bae7">
+            有点咸
+          </div>
+        </div>
+        <div class="small_tag_wrap small_tag_wrap_2 clearfix">
+          <div id="con6" style="display: none" class="flat_tag stag bg_74a7e7">
+            赞
+          </div>
+        </div>
+      </div>
+
+      <div class="key_col">
+        <div id="con7" style="display: none" class="big_tag btag bg_2fa8d4">
+          份量足
+        </div>
+        <div class="small_tag_wrap clearfix">
+          <div id="con8" style="display: none" class="small_tag_l stag bg_96bae7">
+            赞
+          </div>
+          <div id="con9" style="display: none" class="small_tag_r stag bg_96bae7">
+            有点咸
+          </div>
+        </div>
+      </div>
+
+      </div>
+    </div>
+
+  </div>
+
+
+</div><!-- wrap end -->
+
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="dist/echarts.js"></script>
+    <script src="js/scoreReport.js"></script>
+</body>
+</html>

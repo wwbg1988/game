@@ -1,0 +1,16 @@
+<xml>
+	<MsgType><![CDATA[news]]></MsgType>
+	<Content><![CDATA[]]></Content>
+	<ArticleCount>1</ArticleCount>
+	<Articles>
+		<item>
+			<Title><![CDATA[对本餐厅进行评价]]></Title>
+			<Description><![CDATA[]]>
+			</Description>
+			<PicUrl><![CDATA[http://img4.imgtn.bdimg.com/it/u=324330274,3257102382&fm=21&gp=0.jpg]]></PicUrl>
+			<Url><![CDATA[http://kaixinzyw.x10.fjjsp01.com/comment.html]]>
+			</Url>
+		</item>
+	</Articles>
+	<FuncFlag>0</FuncFlag>
+</xml>

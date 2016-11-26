@@ -1,0 +1,84 @@
+/*my order detail*/
+section {
+  background: #f4f4f4!important;
+}
+section > h3 {
+  height: 2.8em;
+  line-height: 2.8em;
+  font-size: 1em;
+  font-weight: normal;
+  color: #333;
+  text-indent: 2.4em;
+}
+section > h3.current {
+  background: url(../images/menu_setup_987.png) no-repeat 1em center;
+  background-size: 1em ;
+}
+section > h3.select {
+  background: url(../images/menu_setup_988.png) no-repeat 1em center;
+  background-size: 1em ;
+}
+.order_info {
+  background: #fff;
+  border-top: 0.1em solid #ccc;
+  color:#333;
+}
+.order_info li {
+  height: 2.8em;
+  line-height: 2.8em;
+  border-bottom: 0.1em solid #ccc;
+}
+.order_info li div{
+  text-indent: 1em;
+  font-size: 1em;
+}
+.order_info li div.none{
+  color: #b0b0b0;
+}
+.order_info li span {
+  float: right;
+}
+.order_info li span.default {
+  color: #ff5500;
+}
+.order_info li span.price {
+  color: #ff5500;
+}
+.parcel {
+  background: #fff;
+  border-top: 0.1em solid #ccc;
+  border-bottom: 0.1em solid #ccc;
+}
+.parcel h4 {
+  text-align: right;
+  font-size: 0.9em;
+  height: 2.8em;
+  line-height: 2.8em;
+  color: #ff5500;
+  font-weight: normal;
+  border-bottom: 0.1em solid #ccc;
+}
+.parcel .pic_wrap {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+.parcel .pic_wrap img {
+  display: inline-block;\
+  width: 72px;
+  height: 54px;
+  margin-right: 0.3em;
+}
+.parcel .pic_wrap img:nth-child(4) {
+  margin-right: 0;
+}
+.parcel .total_wrap {
+  text-align: right;
+  text-align: right;
+  font-size: 0.9em;
+  color: #333;
+  height: 2.8em;
+  line-height: 2.8em;
+  font-weight: normal;
+  border-top: 0.1em solid #ccc;
+
+}

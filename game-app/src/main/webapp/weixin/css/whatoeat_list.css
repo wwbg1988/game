@@ -1,0 +1,205 @@
+li{list-style:none}
+a{color:#32b16c;}
+h1,h2,h3,h4{font-weight:normal}
+h3{white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+html{height:100%;}
+img{width:100%;height:auto}
+a{ text-decoration:none}
+
+#wrapper{width:100%;overflow:hidden;padding-bottom:50px;line-height:2em;box-sizing:border-box;font-family:"Microsoft Yahei","Arial";font-size:10px;font-weight:normal;color:#333;}
+#wrapper *{box-sizing:border-box}
+#wrapper .swipe{height:200px;overflow: hidden;visibility: hidden;position:relative;}
+#wrapper .swipe-wrap{height:200px;overflow:hidden;position:relative;}
+#wrapper .swipe-wrap > div {height:200px;float:left;width:100%;position:relative;}
+#wrapper .swipe-wrap > div img{height:200px;float:left;width:100%;position:relative;}
+#wrapper .swipe .tip_bar{position:absolute;left:0;bottom:0;padding:0;width:100%;height:24px;text-align:left;background:rgba(0,0,0,.2);}
+#wrapper .swipe .tip_bar p{width:68%;height:24px;float:left;color:#fff;line-height:24px;font-size:1.4em;padding-left:20px}
+#wrapper .swipe .tip_bar ul{width:30%;height:24px;text-align:right;float:right}
+#wrapper .swipe .tip_bar ul li{width:6px;height:6px;margin:0 1px;display:inline-block;border-radius:3px;background-color:#afafaf;}
+#wrapper .swipe .tip_bar ul li:last-child{margin-right:20px;}
+#wrapper .swipe .tip_bar ul li.cur{background-color:#f88421;}
+#wrapper .swipe .tip_bar.cl{background:none;}
+#wrapper .swipe .tip_bar.cl ul{width:100%;text-align:center;}
+#wrapper .swipe .tip_bar.cl ul li:last-child{margin-right:0;}
+
+#wrapper .panic_buying_box, #wrapper .recommend_box, #wrapper .price_box{width:100%;overflow:hidden;}
+#wrapper .panic_buying_box h2, #wrapper .recommend_box h2{background:#efeff4;border-top:1px #ccc solid;border-bottom:1px #ccc solid;background-size:15px 15px;background-repeat:no-repeat;background-position:15px center;font-size:1.6em;line-height:45px;padding-left:40px;padding-right:20px}
+#wrapper .panic_buying_box h2 a, #wrapper .recommend_box h2 a{color:#666;float:right;font-size:0.9em}
+
+#wrapper .panic_buying_box h2{background-image:url(../images/icon_panicbuying.png)}
+#wrapper .panic_buying_box ul, #wrapper .recommend_box ul{width:90%;overflow:hidden;margin:20px auto 0}
+#wrapper .panic_buying_box ul li, #wrapper .recommend_box ul li{width:48%;background:#990;float:left;overflow:hidden;border:1px #ccc solid;margin:0 0 20px 0}
+#wrapper .panic_buying_box ul li:nth-child(2n), #wrapper .recommend_box ul li:nth-child(2n){float:right}
+#wrapper .panic_buying_box ul li img, #wrapper .recommend_box ul li img{width:100%;height:auto}
+#wrapper .panic_buying_box ul li p, #wrapper .recommend_box ul li p{width:100%;overflow:hidden;background:#fff;display:block;padding:5px 0}
+#wrapper .panic_buying_box ul li p .title, #wrapper .recommend_box ul li p .title{width:100%;padding:0 10px;font-size:1.4em;display:block;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+#wrapper .panic_buying_box ul li p .onsale, #wrapper .recommend_box ul li p .onsale{float:left;display:block;height:30px;line-height:30px;font-size:1.4em;color:#f88421;padding:0 5px 0 10px}
+#wrapper .panic_buying_box ul li p .price, #wrapper .recommend_box ul li p .price{float:left;display:block;height:30px;line-height:32px;font-size:1.2em;text-decoration:line-through;color:#666}
+#wrapper .panic_buying_box ul li p a, #wrapper .recommend_box ul li p a{float:right;display:block;width:26px;height:26px;background:#f88421 url(../images/cart.png) no-repeat center center;background-size:22px 22px;border-radius:15px;margin-right:10px;margin-top:2px}
+
+#wrapper .recommend_box h2{background-image:url(../images/icon_recommend.png)}
+
+ #wrapper .price_box h1{font-size:1.8em;padding:20px 20px 10px 20px;}
+ #wrapper .price_box .price{width:100%;overflow:hidden;padding:0 20px 0 35px;background:url(../images/icon_rmb.png) no-repeat 20px center;background-size:10px 12px;font-size:2.5em;color:#f88421;line-height:1.4em;}
+ #wrapper .price_box .dec{width:100%;overflow:hidden;padding:5px 20px 0}
+ #wrapper .price_box .dec span{font-size:1.2em;padding-right:30px}
+ #wrapper .price_box .dec span.limit{padding-left:20px;
+/*  background:url(../images/icon_limit.png) no-repeat 0 center; */
+ background-size:15px 15px;}
+ #wrapper .price_box p{display:block;padding:10px 20px;overflow:hidden;border-top:1px #ccc solid;border-bottom:1px #ccc solid;margin:20px 0;background:#f7f7f7}
+ #wrapper .price_box p span{display:block;float:left;width:50%;overflow:hidden;padding:0 5px;font-size:1.2em;line-height:2em;}
+
+
+.footer_cart{position:fixed;width:100%;height:50px;background:#fff;border-top:1px #f88421 solid;bottom:0;left:0;line-height:50px;padding-right:100px;font-size:1.8em;padding-left:20px}
+.footer_cart > span{color:#f88421}
+.footer_cart a{position:absolute;width:100px;right:0;top:0;height:50px;background:#f88421 url(../images/cart.png) no-repeat center center;background-size:40px 40px}
+.footer_cart a > span{position:absolute;display:block;min-width:22px;right:20%;top:0;height:22px;background:#fff;line-height:20px;border-radius:10px;font-size:1.5em;text-align:center;top:2px;color:#f88421;padding:1px;font-size:0.9em}
+
+
+#scroll_wrapper {
+	position:absolute; z-index:1;
+  top:0; bottom:48px; left:0;
+  width:100%;
+  overflow:auto;
+}
+
+/*#wrapper {
+  position:absolute; z-index:1;
+  top:45px; bottom:48px; left:0;
+  width:100%;
+  overflow:auto;
+}*/
+
+#scroller {
+	position:relative;
+	-webkit-touch-callout:none;
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+
+	float:left;
+	width:100%;
+	padding:0;
+}
+
+#scroller ul {
+	position:relative;
+	list-style:none;
+	padding:0;
+	margin:0;
+	width:100%;
+	text-align:left;
+}
+
+#scroller li {
+	/*padding:0 10px;*/
+	/*height:40px;*/
+	/*line-height:40px;*/
+	border-bottom:1px solid #ccc;
+	border-top:1px solid #fff;
+	background-color:#fafafa;
+	/*font-size:14px;*/
+}
+
+#scroller li > a {
+	/*display:block;*/
+}
+
+/**
+ *
+ * 涓嬫媺鏍峰紡 Pull down styles
+ *
+ */
+#pullDown, #pullUp {
+	background:#fff;
+	height:40px;
+	line-height:50px;
+	padding:5px 10px;
+	font-weight:bold;
+	font-size:14px;
+	color:#888;
+}
+#pullDown .pullDownIcon, #pullUp .pullUpIcon  {
+	display:block; float:left;
+	width:40px; height:40px;
+	background:url(../images/pull-icon@2x.png) 0 0 no-repeat;
+	-webkit-background-size:40px 80px; background-size:40px 80px;
+	-webkit-transition-property:-webkit-transform;
+	-webkit-transition-duration:250ms;
+}
+#pullDown .pullDownIcon {
+	-webkit-transform:rotate(0deg) translateZ(0);
+}
+#pullUp .pullUpIcon  {
+	-webkit-transform:rotate(-180deg) translateZ(0);
+}
+
+#pullDown.flip .pullDownIcon {
+	-webkit-transform:rotate(-180deg) translateZ(0);
+}
+
+#pullUp.flip .pullUpIcon {
+	-webkit-transform:rotate(0deg) translateZ(0);
+}
+
+#pullDown.loading .pullDownIcon, #pullUp.loading .pullUpIcon {
+	background-position:0 100%;
+	-webkit-transform:rotate(0deg) translateZ(0);
+	-webkit-transition-duration:0ms;
+
+	-webkit-animation-name:loading;
+	-webkit-animation-duration:2s;
+	-webkit-animation-iteration-count:infinite;
+	-webkit-animation-timing-function:linear;
+}
+
+@-webkit-keyframes loading {
+	from { -webkit-transform:rotate(0deg) translateZ(0); }
+	to { -webkit-transform:rotate(360deg) translateZ(0); }
+}
+
+/*------------- S 浠ヤ笅css涓昏鏄豢IOS婊氬姩鏉℃牱寮�鍙�鏍峰紡)  -------------*/
+/**
+ * Horizontal Scrollbar
+ */
+.myScrollbarH {
+	position:absolute;
+	z-index:100;
+	height:7px;
+	bottom:1px;
+	left:2px;
+	right:7px
+}
+
+.myScrollbarH > div {
+	height:100%;
+}
+
+/**
+ * Vertical Scrollbar
+ */
+.myScrollbarV {
+	position:absolute;
+	z-index:100;
+	width:7px;bottom:7px;top:2px;right:1px
+}
+
+.myScrollbarV > div {
+	width:100%;
+}
+
+/**
+ * Both Scrollbars
+ */
+.myScrollbarH > div,
+.myScrollbarV > div {
+	position:absolute;
+	z-index:100;
+
+	/* The following is probably what you want to customize */
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	-o-box-sizing:border-box;
+	box-sizing:border-box;
+
+	border-width:3px;
+}
+/*------------- E 浠ヤ笂css涓昏鏄豢IOS婊氬姩鏉℃牱寮� -------------*/

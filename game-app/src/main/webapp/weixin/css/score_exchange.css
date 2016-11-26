@@ -1,0 +1,77 @@
+body{
+  background: #efeff4;
+}
+.body{
+  width: 100%;
+  padding: 0 0 4em 0;
+  min-height: 10em;
+}
+.top{
+  width: 100%;
+  padding: 2em 1em 1em;
+  background: #f88421;
+  color: #fff;
+  text-align: right;
+  box-sizing: border-box;
+}
+.top_title{
+  font-size: 1.5em;
+  float: right;
+}
+.top_score{
+  margin: 1.5em 0 1em;
+  font-size: 2em;
+}
+.top_score span{
+  font-size: 3em;
+}
+.row_wrap{
+  border-bottom: 0.1em solid #ccc;
+  /*padding: 1em 0 1em 0.8em;*/
+  box-sizing: border-box;
+  overflow: hidden;
+  height: 5.8em;
+}
+.row_wrap>img{
+  float: left;
+  display: inline-block;
+  width: 20%;
+  padding: 0.6em 0 0.8em 0.4em;
+  box-sizing: border-box;
+}
+.row_info{
+  float: left;
+  display: inline-block;
+  width:56%;
+  padding: 0.6em 0.8em;
+  box-sizing: border-box;
+  color: #333;
+}
+.row_info p{
+  font-size: 0.6em;
+  margin-top: 0.5em;
+  line-height: 1.6em;
+  color: #666;
+}
+.bt_wrap{
+  float: left;
+  display: inline-block;
+  width: 24%;
+  box-sizing: border-box;
+  color: #fff;
+  text-align: center;
+  line-height: 5.8em;
+  background: #bebebe url(../images/half_circle_grey.png) repeat-y left;
+  background-size: 0.3em;
+}
+.bt_wrap.active {
+  background: #6ab5f7 url(../images/half_circle_blue.png) repeat-y left;
+  background-size: 0.3em;
+}
+.bt_wrap .score {
+  font-size: 1.6em;
+  margin-left: 0.3em;
+}
+.bt_disable{
+  background: #b9b9b9!important;
+}

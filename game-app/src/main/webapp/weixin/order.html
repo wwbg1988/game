@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no" />
+
+<title>订单</title>
+
+<link href="css/base.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+
+<script type="text/javascript">
+
+    WgateJs = {};
+    WgateJs.auto_auth=true;
+    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://st.weixingate.com/";
+    u=u+'st/1341';
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.type='text/javascript';
+    g.defer=true; g.async=true; g.src=u; s.parentNode.insertBefore(g,s);
+    WgateJs.getWgateUser(function(user){
+    	var user = eval(user);
+    	var str =""
+    	for(var i in user){
+    	str = i ":"
+    	str = user[i] ",";
+    	};
+    	alert(str); //微信用户信息
+    	});
+</script>
+
+</head>
+<body class="body-white">
+	<p class="order-top" id="carteNum">最多可选择14个</p>
+
+	<div class="main">
+		<div class="tablist clearfix">
+			<ul class="tabmenu" id="carteType">
+				<li id="tabbt1" class="tabmenu_active">大荤</li>
+				<li id="tabbt2">小荤</li>
+				<li id="tabbt3">素菜</li>
+				<li id="tabbt4">汤</li>
+			</ul>
+
+			<div id="carte">
+
+				<div id="tab1" class="tab_content tab_content_active">
+					<ul>
+						<li><span class="fname">红烧大排</span> <span class="fdaka">250大卡</span>
+							<span class="fcheck"> <label for="item1"
+								class="check-link"></label> <input type="checkbox"
+								class="checkbox" value="1" id="item1" name="" />
+						</span></li>
+						<li><span class="fname">粮醋大排</span> <span class="fdaka">300大卡</span>
+							<span class="fcheck"> <label for="item1"
+								class="check-link"></label> <input type="checkbox"
+								class="checkbox" value="1" id="item1" name="" />
+						</span></li>
+						<li><span class="fname">剁椒鱼头</span> <span class="fdaka">210大卡</span>
+							<span class="fcheck"> <label for="item1"
+								class="check-link"></label> <input type="checkbox"
+								class="checkbox" value="1" id="item1" name="" />
+						</span></li>
+						<li><span class="fname">红烧肉</span> <span class="fdaka">400大卡</span>
+							<span class="fcheck"> <label for="item1"
+								class="check-link"></label> <input type="checkbox"
+								class="checkbox" value="1" id="item1" name="" />
+						</span></li>
+						<li><span class="fname">水煮鱼</span> <span class="fdaka">250大卡</span>
+							<span class="fcheck"> <label for="item1"
+								class="check-link"></label> <input type="checkbox"
+								class="checkbox" value="1" id="item1" name="" />
+						</span></li>
+					</ul>
+				</div>
+
+
+				<div id="tab2" class="tab_content">
+					<ul>
+						<li><span class="fname">红烧肉</span> <span class="fdaka">400大卡</span>
+							<span class="fcheck"> <label for="item1"
+								class="check-link"></label> <input type="checkbox"
+								class="checkbox" value="1" id="item1" name="" />
+						</span></li>
+						<li><span class="fname">红烧大排</span> <span class="fdaka">250大卡</span>
+							<span class="fcheck"> <label for="item1"
+								class="check-link"></label> <input type="checkbox"
+								class="checkbox" value="1" id="item1" name="" />
+						</span></li>
+						<li><span class="fname">粮醋大排</span> <span class="fdaka">300大卡</span>
+							<span class="fcheck"> <label for="item1"
+								class="check-link"></label> <input type="checkbox"
+								class="checkbox" value="1" id="item1" name="" />
+						</span></li>
+						<li><span class="fname">红烧大排</span> <span class="fdaka">250大卡</span>
+							<span class="fcheck"> <label for="item1"
+								class="check-link"></label> <input type="checkbox"
+								class="checkbox" value="1" id="item1" name="" />
+						</span></li>
+						<li><span class="fname">剁椒鱼头</span> <span class="fdaka">210大卡</span>
+							<span class="fcheck"> <label for="item1"
+								class="check-link"></label> <input type="checkbox"
+								class="checkbox" value="1" id="item1" name="" />
+						</span></li>
+						<li><span class="fname">水煮鱼</span> <span class="fdaka">250大卡</span>
+							<span class="fcheck"> <label for="item1"
+								class="check-link"></label> <input type="checkbox"
+								class="checkbox" value="1" id="item1" name="" />
+						</span></li>
+					</ul>
+				</div>
+
+
+				<div id="tab3" class="tab_content">
+					<ul>
+						<li><span class="fname">红烧肉</span> <span class="fdaka">400大卡</span>
+							<span class="fcheck"> <label for="item1"
+								class="check-link"></label> <input type="checkbox"
+								class="checkbox" value="1" id="item1" name="" />
+						</span></li>
+						<li><span class="fname">红烧大排</span> <span class="fdaka">250大卡</span>
+							<span class="fcheck"> <label for="item1"
+								class="check-link"></label> <input type="checkbox"
+								class="checkbox" value="1" id="item1" name="" />
+						</span></li>
+						<li><span class="fname">剁椒鱼头</span> <span class="fdaka">210大卡</span>
+							<span class="fcheck"> <label for="item1"
+								class="check-link"></label> <input type="checkbox"
+								class="checkbox" value="1" id="item1" name="" />
+						</span></li>
+						<li><span class="fname">水煮鱼</span> <span class="fdaka">250大卡</span>
+							<span class="fcheck"> <label for="item1"
+								class="check-link"></label> <input type="checkbox"
+								class="checkbox" value="1" id="item1" name="" />
+						</span></li>
+						<li><span class="fname">粮醋大排</span> <span class="fdaka">300大卡</span>
+							<span class="fcheck"> <label for="item1"
+								class="check-link"></label> <input type="checkbox"
+								class="checkbox" value="1" id="item1" name="" />
+						</span></li>
+					</ul>
+				</div>
+
+
+				<div id="tab4" class="tab_content">
+					<ul>
+						<li><span class="fname">红烧肉</span> <span class="fdaka">400大卡</span>
+							<span class="fcheck"> <label for="item1"
+								class="check-link"></label> <input type="checkbox"
+								class="checkbox" value="1" id="item1" name="" />
+						</span></li>
+						<li><span class="fname">红烧大排</span> <span class="fdaka">250大卡</span>
+							<span class="fcheck"> <label for="item1"
+								class="check-link"></label> <input type="checkbox"
+								class="checkbox" value="1" id="item1" name="" />
+						</span></li>
+						<li><span class="fname">水煮鱼</span> <span class="fdaka">250大卡</span>
+							<span class="fcheck"> <label for="item1"
+								class="check-link"></label> <input type="checkbox"
+								class="checkbox" value="1" id="item1" name="" />
+						</span></li>
+						<li><span class="fname">粮醋大排</span> <span class="fdaka">300大卡</span>
+							<span class="fcheck"> <label for="item1"
+								class="check-link"></label> <input type="checkbox"
+								class="checkbox" value="1" id="item1" name="" />
+						</span></li>
+						<li><span class="fname">剁椒鱼头</span> <span class="fdaka">210大卡</span>
+							<span class="fcheck"> <label for="item1"
+								class="check-link"></label> <input type="checkbox"
+								class="checkbox" value="1" id="item1" name="" />
+						</span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="submit-order" class="submit-bt">提交</div>
+
+	<script src="js/jquery-1.11.3.min.js"></script>
+	
+	<script type="text/javascript" src="js/cfg.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+
+	<script src="js/order.js"></script>
+
+</body>
+</html>

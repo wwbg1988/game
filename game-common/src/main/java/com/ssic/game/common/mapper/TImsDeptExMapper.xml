@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.game.common.mapper.TImsDeptExMapper" >
+
+
+	<select id="findAll" resultType="com.ssic.game.common.dto.DeptDto">
+		select id,create_time as createTime,stat as stat,parent_dept_id as pid,dept_code as deptCode,last_update_time as lastUpdateTime,dept_admin as deptAdmin,dept_name as deptName,proj_id as projId
+		from t_ims_dept dept where dept.stat=1
+		  <include refid="where_clause_1" />
+		  order by createTime desc 
+	</select> 
+	
+    <select id="validDeptRootExists" resultType="com.ssic.game.common.dto.DeptDto">
+		select id,create_time as createTime,parent_dept_id as pid,dept_code as deptCode,last_update_time as lastUpdateTime,dept_admin as deptAdmin,dept_name as deptName,proj_id as projId
+		from t_ims_dept where stat=1 and parent_dept_id ='' and id not in(#{deptId}) and proj_id =#{projId};
+	</select> 
+	
+	<select id="findById" resultType="com.ssic.game.common.dto.DeptDto">
+		select id,create_time as createTime,stat as stat,parent_dept_id as pid,dept_code as deptCode,last_update_time as lastUpdateTime,dept_admin as deptAdmin,dept_name as deptName,proj_id as projId
+		from t_ims_dept where id=#{deptId}
+	</select>
+	
+	
+    <select id="findCodeByLastCreateTime" resultType="com.ssic.game.common.dto.DeptDto">
+		select id,create_time as createTime,stat as stat,parent_dept_id as pid,dept_code as deptCode,last_update_time as lastUpdateTime,dept_admin as deptAdmin,dept_name as deptName,proj_id as projId
+		 from t_ims_dept where stat=1 and parent_dept_id ='' order by create_time desc;
+	</select>
+	
+	 <select id="findPageBy" resultType="com.ssic.game.common.dto.DeptDto">
+   	    select id,create_time as createTime,parent_dept_id as pid,dept_code as deptCode,last_update_time as lastUpdateTime,dept_admin as deptAdmin,dept_name as deptName,proj_id as projId
+		from t_ims_dept dept where dept.stat=1
+ 	    <include refid="where_clause_1" />
+ 		 order by dept.create_time desc LIMIT #{ph.beginRow},#{ph.rows}
+ 	 </select>
+ 	 
+ 	 <select id="findChildListByParentId" resultType="com.ssic.game.common.dto.DeptDto">
+   	    select id,create_time as createTime,stat as stat,parent_dept_id as pid,dept_code as deptCode,last_update_time as lastUpdateTime,dept_admin as deptAdmin,dept_name as deptName,proj_id as projId
+		from t_ims_dept dept where dept.stat=1 and dept.parent_dept_id=#{deptId}
+ 	 </select>
+ 	 
+	 <insert id="insertDept">
+	 insert into t_ims_dept (id,create_time,parent_dept_id,dept_code,dept_name,proj_id,stat) values(#{dept.id},#{dept.createTime},#{dept.pid},#{dept.deptCode},#{dept.deptName},#{dept.projId},#{dept.stat})
+	 </insert>
+	 <update id="updateDept">
+	 update t_ims_dept set parent_dept_id=#{dept.pid},dept_code=#{dept.deptCode},dept_name=#{dept.deptName},proj_id=#{dept.projId},stat=#{dept.stat},last_update_time=#{dept.lastUpdateTime} where id=#{dept.id}
+	 </update>
+	 <update id="updateDelDept">
+	 update t_ims_dept set stat = 0 where id=#{deptId}
+	 </update>
+	   <select id="findCountBy" resultType="Integer">
+	 	select count(*) from t_ims_dept dept
+	 	where dept.stat=1 and dept.proj_id =#{dept.projId}
+	 	<include refid="where_clause_1" />
+	  </select>
+	  
+      <select id="findEditCountBy" resultType="Integer">
+	 	select count(*) from t_ims_dept dept
+	 	where dept.stat=1 and dept.id not in(#{dept.id}) and dept.dept_name =#{dept.deptName} and dept.parent_dept_id =#{dept.pid}
+	
+	  </select>
+	
+	 <sql id="where_clause_1" >
+	 	<if test="dept.id!=null and dept.id!=''">
+	 		and dept.id = #{dept.id}
+	 	</if>
+	 	<if test="dept.deptCode!=null and dept.deptCode!=''">
+	 		and dept.dept_code=#{dept.deptCode}
+	 	</if>
+	 	<if test="dept.searchName != null and dept.searchName!=''" >
+	 		and dept.dept_name like #{dept.searchName}
+	 	</if>
+	 	<if test="dept.deptName != null and dept.deptName!=''" >
+	 		and dept.dept_name like #{dept.deptName}
+	 	</if>
+	 	<if test="dept.projId!=null and dept.projId!=''">
+	 		and dept.proj_id in ( #{dept.projId})
+	 	</if>
+	 	<if test="dept.projIds!=null and dept.projIds!=''">
+	 		and dept.proj_id in ( #{dept.projIds})
+	 	</if>
+	 	<if test="dept.pid!=null  ">
+	 	    and dept.parent_dept_id = #{dept.pid}
+	 	</if>
+	    </sql>
+	  
+	  
+	   <sql id="paging_order_1" >
+	 	 <if test="ph.beginRow!=null and ph.beginRow!=''">
+	 		limit #{ph.beginRow},#{ph.rows}
+	 	 </if>
+	   </sql>
+	   
+	   <select id="findManager" resultType="Integer">
+	   select count(*) from t_ims_dept_users a where a.dept_id = #{deptId} and a.stat=1 and a.is_admin =1
+	   </select>
+	   
+</mapper>

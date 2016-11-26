@@ -1,0 +1,50 @@
+.body{
+  width: 100%;
+  padding: 0 0 2em 0;
+  text-align: center;
+  min-height: 10em;
+  background:  url(../images/winning_bg.png) no-repeat;
+  background-size: 100%;
+}
+.prize{
+  display: inline-block;
+  padding: 0.6em 1em;
+  font-size: 1.6em;
+  color: #fff;
+  margin-top: 7em;
+  background:  url(../images/winning_notice.png);
+  background-size: 100%;
+}
+.prize_info{
+  color: #f88421;
+  line-height: 2em;
+}
+.first_prize_info{
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-top: 2em;
+}
+.cellphone{
+  width: 9em;
+  margin: 0.3em auto 0;
+  padding: 0 1em;
+  font-size: 1.6em;
+  height: 2em;
+  line-height: 2em;
+  background: #fff;
+  border: none;
+  box-sizing: border-box;
+}
+#bt{
+  width: 11em;
+  height: 2em;
+  margin: 2em auto 0;
+  color: #fff;
+  font-size: 1.5em;
+  line-height: 2em;
+  background: #ff8901;
+  border-radius: 0.2em;
+}
+#bt:active{
+  background: #611000;
+}

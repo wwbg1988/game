@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <title>订单详情</title>
+    <link href="css/base.css" rel="stylesheet">
+    <link href="css/my_order_detail.css" rel="stylesheet">
+  </head>
+<body>
+  <!-- header -->
+  <div class="header clearfix">
+    <span class="icon_left"><img src="images/icon_left_menu.png" /></span>
+    想吃什么吃什么
+  </div>
+  <!-- header end -->
+
+
+  <!-- menu -->
+	<div class="menu">
+		<ul class="leftnav sidenav">
+			<li><a href="javascript:void(0)"><span class="w" id="menu_comment"><b>今日点评</b></span></a></li>
+      		<li><a href="javascript:void(0)"><span class="w" id="menu_menu"><b>下周菜单</b></span></a></li>
+      		<li><a href="javascript:void(0)"><span class="w" id="menu_transfer"><b>天坊配送</b></span></a></li>
+      		<li><a href="javascript:void(0)"><span class="w" id="menu_call"><b>上门服务</b></span></a></li>
+      		<li><a href="javascript:void(0)"><span class="w" id="menu_birthday"><b>生日免单</b></span></a></li>
+		</ul>
+		<!-- menu end -->
+
+		<!-- 页面内容 -->
+		<section>
+			<!-- 遮罩层 -->
+			<div id="mask"></div>
+
+			<h3>基本信息</h3>
+			<ul class="order_info">
+			<!--<li>
+            <div class="wrap clearfix">
+              订单编号 <span>12345678901</span>
+            </div>
+          </li>
+          <li>
+            <div class="wrap clearfix">
+              下单时间 <span>2015-08-24  09:43</span>
+            </div>
+          </li>
+          <li>
+            <div class="wrap clearfix">
+              支付方式 <span>微信支付</span>
+            </div>
+          </li>
+          <li>
+            <div class="wrap clearfix">
+              订单金额 <span class="price">￥100</span>
+            </div>
+          </li>
+          <li>
+            <div class="wrap clearfix">
+              包裹数量 <span>2个（含4件商品）</span>
+            </div>
+          </li> -->
+			</ul>
+		
+      <div class="parcel"></div>
+      <!--    <h4><div class="wrap">请前往食堂提货</div></h4>
+        <div class="pic_wrap">
+          <div class="wrap">
+            图片最多4张
+            <img src="images/my_order_pic1.png"/>
+            <img src="images/my_order_pic2.png"/>
+            <img src="images/my_order_pic1.png"/>
+            <img src="images/my_order_pic2.png"/>
+            图片最多4张 end
+          </div>
+        </div>
+        <div class="total_wrap">
+          <div class="wrap">
+            共3件商品 合计：<span class="total color">￥80</span>
+          </div>
+        </div>
+      </div> -->
+		</section>
+	</div>
+
+
+  <script src="js/jquery-1.11.3.min.js"></script>
+  <script src="js/main.js"></script>
+  <script type="text/javascript" src="js/cfg.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+  <script src="js/order_pay.js"></script>
+  
+</body>
+</html>

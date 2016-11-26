@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.game.common.mapper.TimsRoleExMapper">
+
+    <select id="findBy" parameterType="com.ssic.game.common.dto.TmsRoleDto" resultType="com.ssic.game.common.dto.TmsRoleDto">
+       select id as id ,name as name,proj_id as projId,
+       (select a.proj_name from t_ims_project a where a.id = proj_id) as projName,
+       describes as describes from t_ims_role where stat=1 
+       <include refid="where_findBy"/>
+         ORDER BY
+	   create_time DESC 
+    </select>
+    
+    <select id="findByAll" resultType="com.ssic.game.common.dto.TmsRoleDto">
+        select id as id ,name as name,proj_id as projId,
+       (select a.proj_name from t_ims_project a where a.id = proj_id) as projName,
+       describes as describes from t_ims_role where stat=1 
+       <include refid="where_findBy"/>
+         ORDER BY
+	   create_time DESC limit #{page.beginRow},#{page.rows}
+    </select>
+    
+    <select id="findCount" resultType="Integer">
+      select count(*) from t_ims_role where stat=1
+      <include refid="where_findBy"/>
+    </select>
+    
+    
+    <sql id="where_findBy">
+       <if test="role.id !=null and role.id!= '' ">
+          and id = #{role.id}
+       </if>
+       <if test=" role.name !=null and role.name!='' ">
+          and name = #{role.name}
+       </if>
+       <if test="role.projId !=null and role.projId!= '' ">
+          and proj_id = #{role.projId}
+       </if>
+       <if test="role.describes != null and role.describes!= '' ">
+         and describes = #{role.describes}
+       </if>
+    </sql>
+    
+
+    <insert id="insertRole" parameterType="com.ssic.game.common.dto.TmsRoleDto">
+      insert into t_ims_role(
+      id,
+      NAME,
+      proj_id,
+      describes,
+      stat,
+      create_time) values(
+      #{role.id},
+      #{role.name},
+      #{role.projId},
+      #{role.describes},
+      #{role.stat},
+      #{role.createTime}
+      )
+    </insert>
+
+    <update id="updateRole" parameterType="com.ssic.game.common.dto.TmsRoleDto">
+       update t_ims_role set 
+       name=#{role.name},
+       proj_id=#{role.projId},
+       describes=#{role.describes},
+       last_update_time= #{role.lastUpdateTime} 
+       where 
+       id=#{role.id}
+    </update>
+    
+    
+    <update id="deleteRole" parameterType="com.ssic.game.common.dto.TmsRoleDto">
+       update t_ims_role  set 
+       stat = 0 , 
+       last_update_time = #{role.lastUpdateTime}    
+       where 
+       id=#{role.id}
+    </update>
+    
+    <select id="findRoleUser" parameterType="com.ssic.game.common.dto.RoleUsersDto" resultType="com.ssic.game.common.dto.RoleUsersDto">
+     select id as id ,role_id as roleId,user_id as userId  from t_ims_role_users where stat=1 and role_id= #{roleUser.roleId}
+    </select>
+    
+    <update id="delRoleUseById" parameterType="com.ssic.game.common.dto.RoleUsersDto">
+       update t_ims_role_users set stat =0, last_update_time = #{roleUser.lastUpdateTime}      where  role_id= #{roleUser.roleId}
+    </update>
+    
+    <insert id="insertRoleUser" parameterType="com.ssic.game.common.dto.RoleUsersDto">
+      insert into t_ims_role_users (
+      id,
+      role_id,
+      user_id,
+      stat,
+      create_time) VALUES(
+      #{roleUser.id},
+      #{roleUser.roleId},
+      #{roleUser.userId},
+      #{roleUser.stat},
+      #{roleUser.createTime}
+      )
+    </insert>
+    
+    <select id="findByUserId" resultType="com.ssic.game.common.dto.TmsRoleDto">
+    SELECT
+		c.id AS id,
+		c.create_time AS createTime,
+		c.role_name AS role_name,
+		c.no AS no,
+		c.pj_no AS pj_no,
+		c.remark AS remark,
+		c.seq AS seq,
+		c.pid AS pid
+		FROM
+		t_ims_role c
+		WHERE
+		c.id IN (
+		SELECT DISTINCT
+		b.role_id
+		FROM
+		t_ims_role_users b
+		WHERE
+		b.user_id = #{user_id} and b.stat
+		= '1'
+		)
+		AND c.stat
+		= '1'
+    </select>
+    
+    <select id="findTreeRoles" resultType="com.ssic.game.common.dto.TmsRoleDto">
+        select DISTINCT role_id as id,(select a.`name` from t_ims_role a where a.id=role_id) as name  from t_ims_role_users 
+        where stat=1 and user_id =#{userId}
+    </select>
+    
+    <select id="findUserNames" resultType="com.ssic.game.common.dto.RoleUsersDto">
+      select id as id,
+      role_id as roleId,
+      user_id as userId,
+      (select a.`name` from t_ims_users a where a.id =user_id ) as userNames
+      from t_ims_role_users where stat=1 and role_id =#{roleUser.roleId}
+    </select>
+    
+</mapper>

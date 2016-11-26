@@ -1,0 +1,143 @@
+/*ff5500*/
+* {margin: 0; padding: 0;-webkit-tap-highlight-color:rgba(255,255,255,0);}
+html {
+  font-family: "Microsoft YaHei","宋体";
+  -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+}
+body {
+  width: auto;
+  background: #efeff4;
+}
+h1 {
+  font-size: 2em;
+}
+img {
+  border: 0;
+}
+body,div,p,span,h1,h2,h3,ul,li{
+  margin: 0;
+  padding: 0;
+}
+ul{
+  list-style-type: none;
+}
+hr {
+  height: 0;
+  -webkit-box-sizing: content-box;
+     -moz-box-sizing: content-box;
+          box-sizing: content-box;
+}
+.clearfix:after {
+     content: ".";
+     display: block;
+     height: 0;
+     clear: both;
+     visibility: hidden;
+}
+.main{
+  width: 100%;
+}
+.header{
+  width: 100%;
+  height:3em;
+  color: #f88421;
+  font-size: 1em;
+  text-align: center;
+  line-height: 3em;
+  background: #fff;
+}
+.top{
+  font-size: 0.8em;
+  padding: 0.8em 0;
+}
+.wrap{
+  width:90%;
+  margin: 0 auto;
+}
+.submit-bt{
+  width:90%;
+  height: 2.4em;
+  margin: 2em auto 2em;
+  line-height: 2.4em;
+  text-align: center;
+  background: #ffad0f;
+  color: #fff;
+  cursor: pointer;
+}
+.header {
+  position: relative;
+}
+.header .icon_left {
+  position: absolute;
+  left: 0;
+}
+.header .icon_left>img{
+  display: inline-block;
+  width: 1.5em;
+  float: left;
+  padding: 1em
+}
+.header .icon_right>img{
+  display: inline-block;
+  width: 1.5em;
+  float: right;
+  padding: 1em
+}
+
+
+
+.menu {float: left;width:980px;margin: 0 auto;}
+.menu { width: 100%; overflow: hidden; float: left; position: relative; }
+
+.menu section {position: relative; transition: all 0.25s; width: 100%;background: #fff;}
+
+#mask{
+  z-index: 2;
+  width: 100%;
+  height:10em;
+  background: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+}
+
+.sidenav {position: absolute; top: 0; left: 0; bottom: 0; background: linear-gradient(rgba(50,60,60, 1), rgba(50,60,60, 0.7)); width: 50px; transition: all 0.25s; overflow: hidden; padding-top: 100px;}
+.sidenav li { _overflow: hidden; width: 150px; }
+.sidenav a { text-decoration: none; color: #eee;  display: block; line-height: 48px;  }
+.sidenav span {display: block;}
+.sidenav b { padding-left 10px; display: block; color: white; font-family: "Microsoft YaHei"; font-size: 12px; line-height: 4; opacity: 1; }
+.sidenav a i { display: block; float: left; font-size: 16px; line-height: 48px; width: 50px; text-align: center; }
+
+/*instances*/
+
+.section_slide {margin-left: 15em;}
+.sidenav_width{width: 15em;}
+
+.sidenav li:nth-child(1) b, .sidenav li:nth-child(1) a {transition-delay: .08s;}
+.sidenav li:nth-child(2) b, .sidenav li:nth-child(2) a {transition-delay: .16s;}
+.sidenav li:nth-child(3) b, .sidenav li:nth-child(3) a {transition-delay: .24s;}
+.sidenav li:nth-child(4) b, .sidenav li:nth-child(4) a {transition-delay: .32s;}
+.sidenav li:nth-child(5) b, .sidenav li:nth-child(5) a {transition-delay: .40s;}
+.sidenav li:nth-child(6) b, .sidenav li:nth-child(6) a {transition-delay: .48s;}
+
+
+/*menu*/
+.menu .w {transform: perspective(100px);}
+.menu b {transform:perspective(100px) rotateY(90deg); _opacity: 0; transform-origin: left center; _border: 1px solid white;}
+.menu.rot b{transform:perspective(8em) rotateX(0); transition: all .4s; opacity: 1;}
+
+.menu .leftnav {width: 15em;}
+.menu .sidenav span {float: left; width: 100px;}
+
+
+.sidenav a { text-align: center}
+.menu .sidenav a span{float: none;margin: 0 auto;}
+.menu .sidenav li{
+  width: 100%;
+  height:3em;
+}
+.menu .sidenav li:active{
+  background: #666;
+}

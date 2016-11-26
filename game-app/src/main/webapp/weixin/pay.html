@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>商品支付</title>
+</head>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="js/cfg.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<body>
+
+
+
+
+</body>
+<script>
+//获取url中的参数
+//name=需要获取的参数
+function getUrlParam(name) {
+ var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+ var r = window.location.search.substr(1).match(reg); //匹配目标参数
+ if (r != null)
+  return unescape(r[2]);
+ return null; //返回参数值
+}
+
+	//alert(1);
+		var openid = getUrlParam("openId");
+		var orderNo = getUrlParam("orderNo");
+		var goodsAmount = getUrlParam("goodsAmount");
+		var orderId = getUrlParam("orderId");
+	    var appId;
+		var timeStamp;
+		var nonceStr;
+		var packages;
+		var paySign;
+		//如果订单状态不是取消支付状态，则需要获取与支付单号，然后调用微信支付接口;
+			    //获取预支付单号
+				$.ajax({
+				type : "POST",
+				url : appName+"/weiXinPayment/pay.do?openid="+openid+"&orderNo="+orderNo+"&goodsAmount="+goodsAmount,
+				data : {'openid':openid}, //参数自己根据业务定义
+				dataType : "json",
+				success : function (da) {
+				 var data=da.data;
+					 appId = data.appId;
+					 timeStamp = data.timeStamp+"";
+				     nonceStr = data.nonceStr;
+					 packages = data.package;
+				     paySign = data.paySign;
+					//定时器，1秒后调用
+					setTimeout(function(){
+						wxPay(appId,timeStamp,nonceStr,packages,paySign);
+					}, 1000)
+			     }
+			   });	
+			 
+		
+	
+  //微信支付方法
+  function wxPay(appId,timeStamp,nonceStr,packages,paySign){
+		WeixinJSBridge.invoke('getBrandWCPayRequest',{
+			 "appId" : appId,"timeStamp" : timeStamp, "nonceStr" :nonceStr, "package" : packages,"signType" : "MD5", "paySign" : paySign
+			}, function(res) {
+				//alert(res.err_msg);
+				WeixinJSBridge.log(res.err_msg);
+				if (res.err_msg == "get_brand_wcpay_request:ok") {
+					alert("支付成功!");
+					//更新订单支付状态为微信支付
+				$.ajax({
+		              url:appName+'/ourOrder/payDelivery.do',
+		              type:'POST',
+		              dataType:'json',
+		              data:{
+		                 	"openId":openid,
+			                "orderNo":orderNo,
+			                "payWay":"1"
+		              },
+                complete: function(msg) { 
+ 	             location.href="pay_confirm.html?orderNo="+orderNo+"&orderId="+orderId+"&openId="+openid+"&cafetoriumId="+getUrlParameter("cafetoriumId");
+ 	           },
+		           success:function(data)
+		            {
+			
+		            },
+		            error:function(jqXHR, textStatus, errorThrown)
+		            {
+			            alert("网络出错");
+		              }  			
+	                });
+					
+					//WeixinJSBridge.call('closeWindow');//自动关闭微信浏览器
+				} else if (res.err_msg == "get_brand_wcpay_request:cancel") {
+					alert("用户取消支付!");
+					//用户取消支付，更新订单状态为1：未支付
+					$.ajax({
+ 			              url:appName+'/ourOrder/cancelPay.do',
+ 			              type:'POST',
+ 			              dataType:'json',
+ 			              data:{
+ 			                 	"openId":openid,
+ 				                "orderId":orderId,
+ 				                "isCancelPay":1
+ 			              },
+ 	                   complete: function(msg) { 
+ 	                		location.href="my_order.html?openId="+openid+"&cafetoriumId="+getUrlParameter("cafetoriumId");
+ 	    	           },
+ 			           success:function(data)
+ 			            {
+ 				
+ 			            },
+ 			            error:function(jqXHR, textStatus, errorThrown)
+ 			            {
+ 				            alert("网络出错");
+ 			              }  			
+ 		                });
+				
+				} else {
+					alert("支付失败!");
+					location.href="my_order.html?openId="+openid+"&cafetoriumId="+getUrlParameter("cafetoriumId");
+				}
+			});
+ }
+
+</script>
+</html>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.game.admin.mapper.TImsDeptLevelExMapper" >
+
+
+	<select id="findAll" resultType="com.ssic.game.admin.pojo.DeptLevel">
+		select id,create_time as createTime,level as level,level_name as levelName,last_update_time as lastTime
+		from t_ims_dept_level where stat=1 	<include refid="where_clause_1" />
+	</select> 
+	
+	<select id="findLevelAll" resultType="com.ssic.game.admin.pojo.DeptLevel">
+	   select id,create_time as createTime,level as level,level_name as levelName,last_update_time as lastTime
+		from t_ims_dept_level where stat=1 	<include refid="where_clause_1" />
+		 ORDER BY create_time desc limit  #{page.beginRow},#{page.rows}
+	</select>
+	
+	<select id="findLevelCount" resultType="Integer">
+	   select count(*) from t_ims_dept_level where stat=1 
+	   <include refid="where_clause_1" />
+	</select>
+	
+	<insert id="insert">
+		insert into t_ims_dept_level (id,level,level_name,create_time,stat) values(#{dept.id},#{dept.level},#{dept.levelName},#{dept.createTime},#{dept.stat})
+	</insert>
+	<update id="updateDel">
+		update t_ims_dept_level set stat =0 where id =#{dept.id}
+	</update>
+	<update id="updateFun">
+		update t_ims_dept_level set level_name=#{dept.levelName},level=#{dept.level},last_update_time=#{dept.lastTime} where id =#{dept.id}
+	</update>
+	
+		 <sql id="where_clause_1" >
+	 	<if test="dept.id!=null and dept.id!=''">
+	 		and id = #{dept.id}
+	 	</if>
+	 	<if test="dept.levelName != null and dept.levelName!=''" >
+	 		and level_name = #{dept.levelName}
+	 	</if>
+	 	<if test="dept.level!=null and dept.level!=''">
+			and level = #{dept.level}	 	
+	 	</if>
+		
+	 </sql>
+
+</mapper>

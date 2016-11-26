@@ -1,0 +1,65 @@
+h1.con-tks {
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: normal;
+    padding-top: 2em;
+    padding-bottom: 1rem;
+    background-color: #fff;
+}
+
+.tks-img-wrapper {
+    text-align: center;
+    background-color: #fff;
+}
+
+.lab-tks {
+    width: 100%;
+    text-align: center;
+    display: block;
+    font-size: 1em;
+    line-height: 1.8em;
+}
+
+.lab-tks-1 {
+    padding-top: 2rem;
+    background-color: #fff;
+}
+
+.lab-tks-2 {
+    color: #666666;
+    background-color: #fff;
+    padding-bottom: 2rem;
+}
+
+.bg-tks {
+    width: 100%;
+    background-image: url(../images/chef-bg1.png);
+    height: 1rem;
+    background-repeat: repeat no-repeat;
+}
+
+section.tks {
+    background-color: #EFEFF4;
+}
+
+
+
+.sp-tks {
+    cursor: pointer;
+    color: #FC6922;
+    padding-top: 1rem;
+}
+
+.sp-tks-1 {
+    float: left;
+    padding-left: 25%;
+}
+
+span.sp-tks.sp-tks-2 {
+    float: right;
+    padding-right: 25%;
+}
+
+img.con-tks-img {
+    width: 46%;
+}

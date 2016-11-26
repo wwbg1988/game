@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.game.app.mapper.QJYUserExMapper">
+    
+    <select id="findFriends" parameterType="com.ssic.game.app.controller.dto.QJYSendFriDto" resultType="com.ssic.game.app.controller.dto.QJYSendFriDto">
+    select 
+    friend_user_id as friendUserId,
+    user_id as userId,
+    qjy_account as qjyAccount,
+    (select a.`name` from t_ims_users a where a.id =user_id ) as userName,
+    (select a.`name` from t_ims_users a where a.id=friend_user_id) as friendUserName
+     from t_ims_qjy_friend where user_id =#{qjyFriend.userId}    and stat=1
+    </select>
+    
+</mapper>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <title>积分兑换</title>
+
+    <link href="css/base.css" rel="stylesheet">
+    <link href="css/exchange.css" rel="stylesheet">
+  </head>
+<body>
+
+  <!-- header -->
+  <div class="header clearfix">
+    <span class="icon_left"><img src="images/icon_left_menu.png" /></span>
+    点评有奖天天送
+  </div>
+  <!-- header end -->
+
+  <div id="dialog_mask"></div>
+
+  <!-- 弹出对话框 -->
+  <div id="dialog">
+    <h1 class="title">
+      <img src="images/pay_icon_right.png" />兑换成功
+    </h1>
+    <p>10元话费已充值，请注意查收</p>
+    <div class="bt" onclick="closeAndShowScore()">
+      确定
+    </div>
+  </div>
+  <!-- 弹出对话框 end -->
+
+  <!-- menu -->
+  <div class="menu">
+    <ul class="leftnav sidenav">
+      <li><a href="javascript:void(0)"><span class="w" id="menu_comment"><b>今日点评</b></span></a></li>
+      <li><a href="javascript:void(0)"><span class="w" id="menu_menu"><b>下周菜单</b></span></a></li>
+      <li><a href="javascript:void(0)"><span class="w" id="menu_transfer"><b>天坊配送</b></span></a></li>
+      <li><a href="javascript:void(0)"><span class="w" id="menu_call"><b>上门服务</b></span></a></li>
+      <li><a href="javascript:void(0)"><span class="w" id="menu_birthday"><b>生日免单</b></span></a></li>
+    </ul>
+    <!-- menu end -->
+
+
+    <!-- 页面内容 -->
+    <section>
+      <!-- 遮罩层 -->
+      <div id="mask"></div>
+
+
+
+      <div class="top_wrap">
+        <span class="title">我要兑换</span>
+        <img id="exchangeIcon"/>
+        <span class="score">10元话费</span>
+        <span class="score">所需50积分</span>
+      </div>
+
+      <div class="body">
+        <div class="wrap">
+
+          <span class="info_1">请输入您的手机号进行兑换</span>
+          <span class="info_2">话费将直接充值在您输入的手机号中</span>
+
+          <!-- <div class="cellphone">
+            13526859345
+          </div> -->
+
+          <input type="text" id="phone" class="cellphone" placeholder="请输入手机号"/>
+
+        </div>
+      </div>
+      
+      <!-- 一些参数 -->
+      <input type="hidden" id="openId"/>
+      <input type="hidden" id="integralExchangeId"/>
+      <input type="hidden" id="carteUserId"/>
+      <input type="hidden" id="userIntegralExchangeId"/>
+      
+      <input type="hidden" id="submitFlag" value="false"/>
+
+    <div class="submit-bt" onclick="save()">
+      兑换充值
+    </div>
+
+    </section>
+    <!-- 页面内容 end -->
+
+  </div>
+
+  <script src="js/jquery-1.11.3.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/exchange.js"></script>
+
+  <script type="text/javascript" src="js/cfg.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+  <script type="text/javascript" src="js/validator.js"></script>
+  <script type="text/javascript" src="js/chargeExchange.js"></script>
+</body>
+</html>

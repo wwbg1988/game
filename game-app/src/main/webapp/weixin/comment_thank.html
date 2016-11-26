@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <title>点评有奖天天送</title>
+
+    <link href="css/base.css" rel="stylesheet">
+    <link href="css/comment_thank.css" rel="stylesheet">
+  </head>
+<body>
+  <p class="notice_info">
+    话费将充值<span id="phone"></span>中,请注意查收
+  </p>
+  <div class="body">
+    <div class="wrap">
+      <span class="lose_info_a">再次感谢您此次的就餐评价</span>
+
+      <span class="lose_info_b">请明天再来</span>
+
+      <img class="env_icon" src="images/envolope_icon.png" />
+
+      <a class="bt1" href="javascript:void(0)" onclick="toExchange()">积分兑换</a>
+      <br>
+      <a class="bt2" href="javascript:void(0)" onclick="toNextWeekMenu()">下周菜单您做主</a>
+
+      <p class="weixin_info">
+        搜索天坊烩公众号：tfh     更多惊喜等你来拿
+      </p>
+
+    </div>
+  </div>
+
+  <script src="js/jquery-1.11.3.min.js"></script>
+  <script src="js/main.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+  <script src="js/cfg.js"></script>
+  
+  <script type="text/javascript">
+  	/* $("#phone").text(getUrlParameter("phone")); */
+  	
+  	$(function(){
+  		$.ajax({
+  			url:appName+'/http/api/catering/searchIphone.do?userId='+getUrlParameter("openId"),
+		  	  type:'POST',
+		  	  dataType:'json', 
+		  	  success:function(data){
+		  		if(data.status == 200){
+		  			$("#phone").text(data.data);
+		  		}else{
+		  			alert(data.message);
+		  		}
+		  	  }
+		  });
+  	})
+  </script>
+</body>
+</html>

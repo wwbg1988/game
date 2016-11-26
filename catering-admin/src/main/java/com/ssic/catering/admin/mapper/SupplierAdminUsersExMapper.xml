@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.catering.admin.mapper.SupplierAdminUsersExMapper" >
+  <select id="selectSupplierDtoBy" resultType="com.ssic.catering.lbs.dto.SupplierDto">
+  	select
+  	distinct 
+	t2.id as id,
+	t2.project_id as projectId,
+	t2.supplier_name as supplierName,
+	t2.address as address,
+	t2.longitude as longitude,
+	t2.latitude as latitude,
+	t2.create_time as createTime,
+	t2.last_update_time as lastUpdateTime,
+	t2.stat as stat
+	from 
+		t_ctr_supplier_admin_users t1
+	left join
+		t_ctr_supplier t2
+	on
+		t1.supplier_id = t2.id
+	<if test="example != null">
+		<where >
+	      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+	        <if test="criteria.valid" >
+	          <trim prefix="(" suffix=")" prefixOverrides="and" >
+	            <foreach collection="criteria.criteria" item="criterion" >
+	              <choose >
+	                <when test="criterion.noValue" >
+	                  and t1.${criterion.condition}
+	                </when>
+	                <when test="criterion.singleValue" >
+	                  and t1.${criterion.condition} #{criterion.value}
+	                </when>
+	                <when test="criterion.betweenValue" >
+	                  and t1.${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+	                </when>
+	                <when test="criterion.listValue" >
+	                  and t1.${criterion.condition}
+	                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+	                    #{listItem}
+	                  </foreach>
+	                </when>
+	              </choose>
+	            </foreach>
+	          </trim>
+	        </if>
+	      </foreach>
+	    </where>
+	</if>
+	
+	<if test="example.orderByClause != null" >
+      order by t1.${example.orderByClause}
+    </if>
+  	
+  </select>
+</mapper>

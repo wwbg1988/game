@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.game.common.mapper.DeptUsersExMapper">
+
+
+	<select id="findAllDeptUsr" resultType="Map" >
+	select distinct usr.`name` as userName,usr.id as userId,de.id as deptId,de.dept_name as deptName from t_ims_dept_users depts inner join t_ims_users usr on depts.user_id = usr.id inner join t_ims_dept de on de.id = depts.dept_id
+
+ where usr.name like #{searchName} and depts.proj_id=#{projId} and usr.stat =1 and de.stat =1 and depts.stat =1 order by depts.dept_id
+	</select>
+	
+		<select id="findAllUserNotExist" resultType="Map" >
+		SELECT DISTINCT
+	pro.dept_id as deptId,
+	de.dept_name as deptName,
+	usr.id as userId,
+	usr.`name` as userName
+	
+FROM
+	t_ims_dept_users pro
+INNER JOIN t_ims_users usr ON pro.user_id = usr.id
+INNER JOIN t_ims_dept de ON de.id = pro.dept_id
+WHERE
+ pro.proj_id = #{projId} 
+ <if test="searchName!=null and searchName!=''">
+ 	and usr. `NAME` LIKE #{searchName}
+ </if>
+<if test="userId!=null and userId!=''">
+and pro.user_id not in (#{userId})
+</if>
+and pro.stat=1 and de.stat =1 and usr.stat=1
+order by pro.dept_id
+	</select>
+	
+	
+	<select id="findDeptUser" resultType="com.ssic.game.common.dto.DeptUsersDto"
+		parameterType="com.ssic.game.common.dto.DeptUsersDto">
+		select id as id,proj_id as projId ,
+		 dept_id as deptId,
+        (select c.dept_name  from t_ims_dept c where c.id = dept_id) as  deptName,
+		(select a.proj_name from t_ims_project a where a.id = proj_id) as
+		projName,
+		user_id as userId ,
+		(select b.name from t_ims_users b where b.id = user_id) as userName,
+		is_admin as isAdmin 
+		from t_ims_dept_users
+		where stat =1
+		<include refid="where_findAll"></include>
+	</select>
+	
+	
+	<sql id="where_findAll">
+		<if test="deptUser.id !=null and deptUser.id!='' ">
+			and id= #{deptUser.id}
+		</if>
+		
+	    <if test="deptUser.deptId !=null and deptUser.deptId!='' ">
+			and dept_id= #{deptUser.deptId}
+		</if>
+		
+		<if test="deptUser.projId != null and deptUser.projId!='' ">
+			and proj_id = #{deptUser.projId}
+		</if>
+		<if test="deptUser.userId !=null and deptUser.userId!='' ">
+			and user_id = #{deptUser.userId}
+		</if>
+		
+	</sql>
+ 
+    <insert id="insertDeptUser" parameterType="com.ssic.game.common.dto.DeptUsersDto">
+        insert into t_ims_dept_users 
+          (id,
+          proj_id,
+          user_id,
+          dept_id,
+          stat,
+          is_admin,
+          create_time
+          ) values(
+          #{deptUser.id},
+          #{deptUser.projId},
+          #{deptUser.userId},
+          #{deptUser.deptId},
+          #{deptUser.stat},
+          #{deptUser.isAdmin},
+          #{deptUser.createTime}
+          )
+    </insert>
+    
+    <update id="deleteDeptUser" parameterType="com.ssic.game.common.dto.DeptUsersDto">
+        update t_ims_dept_users set stat=0 where user_id=#{deptUser.userId}
+    </update>
+    
+    <select id="findDept" resultType="com.ssic.game.common.dto.DeptUsersDto">
+        select DISTINCT dept_id as deptId,(select a.dept_name from t_ims_dept a where a.id = dept_id) as deptName 
+        from t_ims_dept_users where stat=1 
+        <if test="deptUser.projId!=null and deptUser.projId!='' ">
+         and   proj_id = #{deptUser.projId}
+        </if>
+    </select>
+    
+    <select id="findUser" resultType="com.ssic.game.common.dto.DeptUsersDto">
+   SELECT DISTINCT
+	a.user_id AS userId,
+b.name AS userName
+FROM
+	t_ims_dept_users a LEFT JOIN 	t_ims_users b on 	b.id = a.user_id
+WHERE
+	a.stat = 1  
+        <if test="deptUser.deptId!=null and deptUser.deptId!='' ">
+          and a.dept_id = #{deptUser.deptId}
+        </if>
+        <if test="deptUser.userName!=null and deptUser.userName!='' ">
+          and b.name like #{deptUser.userName}
+        </if>
+        <if test="deptUser.projId!=null and deptUser.projId!=''">
+          and a.user_id in (select c.user_id from  t_ims_project_users c where  c.stat=1 and c.proj_id=#{deptUser.projId} )
+        </if>
+    </select>
+    
+    <select id="searchUser" resultType="com.ssic.game.common.dto.ImsUsersDto">
+    SELECT
+	a.user_id as id,
+	a.is_admin as isAdmin,
+	b.`name` as name,
+	b.user_account as userAccount,
+	b.qjy_account as qjyAccount
+FROM
+	t_ims_dept_users a
+LEFT JOIN t_ims_users b ON a.user_id = b.id
+WHERE
+	a.stat = 1
+AND a.dept_id = #{deptId}
+<if test="userName!=null and userName!='' ">
+AND b.`name` like #{userName}
+</if>
+
+    </select>
+    
+    
+</mapper>

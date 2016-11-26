@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.catering.base.mapper.AddressExMapper">
+
+	<select id="validAddressRootExists" resultType="com.ssic.catering.base.dto.AddressDto">
+		select
+		id,create_time as createTime,parent_id as pid,address_code as
+		addressCode,last_update_time as lastUpdateTime,address_name as
+		addressName
+		from t_ctr_address
+		where stat=1 and parent_id ='' and proj_id= #{projId} and id not
+		in(#{addressId}) ;
+	</select>
+
+	<select id="findCodeByLastCreateTime" resultType="com.ssic.catering.base.dto.AddressDto">
+		select
+		id,create_time as createTime,parent_id as pid,address_code as
+		addressCode,last_update_time as lastUpdateTime,address_name as
+		addressName
+		from t_ctr_address
+		where stat=1 and parent_id ='' order by
+		create_time desc;
+	</select>
+	
+	<select id="queryAddressId" resultType="com.ssic.catering.base.dto.AddressDto">
+  		SELECT t2.address_id as id,t1.address_name as addressName FROM t_ctr_address_user t2,t_ctr_address t1 where t2.user_id = #{userId} AND t2.address_id = t1.id;
+  	</select>
+  	
+  	<select id="queryAddressIdAndParentIds" resultType="com.ssic.catering.base.dto.AddressDto">
+  		SELECT t1.id as id,t1.address_name as addressName,t1.parent_id as parentId,t1.address_code as addressCode FROM t_ctr_address t1 WHERE t1.parent_id = #{parentId};
+  	</select>
+  	
+  	<select id="queryCityId" resultType="com.ssic.catering.base.dto.AddressDto">
+  		select t1.id as id from t_ctr_address t1 where t1.address_code like #{cityId}"%" and t1.stat = 1;
+  	</select>
+	
+	
+
+</mapper>

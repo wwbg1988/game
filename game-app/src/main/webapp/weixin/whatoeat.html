@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no" />
+<title>想吃什么吃什么</title>
+<link href="css/base.css" rel="stylesheet">
+<link href="css/whatoeat.css" rel="stylesheet">
+<link href="css/menu.css" rel="stylesheet">
+
+</head>
+<body>
+
+<!-- header -->
+  <div class="header clearfix">
+    <span class="icon_left"><img src="images/icon_left_menu.png" /></span>
+    想吃什么吃什么
+	<span class="icon_right" id="iconright"><img src="images/icon_right_user.png" /></span>
+  </div>
+  <!-- header end -->
+
+  <!-- menu -->
+  <div class="menu">
+    <ul class="leftnav sidenav">
+      <li><a href="javascript:void(0)"><span class="w" id="menu_comment"><b>今日点评</b></span></a></li>
+      <li><a href="javascript:void(0)"><span class="w" id="menu_menu"><b>下周菜单</b></span></a></li>
+      <li><a href="javascript:void(0)" class="active"><span class="w" id="menu_transfer"><b>天坊配送</b></span></a></li>
+      <li><a href="javascript:void(0)"><span class="w" id="menu_call"><b>上门服务</b></span></a></li>
+      <li><a href="javascript:void(0)"><span class="w" id="menu_birthday"><b>生日免单</b></span></a></li>
+    </ul>
+    <!-- menu end -->
+
+    <!-- 页面内容 -->
+    <section>
+      <!-- 遮罩层 -->
+      <div id="mask"></div>
+
+		<div id="wrapper">
+			<div class="swipe" id="mySwipe">
+				<!-- 动态加载轮播图片 -->
+				<div class="swipe-wrap" id="swipe-wrap"></div>
+				<div class="tip_bar">
+					<p id="mes"></p>
+					<ul id="position">
+						<li class="cur"></li>
+						<li class=""></li>
+						<li class=""></li>
+						<li class=""></li>
+						<li class=""></li>
+						</ul>
+				</div>
+			</div>
+			<div class="panic_buying_box">
+				<h2>限时抢购<a href="javascript:void(0)" id="limitedmore">更多 ></a></h2>
+				<ul id="panic_buying_limit"></ul>
+			</div>
+			<div class="recommend_box">
+				<h2>精品推荐<a href="javascript:void(0)" id="finemore">更多 ></a></h2>
+				<ul id="panic_buying_fine"></ul>
+			</div>
+		</div>
+		
+	</section>
+	<!-- 页面内容 end -->
+
+</div>
+    <div class="bottom clearfix">
+      <div class="left">
+        您共选择了<span id="shopCart1">0</span>个菜品
+      </div>
+      <div id="submit-order" class="right">
+        <span class="count" id="shopCart2">0</span>
+      </div>
+    </div>
+<script src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/cfg.js"></script>
+<script src="js/goodshomepage.js"></script>
+<script src="js/swipe.js"></script>
+<script src="js/main.js"></script>
+<script src="js/common.js"></script>
+</body>
+</html>

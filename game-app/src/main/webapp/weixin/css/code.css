@@ -1,0 +1,40 @@
+
+.body{
+  text-align: center;
+  min-height: 10em;
+  overflow: hidden;
+  padding-bottom: 2em;
+}
+.body > h1 {
+  font-size: 1.2em;
+  font-weight: normal;
+  margin-top: 5em;
+}
+.body .subtitle{
+  font-size: 1.2em;
+  margin-top: 0.5em;
+}
+.body > img{
+  display: inline-block;
+  width: 50%;
+  margin: 3em auto 1em;
+}
+.title_wrap > img {
+  display: inline-block;
+  width: 1em;
+  margin-bottom: 1em;
+}
+.thank_title{
+  display: inline-block;
+  margin-top: 1em;
+  font-size: 1em;
+}
+.sub_info{
+  color: #333;
+  font-size: 1em;
+  line-height: 2em;
+}
+.service_text {
+  color: #666;
+  margin-top: 3em;
+}

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssic.game.app.mapper.UserOperateMapper">
+
+	<resultMap id="ProjectMap" type="com.ssic.game.app.controller.dto.ProjectDto">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="proj_name" property="projName" jdbcType="VARCHAR" />
+		<result column="dept_id" property="deptId" jdbcType="VARCHAR" />
+		<result column="dept_name" property="deptName" jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<resultMap id="ProcessMap" type="com.ssic.game.app.controller.dto.ProcessDto">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="proj_id" property="projId" jdbcType="VARCHAR" />
+		<result column="proc_name" property="procName" jdbcType="VARCHAR" />
+		<result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+		<result column="start_task" property="startTask" jdbcType="INTEGER" />
+		<result column="state" property="state" jdbcType="INTEGER" />
+	</resultMap>
+
+	<select id="findUserInfo" resultType="com.ssic.game.app.controller.dto.UserInfoDto">
+		SELECT
+		users.id AS userId,
+		NAME,
+		PASSWORD,
+		user_account AS userAccount,
+		qjy_account AS qjyAccount,
+		user_image AS userImage,
+		email
+		FROM
+		t_ims_users users
+		WHERE
+		users.stat = 1
+		AND users.user_account = #{userAccount} AND users.PASSWORD =
+		#{password}
+	</select>
+
+	<select id="findUserProj" resultMap="ProjectMap">
+		SELECT
+		pject.id as id,
+		pject.proj_name as projName
+		FROM
+		t_ims_project pject
+		LEFT JOIN
+		t_ims_project_users pusr ON pject.id =pusr.proj_id
+		where
+		pusr.user_id=#{userId}
+		and pject.stat=1 and pusr.stat=1
+	</select>
+
+	<select id="findUserDept" resultType="com.ssic.game.app.controller.dto.ProjectDto">
+		SELECT
+		dept.id as id,
+		dept.dept_name as deptName
+		FROM
+		t_ims_dept dept
+		LEFT JOIN
+		t_ims_dept_users dusr ON dept.id =dusr.dept_id
+		where
+		dusr.user_id=#{userId}
+		and dept.proj_id=#{projId}
+		and dept.stat=1 and
+		dusr.stat=1
+	</select>
+
+	<select id="findUserProc" resultMap="ProcessMap">
+		SELECT t1.id, t1.proj_id,
+		t1.proc_name, t1.img_url, t1.start_task FROM t_ims_process
+		t1,
+		t_ims_process_users t2 WHERE t2.user_id = #{userId} 
+		AND t1.proj_id = #{projId} AND t1.id = t2.proc_id AND t1.stat = 1 AND t2.stat = 1
+		AND t1.isDefine = 1
+	</select>					
+	
+	<update id="updateUserInfo">
+		update t_ims_users set
+		password=#{password},modifydatetime=NOW() where id
+		=#{userId}
+	</update>
+
+
+	<!-- select id="findUserProj" resultMap="Map"> select t1.id,t1.proj_name 
+		from t_ims_project t1,t_ims_project_users t2 where t1.id=t2.proj_id and t1.stat=1 
+		and t2.stat=1 and t2.user_id= #{userId} </select -->
+
+</mapper>

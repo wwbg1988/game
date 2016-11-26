@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <title>订单支付</title>
+    <link href="css/base.css" rel="stylesheet">
+    <link href="css/order_pay.css" rel="stylesheet">
+  </head>
+<body>
+
+  <!-- header -->
+  <div class="header clearfix">
+    <span class="icon_left"><img src="images/icon_left_menu.png" /></span>
+    下周菜单您做主
+  </div>
+  <!-- header end -->
+
+  <!-- menu -->
+  <div class="menu">
+    <ul class="leftnav sidenav">
+    	<li><a href="javascript:void(0)"><span class="w" id="menu_comment"><b>今日点评</b></span></a></li>
+   		<li><a href="javascript:void(0)"><span class="w" id="menu_menu"><b>下周菜单</b></span></a></li>
+   		<li><a href="javascript:void(0)"><span class="w" id="menu_transfer"><b>天坊配送</b></span></a></li>
+   		<li><a href="javascript:void(0)"><span class="w" id="menu_call"><b>上门服务</b></span></a></li>
+   		<li><a href="javascript:void(0)"><span class="w" id="menu_birthday"><b>生日免单</b></span></a></li>
+    </ul>
+    <!-- menu end -->
+
+    <!-- 页面内容 -->
+    <section>
+      <!-- 遮罩层 -->
+      <div id="mask"></div>
+
+
+    <div class="info_wrap">
+      <div class="wrap">
+
+        <img class="env_icon" src="images/pay_icon_right.png" />
+        <p class="order_status">您的订单已生成</p>
+        <p class="price">￥100</p>
+
+      </div>
+    </div>
+
+  <p>请选择支付方式</p>
+  <ul class="input_row">
+    <li>
+      <div class="wrap clearfix">
+        <span class="checkbox" id="weixin"></span>
+        <span class="weixin" >微信支付</span>
+      </div>
+    </li>
+
+    <li>
+      <div class="wrap clearfix">
+        <span class="checkbox" id="huodao"></span>
+        <span class="transport" >货到付款</span>
+      </div>
+    </li>
+  </ul>
+
+  <div class="submit-bt">
+    确认支付
+  </div>
+
+  </section> 
+</div>
+
+
+  <script src="js/jquery-1.11.3.min.js"></script>
+  <script src="js/main.js"></script>
+  <script type="text/javascript" src="js/cfg.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/weixin_pay.js"></script>
+  
+</body>
+</html>

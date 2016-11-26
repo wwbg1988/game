@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <title>我的订单</title>
+    <link href="css/base.css" rel="stylesheet">
+    <link href="css/my_order.css" rel="stylesheet">
+  </head>
+<body>
+  <!-- header -->
+  <div class="header clearfix">
+    <span class="icon_left"><img src="images/icon_left_menu.png" /></span>
+    想吃什么吃什么
+    <a href="javascript:void(0)" class="icon_right color" onclick="toSendByTianFang()">随便逛逛</a>
+  </div>
+  <!-- header end -->
+
+
+  <!-- menu -->
+  <div class="menu">
+    <ul class="leftnav sidenav">
+      	<li><a href="javascript:void(0)"><span class="w" id="menu_comment"><b>今日点评</b></span></a></li>
+      	<li><a href="javascript:void(0)"><span class="w" id="menu_menu"><b>下周菜单</b></span></a></li>
+      	<li><a href="javascript:void(0)"><span class="w" id="menu_transfer"><b>天坊配送</b></span></a></li>
+      	<li><a href="javascript:void(0)"><span class="w" id="menu_call"><b>上门服务</b></span></a></li>
+      	<li><a href="javascript:void(0)"><span class="w" id="menu_birthday"><b>生日免单</b></span></a></li>
+    </ul>
+    <!-- menu end -->
+
+    <!-- 页面内容 -->
+    <section>
+      <!-- 遮罩层 -->
+      <div id="mask"></div>
+
+
+      <div id="scroll_wrapper" class="panic_buying_box">
+
+        <div id="scroller">
+
+          <div id="pullDown">
+            <!-- <span class="pullDownIcon"></span><span class="pullDownLabel">下拉刷新...</span> -->
+          </div>
+<div id="thelist"></div>
+         <!--   <ul id="thelist"> </ul>-->
+           <!-- 遍历展示每一个订单 -->
+           <!--  <li class="parcel clearfix">
+              <h4><div class="wrap">2015-08-24<span class="active">未支付</span></div></h4>
+              <div class="pic_wrap">
+                <div class="wrap">
+                  
+                  <img src="images/my_order_pic1.png"/>
+                  <img src="images/my_order_pic2.png"/>
+                  <img src="images/my_order_pic1.png"/>
+                  <img src="images/my_order_pic2.png"/>
+                  
+                </div>
+              </div>
+              <div class="total_wrap">
+                <div class="wrap">
+                  共3件商品 合计：<span class="total color">￥80</span>
+                </div>
+              </div>
+              <span class="pay_bt">付款</span>
+            </li>-->
+
+          <!-- <div id="pullUp">
+      			<span class="pullUpIcon"></span><span class="pullUpLabel">上拉加载更多...</span>
+      		</div> -->
+
+        </div>
+
+      </div>
+    </section>
+</div>
+
+  <script type="text/javascript" src="js/cfg.js"></script> 
+  <script src="js/jquery-1.11.3.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/iscroll4.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+  <script src="js/my_order.js"></script>
+<!--   <script type="text/javascript">
+  $(function(){
+    setTimeout(function () {
+      myScroll.refresh();		// 数据加载完成后，调用界面更新方法 Remember to refresh when contents are loaded (i.e.: on ajax completion)
+    }, 1000);
+  })
+  </script> -->
+  
+</body>
+</html>
